@@ -3,6 +3,7 @@ const ease = value => { const t = clamp(value); return t * t * (3 - 2 * t); };
 const mix = (a, b, t) => a + (b - a) * t;
 const line = (points, opacity = 1, extra = '') => `<polyline points="${points.map(p => p.join(',')).join(' ')}" fill="none" stroke="#FFFFFF" stroke-opacity="${opacity}" ${extra}/>`;
 const text = (x, y, value, size = 16, extra = '') => `<text x="${x}" y="${y}" font-size="${size}" fill="#FFFFFF" ${extra}>${value}</text>`;
+const service = (x, y, id, name, size = 16) => `<svg x="${x}" y="${y - size + 2}" width="${size}" height="${size}" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><use href="#ai-${id}"/></svg>${text(x + size + 7, y, name, size)}`;
 const dot = (x, y, r = 3, filled = true) => `<circle cx="${x}" cy="${y}" r="${r}" fill="${filled ? '#FFFFFF' : '#000000'}" stroke="#FFFFFF"/>`;
 const rect = (x, y, w, h, extra = '') => `<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="#000000" stroke="#FFFFFF" ${extra}/>`;
 function wirebox(x, y, w, h, d) {
@@ -18,10 +19,10 @@ function travel(points, progress) {
 }
 
 export const descriptions = [
-  '질문을 따라 흩어진 정보를 살피고, 가게를 찾습니다.',
-  '답변에서 홈페이지·플레이스·블로그의 출처를 확인합니다.',
-  '영업시간·위치·가격을 하나의 구조로 정리합니다.',
-  '매주 같은 질문으로 가게의 언급 여부를 기록합니다.'
+  'AI와 검색 서비스가 가게 정보를 찾는 과정입니다.',
+  '답변이 홈페이지, 플레이스, 블로그 중 어디를 인용했는지 확인합니다.',
+  '영업시간과 위치, 가격을 항목별로 적습니다.',
+  '매주 같은 질문을 묻고 가게를 언급했는지 기록합니다.'
 ];
 
 export function scene(index, progress = .78) {
@@ -37,21 +38,20 @@ export function scene(index, progress = .78) {
   }
   if (index === 0) {
     art += rect(72, 16, 416, 48) + text(280, 46, '우리 동네에서 예약되는 가게는?', 17, 'text-anchor="middle"');
-    const fragments = [[56, 132, '영업시간'], [360, 132, '예약'], [52, 268, '메뉴'], [392, 278, '위치'], [202, 100, '가격'], [214, 322, '연락처']];
+    const fragments = [[24, 116, 'openai', 'ChatGPT', '영업시간'], [386, 116, 'googlegemini', 'Gemini', '예약'], [24, 282, 'perplexity', 'Perplexity', '메뉴'], [386, 282, 'claude', 'Claude', '위치'], [205, 96, 'naver', '네이버', '가격'], [205, 326, 'google', '구글', '연락처']];
     const found = ease((p - .43) / .28);
-    fragments.forEach(([x, y, label], i) => {
-      const source = [65 + i * 86, 76], target = [x + 48, y + 15];
-      const points = [source, [source[0], 94], target, [280, 246]];
+    fragments.forEach(([x, y, id, name, label], i) => {
+      const target = [x + 75, y + 26];
+      const points = [[280, 64], [280, 82], target, [280, 246]];
       art += line(points, .18 + found * .16);
       art += travel(points, (p * 1.7 + i / 6) % 1);
-      art += rect(x, y, 96, 30, 'stroke-opacity=".5"') + text(x + 48, y + 21, label, 14, 'text-anchor="middle"');
+      art += rect(x, y, 150, 52, 'stroke-opacity=".5"') + service(x + 12, y + 21, id, name, 14) + text(x + 12, y + 42, label, 13);
     });
     const scan = 40 + ((p * 1.4) % 1) * 480;
     art += line([[scan, 96], [scan, 340]], .48) + line([[scan - 5, 96], [scan + 5, 96]], .8) + line([[scan - 5, 340], [scan + 5, 340]], .8);
     art += rect(218, 211, 124, 72) + wirebox(218, 211, 124, 72, 26);
     art += text(280, 253, found > .5 ? '가게' : '?', 25, 'font-weight="650" text-anchor="middle"');
     art += dot(355, 207, 4, found > .5);
-    art += text(280, 389, found > .5 ? '흩어진 정보 속, 가게 하나를 발견.' : '질문을 따라 정보를 탐색합니다.', 15, 'text-anchor="middle"');
   } else if (index === 1) {
     art += wirebox(106, 40, 328, 64, 24) + text(270, 79, '예시가게를 확인해 보세요. [1]', 18, 'text-anchor="middle"');
     const sources = [[96, '홈페이지', '영업시간 · 메뉴'], [280, '플레이스', '위치 · 예약'], [464, '블로그', '방문 정보']];
@@ -65,10 +65,9 @@ export function scene(index, progress = .78) {
       art += text(x, 273, `[${i + 1}]`, 13, 'text-anchor="middle"') + text(x, 298, label, 18, 'text-anchor="middle"');
       art += text(x, 349, detail, 13, 'text-anchor="middle"');
     });
-    art += text(280, 389, '답변에서 출처까지, 연결을 확인.', 15, 'text-anchor="middle"');
   } else if (index === 2) {
     art += wirebox(144, 104, 250, 200, 58);
-    art += text(288, 70, '구조화', 18, 'text-anchor="middle"');
+    art += text(288, 70, '가게 정보', 18, 'text-anchor="middle"');
     const t = ease((p - .12) / .6);
     const rows = [['영업시간', '10:00–19:00', 24, 122], ['위치', '예시로 12', 322, 196], ['가격', '메뉴 5,000원', 44, 296]];
     rows.forEach(([label, value, fromX, fromY], i) => {
@@ -76,15 +75,13 @@ export function scene(index, progress = .78) {
       art += line([[fromX, fromY + 22], [164, 150 + i * 56]], .25, 'stroke-dasharray="3 5"');
       art += rect(x, y, 210, 44) + text(x + 12, y + 28, label, 14) + text(x + 198, y + 28, value, 14, 'text-anchor="end"');
     });
-    art += text(280, 354, '영업시간 / 위치 / 가격', 13, 'text-anchor="middle"');
-    art += text(280, 389, '같은 사실이, 같은 구조 안으로.', 15, 'text-anchor="middle"');
   } else {
-    art += text(32, 42, '같은 질문, 매주 기록.', 21, 'font-weight="550"');
+    art += text(32, 42, '같은 질문을 매주 묻습니다', 21, 'font-weight="550"');
     art += text(528, 41, '언급 여부', 13, 'text-anchor="end"');
     const mentions = [[1, 1, 0, 1], [0, 1, 1, 1], [0, 0, 1, 1], [0, 0, 0, 0]];
-    ['ChatGPT', 'Gemini', 'Perplexity', 'Claude'].forEach((name, row) => {
+    [['openai', 'ChatGPT'], ['googlegemini', 'Gemini'], ['perplexity', 'Perplexity'], ['claude', 'Claude']].forEach(([id, name], row) => {
       const y = 94 + row * 42;
-      art += text(32, y + 5, name, 16) + line([[32, y + 19], [528, y + 19]], .2);
+      art += service(32, y + 5, id, name) + line([[32, y + 19], [528, y + 19]], .2);
       for (let week = 0; week < 4; week++) {
         const ready = p >= .08 + week * .2;
         art += dot(230 + week * 88, y, ready && mentions[row][week] ? 5 : 3, ready && Boolean(mentions[row][week]));
@@ -101,7 +98,7 @@ export function scene(index, progress = .78) {
     }
     art += text(280, 389, '예시 수치 · 실제 측정 결과가 아닙니다.', 14, 'text-anchor="middle"');
   }
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="560" height="416" viewBox="0 0 560 416" fill="none" stroke-width="1" font-family="Pretendard Variable, Apple SD Gothic Neo, Malgun Gothic, sans-serif" aria-hidden="true"><rect width="560" height="416" fill="#000000"/>${art}</svg>`;
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="560" height="416" viewBox="0 0 560 416" color="#FFFFFF" fill="none" stroke-width="1" font-family="Pretendard Variable, Apple SD Gothic Neo, Malgun Gothic, sans-serif" aria-hidden="true"><rect width="560" height="416" fill="#000000"/>${art}</svg>`;
 }
 
 export function mountPanel(panel) {
