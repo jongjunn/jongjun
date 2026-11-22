@@ -79,6 +79,12 @@ a:hover .arrow{transform:translate(2px,-2px)}
 .stage{position:relative;height:clamp(240px,calc(100vh - var(--head) - 120px),648px);height:clamp(240px,calc(100svh - var(--head) - 120px),648px);overflow:hidden;border-radius:var(--r);background:#000;color:#fff}
 .stage canvas{position:absolute;inset:0;width:100%;height:100%}
 .stage-note{position:absolute;left:16px;bottom:12px;color:#9C9C9C;font-size:13px;line-height:1.4}
+.stage-toggle{position:absolute;right:2px;bottom:0;display:grid;place-items:center;width:44px;height:44px;padding:0;border:0;background:none;color:#B8B8B8;cursor:pointer}
+.stage-toggle[hidden]{display:none}
+.stage-toggle:hover{color:#FFF}
+.stage-toggle:focus-visible{outline:2px solid #FFF;outline-offset:-6px;border-radius:var(--r)}
+.stage-toggle i{width:10px;height:12px;border-inline:3px solid currentColor}
+.stage-toggle.is-paused i{width:0;height:0;border:0;border-block:7px solid transparent;border-left:11px solid currentColor}
 .stage-nav{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;margin-top:10px}
 .stage-nav a{display:flex;flex-direction:column;justify-content:center;gap:9px;min-height:48px;color:var(--muted);font-size:14px;line-height:1.2;white-space:nowrap}
 .stage-nav a[aria-current]{color:var(--ink);font-weight:700}
