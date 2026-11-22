@@ -128,6 +128,13 @@ if (search) {
     filter();
   }));
   search.addEventListener('input', filter);
+  // A pill in the talk opens the finder on that kind of shop.
+  $$('[data-find]').forEach(a => a.addEventListener('click', () => {
+    search.value = a.dataset.find;
+    groups.forEach((x, i) => x.setAttribute('aria-pressed', String(i === 0)));
+    $$('[data-find]').forEach(x => x === a ? x.setAttribute('aria-current', 'true') : x.removeAttribute('aria-current'));
+    filter();
+  }));
 }
 
 // Long lists start short when scripts run; without scripts everything is open.
