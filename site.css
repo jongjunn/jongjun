@@ -208,6 +208,57 @@ input::placeholder{color:var(--ink-3);opacity:1}
 .checks strong{display:block;font-size:14px;font-weight:500;line-height:1.6}
 .checks span{display:block;margin-top:4px;color:var(--ink-3);font-size:12px;line-height:18px}
 
+/* Public figures, in the forms GPTO keeps its own in */
+.figures{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px var(--gap);align-items:end;margin-top:40px;padding-top:48px;border-top:1px solid var(--line)}
+.figures>div:first-child{grid-column:1/8}
+.figures-side{grid-column:8/13;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+.figures-label{display:flex;align-items:center;gap:8px;color:var(--ink-2);font-size:14px;line-height:1.6}
+.figures-label i{width:8px;height:8px;border-radius:var(--pill);background:var(--ink)}
+.figure-big{margin-top:10px;font-size:56px;font-weight:700;line-height:1.1;letter-spacing:-.03em}
+.figure{font-size:28px;font-weight:700;line-height:1.3;letter-spacing:-.02em}
+.figures .caption{margin-top:8px}
+.chart{margin:56px 0 0}
+.plot{position:relative;height:340px}
+.plot>i{position:absolute;left:0;right:0;height:1px;background:var(--soft)}
+.plot>i:nth-child(5){background:var(--line)}
+.plot svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.plot polyline{fill:none;stroke-width:2}
+.plot polyline.any{stroke:var(--line-2)}
+.plot polyline.gen{stroke:var(--ink);stroke-width:3}
+.point{position:absolute;width:10px;height:10px;margin:-5px 0 0 -5px;border:2px solid var(--bg);border-radius:var(--pill);background:var(--line-2)}
+.point.gen{background:var(--ink)}
+.point b{position:absolute;left:50%;bottom:12px;transform:translateX(-50%);color:var(--ink-2);font-size:14px;font-weight:400;line-height:1.6;white-space:nowrap}
+.point.gen b{bottom:auto;top:12px;color:var(--ink);font-weight:700}
+.years{position:relative;height:38px;color:var(--ink-2);font-size:14px;line-height:1.6}
+.years span{position:absolute;bottom:0;transform:translateX(-50%)}
+.legend{display:flex;flex-wrap:wrap;gap:8px 24px;margin-top:24px;color:var(--ink-2);font-size:14px;line-height:1.6}
+.legend li{display:flex;align-items:center;gap:8px}
+.legend i{width:24px;height:12px;border-radius:2px}
+.legend .gen{background:var(--ink)}
+.legend .any{background:var(--line-2)}
+.source-note{margin-top:12px}
+.source-note .link{color:inherit}
+.trades-head{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px;margin-top:64px;padding-top:48px;border-top:1px solid var(--line)}
+.trades-head .caption{margin-top:8px}
+.trades{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:var(--gap);margin-top:24px}
+.trades li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 8px;align-items:center;padding-block:12px;border-top:1px solid var(--line)}
+.trade{display:flex;flex-wrap:wrap;align-items:baseline;column-gap:8px}
+.trade small{color:var(--ink-3);font-size:14px;line-height:1.6}
+.amount{display:flex;align-items:center;justify-content:flex-end;gap:8px}
+.amount .chip{min-width:60px;justify-content:center}
+.bar{grid-column:1/-1;display:block;height:8px;overflow:hidden;border-radius:2px;background:var(--soft)}
+.bar b{display:block;height:100%;background:var(--ink)}
+.bot-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:48px}
+.bot-card{display:flex;flex-direction:column;height:100%;padding:24px;border:1px solid var(--line);border-radius:var(--r);background:var(--card);transition:border-color var(--t) var(--ease)}
+.bot-card:hover{border-color:var(--ink-3)}
+.bot-card:active{translate:0 1px}
+.bot-card h3{margin-top:4px}
+.bot-desc{margin-top:12px;color:var(--ink-2);font-size:14px;line-height:1.6}
+.bot-name{display:flex;flex-wrap:wrap;align-items:baseline;gap:0 8px;margin-top:auto;padding-top:24px;font-size:24px;line-height:1.3;letter-spacing:-.02em}
+.bot-name span{color:var(--ink-3);font-size:14px;letter-spacing:0}
+.bot-foot{display:flex;justify-content:space-between;gap:8px;margin-top:20px;padding-top:16px;border-top:1px solid var(--line);color:var(--ink-3);font-size:14px;line-height:1.6}
+.bot-foot .open{display:inline-flex;align-items:center;gap:4px;color:var(--ink);white-space:nowrap}
+
 /* 3 Categories, search, ranked cards */
 .finder{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;margin-top:40px}
 .groups{display:flex;flex-wrap:wrap;gap:8px}
@@ -285,7 +336,9 @@ details[open] summary::after{content:"−"}
 details p{padding-top:8px;color:var(--ink-2)}
 .more{margin-top:24px}
 .faq-links{display:flex;flex-wrap:wrap;gap:0 24px;margin-top:24px;color:var(--ink-2);font-size:14px;line-height:1.6}
-.faq-links a{display:inline-flex;align-items:center;min-height:36px}
+.faq-links a,.proof-links>span{display:inline-flex;align-items:center;min-height:36px}
+.proof-links>span{color:var(--ink-3)}
+.proof-links+.faq-links{margin-top:0}
 
 /* 9 Closing */
 .closing{border-top:0}
@@ -397,6 +450,9 @@ details p{padding-top:8px;color:var(--ink-2)}
   .facts div{flex-wrap:wrap;row-gap:0}
   .lead-top{grid-template-columns:minmax(0,1fr)}
   .checks{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .bot-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .proof-links>span{min-height:44px}
+  .plot{height:300px}
   .question-grid,.route-grid,.post-grid,.more-posts .post-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
   .band{grid-template-columns:120px minmax(0,1fr)}
   .channel-tiles{grid-template-columns:repeat(4,minmax(0,1fr))}
@@ -415,6 +471,12 @@ details p{padding-top:8px;color:var(--ink-2)}
   h2,.big-change{font-size:24px;line-height:31.2px}
   .band,.three,.faq,.principle-list{grid-template-columns:minmax(0,1fr)}
   .band{gap:16px}
+  .figures>div:first-child,.figures-side{grid-column:1/-1}
+  .figure{font-size:24px}
+  .trades,.bot-grid{grid-template-columns:minmax(0,1fr)}
+  .plot{height:240px}
+  .point b,.years{font-size:12px}
+  .trades-head{margin-top:48px;padding-top:40px}
   .three{gap:32px}
   .manifesto br{display:none}
   .checks{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -462,6 +524,7 @@ details p{padding-top:8px;color:var(--ink-2)}
 }
 @media(max-width:359px){
   :root{--side:16px}
+  .bot-card{padding:20px 16px}
   h1{font-size:28px}
   .cover,.article-cover{aspect-ratio:6/5}
   .header-actions .small-btn{padding-inline:10px}

@@ -137,6 +137,17 @@ if (search) {
   }));
 }
 
+// The trades can be put in order; without scripts they stand by size.
+const sorts = $$('[data-sort]');
+if (sorts.length) {
+  sorts[0].parentElement.hidden = false;
+  sorts.forEach(button => button.addEventListener('click', () => {
+    sorts.forEach(x => x.setAttribute('aria-pressed', String(x === button)));
+    const list = $('#trade-list'), value = li => Number(li.dataset[button.dataset.sort]);
+    list.append(...[...list.children].sort((x, y) => (value(y) - value(x)) * Number(button.dataset.way)));
+  }));
+}
+
 // Long lists start short when scripts run; without scripts everything is open.
 $$('[data-more]').forEach(button => {
   const list = document.getElementById(button.getAttribute('aria-controls')), keep = Number(button.dataset.more);
