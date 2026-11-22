@@ -8,270 +8,15 @@
 <link rel="canonical" href="https://jongjunn.github.io/jongjun/">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ko_KR">
-<meta property="og:title" content="ZIKRU | 가게 홈페이지, 개발자가 직접 고칩니다">
-<meta property="og:description" content="홈페이지를 만들고 검색과 AI가 읽는 정보를 정리합니다. 개발자가 직접 수정하며 월 관리는 약정이 없습니다.">
+<meta property="og:title" content="ZIKRU | 가게 홈페이지와 AI가 읽는 정보, 개발자가 직접 고칩니다">
+<meta property="og:description" content="동네 가게와 쇼핑몰의 홈페이지를 만듭니다. 개발자가 코드와 본문을 직접 고치고 검색과 AI 답변에 필요한 정보를 정리합니다. 사이트와 측정 원본은 사장님께 남깁니다. 월 관리는 약정 없이 한 달씩 결제합니다.">
 <meta property="og:url" content="https://jongjunn.github.io/jongjun/">
-<meta name="twitter:card" content="summary">
+<meta property="og:image" content="https://jongjunn.github.io/jongjun/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
-<style>
-/* ZIKRU v8 — Swiss/Minimal system (ui-ux-pro-max style #1). 12-col grid, 0 radius, no shadow.
-   Space: 4 8 12 16 24 32 48 64 80 96 128. Type: 14 16 18 20 24 40 64 128. Rules: research/design_criteria_v10.md. Lines: 1px #000 / #E5E5E5. */
-:root{--bg:#FFFFFF;--fg:#000000;--muted:#5C5C5C;--hair:#E5E5E5;--edge:#8A8A8A;--gut:24px}
-*{box-sizing:border-box;margin:0}
-html{scroll-behavior:smooth;scroll-padding-top:96px;-webkit-text-size-adjust:100%}
-body{background:var(--bg);color:var(--fg);font:400 16px/1.65 "Pretendard Variable",Pretendard,-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;letter-spacing:-.01em;word-break:keep-all;-webkit-font-smoothing:antialiased;padding-bottom:96px;counter-reset:sec}
-a{color:inherit;text-underline-offset:4px}
-button,input{font:inherit;color:inherit;border-radius:0}button{cursor:pointer}
-button,a,input,summary{-webkit-tap-highlight-color:transparent}
-:focus-visible{outline:2px solid var(--fg);outline-offset:3px}
-img,video,svg{display:block;max-width:100%}[hidden]{display:none!important}
-.sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
-.wrap{width:min(1200px,calc(100% - 48px));margin-inline:auto;min-width:0}
-h1,h2,h3{font-weight:700;letter-spacing:-.035em;line-height:1.2;text-wrap:balance}
-h1{font-size:clamp(40px,4.6vw,64px);line-height:1.12}
-h2{font-size:clamp(28px,3vw,40px)}
-h3{font-size:20px;line-height:1.35;letter-spacing:-.025em}
-p{text-wrap:pretty;overflow-wrap:break-word}
-.lead{color:var(--muted);font-size:18px;line-height:1.6;max-width:30em}
-.note{color:var(--muted);font-size:14px;line-height:1.7;margin-top:24px;max-width:72em}
-.accent{color:inherit}
-
-/* Buttons */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 24px;background:var(--fg);color:var(--bg);border:1px solid var(--fg);font-size:16px;font-weight:600;line-height:1.2;text-decoration:none;white-space:nowrap;transition:background-color .2s,color .2s}
-.btn:hover{background:var(--bg);color:var(--fg)}
-.btn-soft{background:var(--bg);color:var(--fg)}.btn-soft:hover{background:var(--fg);color:var(--bg)}
-
-/* Header */
-.site-header{position:sticky;top:0;z-index:30;background:var(--bg);border-bottom:1px solid var(--fg)}
-.header-inner{height:72px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:24px}
-.logo{position:relative;display:block;width:62px;height:48px;text-decoration:none}
-.logo img,.logo video{display:block;width:62px;height:48px}.logo video{position:absolute;inset:0}
-.main-nav{display:flex;gap:32px;font-size:16px;font-weight:500}
-.main-nav a{text-decoration:none;padding:12px 0}.main-nav a:hover{text-decoration:underline}
-.header-actions{justify-self:end;display:flex;align-items:center;gap:8px}
-.header-actions .btn{min-height:40px;padding:0 16px;font-size:16px}
-.mobile-diag,.menu-toggle{display:none}
-.brand-mark{display:inline-block;flex-shrink:0;width:42px;height:33px;background:url("logo.svg") center/contain no-repeat}
-
-/* Hero */
-.hero{padding:64px 0 128px}
-.hero-head{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gut);align-items:center}
-.motion-panel{grid-column:1/7;grid-row:1}
-.hero-copy{grid-column:8/13;grid-row:1;min-width:0}
-.ai-hero-pill{display:inline-block;font-size:14px;font-weight:600;line-height:1.5;padding:4px 8px;border:1px solid var(--fg);margin-bottom:24px}
-.hero .lead{margin-top:24px;font-size:16px}
-.diag{display:flex;margin-top:32px;max-width:560px}
-.diag input{flex:1;min-width:0;height:48px;padding:0 16px;border:1px solid var(--fg);border-right:0;background:var(--bg);font-size:16px}
-.diag input::placeholder{color:#767676}
-.diag .btn{height:48px}
-.diag-msg{margin-top:12px;font-size:16px;line-height:1.6;overflow-wrap:anywhere}.diag-msg:empty{margin:0}
-.diag-hints{margin-top:12px;font-size:14px;color:var(--muted)}
-.hero small,.end small{display:block;margin-top:4px;font-size:14px;line-height:1.6;color:var(--muted);max-width:40em}
-
-/* AI preview (inside hero) */
-.ai-preview{margin-top:128px;padding-top:24px;border-top:1px solid var(--fg);display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gut)}
-.ai-preview-title{grid-column:1/10;font-size:clamp(28px,3vw,40px)}
-.ai-preview-note{grid-column:1/10;max-width:32em;margin-top:16px;font-size:16px;line-height:1.6;color:var(--muted)}
-.ai-industry-chips{grid-column:1/-1;display:flex;flex-wrap:wrap;margin-top:48px}
-.ai-industry-chips button{height:40px;padding:0 16px;border:1px solid var(--fg);background:var(--bg);font-size:16px;font-weight:500;margin-right:-1px}
-.ai-industry-chips button[aria-pressed="true"]{background:var(--fg);color:var(--bg)}
-.ai-preview-content{grid-column:1/-1;min-width:0}
-.ai-preview-question{max-width:30em;margin-top:32px;font-size:20px;font-weight:600;line-height:1.4}
-.ai-preview-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin-top:24px;border-top:1px solid var(--fg);border-bottom:1px solid var(--hair)}
-.ai-preview-card{min-width:0;padding:24px 24px 32px;border-right:1px solid var(--hair)}
-.ai-preview-card:first-child{padding-left:0}.ai-preview-card:last-child{border-right:0;padding-right:0}
-.ai-preview-card h3{font-size:16px}.ai-preview-card .ai-service{display:flex}
-.ai-status{display:inline-block;margin-top:16px;padding:2px 8px;font-size:14px;line-height:1.6;border:1px solid var(--edge);color:var(--muted)}
-.ai-status.is-mentioned{background:var(--fg);border-color:var(--fg);color:var(--bg)}
-.ai-excerpt{margin-top:16px;font-size:16px;line-height:1.7;color:var(--muted)}
-mark{background:none;color:var(--fg);font-weight:600;box-shadow:inset 0 -6px 0 var(--hair)}
-
-/* Sections: numbered rule + 12-col heading row */
-.section{padding:0 0 80px;counter-increment:sec}
-.section>.wrap{border-top:1px solid var(--fg);padding-top:24px}
-.section>.wrap:not(.promise-layout):not(.about){display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gut)}
-.section>.wrap>*{grid-column:1/-1;min-width:0}
-.section>.wrap>h2,.faq-heading{grid-column:1/10}
-.section>.wrap>.lead{grid-column:1/10;margin-top:16px}
-.section>.wrap>h2::before,.faq-heading h2::before,.promise-term h2::before,.about h2::before{content:counter(sec,decimal-leading-zero);display:block;font-size:14px;font-weight:600;letter-spacing:0;line-height:1;margin-bottom:24px;font-variant-numeric:tabular-nums}
-.table-shell,.services,.steps,.faq,.ai-strip{margin-top:32px}
-
-/* Promise */
-.promise-layout{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gut)}
-.section>.promise-layout>.promise-term{grid-column:1/6}.section>.promise-layout>.promise-list{grid-column:7/13}
-.zero-ui{font-size:128px;line-height:1;font-weight:700;letter-spacing:-.06em;margin:48px 0 16px;font-variant-numeric:tabular-nums}
-.zero-ui span{font-size:20px;font-weight:500;letter-spacing:-.02em;margin-left:8px}
-.promise-term>p:last-child{color:var(--muted)}
-.promise-list>div{padding:24px 0 32px;border-top:1px solid var(--hair)}
-.promise-list>div:first-child{border-top:0;padding-top:0}
-.promise-list dt{font-size:20px;font-weight:600;line-height:1.4}
-.promise-list dd{margin:8px 0 0;max-width:32em;color:var(--muted)}
-
-/* Tables */
-.table-shell{border-top:1px solid var(--fg)}
-table{border-collapse:collapse;width:100%;font-size:16px;line-height:1.6}
-th,td{text-align:left;padding:12px 16px 12px 0;border-bottom:1px solid var(--hair);vertical-align:middle}
-thead th{font-size:14px;font-weight:500;color:var(--muted);padding-block:12px}
-tbody th{font-weight:600}
-#sources tbody th{width:28%}#sources td{width:36%}#diff th:first-child{width:28%}#diff td{width:36%}
-.bar{display:flex;align-items:center;gap:12px;font-weight:600;font-variant-numeric:tabular-nums}
-.bar i{display:block;height:8px;background:var(--fg);flex-shrink:0}
-.bar.b i{background:var(--bg);border:1px solid var(--fg)}.bar i[style="width:0"]{display:none}
-.sub{display:block;font-size:14px;font-weight:400;color:var(--muted);margin-top:4px}
-.source-work{margin-top:32px;padding-left:24px;border-left:1px solid var(--fg);max-width:32em}
-
-/* Services */
-.services{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-left:1px solid var(--fg);grid-auto-rows:1fr}
-.service-card{display:flex;flex-direction:column;min-width:0;padding:32px 24px;border:1px solid var(--fg);border-left:0}
-.service-card .price{order:2;margin:32px 0 24px;padding-bottom:24px;border-bottom:1px solid var(--hair)}.service-card>p:last-child{order:3;color:var(--muted);font-size:16px}
-.service-when{font-size:14px;color:var(--muted);margin-bottom:8px}.service-card h3{font-size:24px}
-.price{font-size:40px;font-weight:700;line-height:1.2;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
-.price span{display:block;margin-top:8px;font-size:14px;font-weight:400;letter-spacing:0;color:var(--muted)}
-
-/* Monthly */
-.ai-strip{display:flex;flex-wrap:wrap;gap:16px 32px;font-weight:600}
-.section>.wrap>.monthly-grid{grid-column:1/9;list-style:none;padding:0;margin-top:24px;border-top:1px solid var(--fg)}
-.monthly-grid li{display:grid;grid-template-columns:160px minmax(0,1fr);column-gap:24px;align-items:baseline;padding:16px 0;border-bottom:1px solid var(--hair)}
-.monthly-grid h3{font-size:20px}.monthly-grid p{max-width:32em;text-wrap:balance;color:var(--muted)}
-
-/* Steps */
-.steps{list-style:none;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));column-gap:var(--gut);counter-reset:step}
-.steps li{counter-increment:step;border-top:1px solid var(--fg);padding-top:24px;min-width:0}
-.steps li::before{content:counter(step,decimal-leading-zero);display:block;font-size:14px;font-weight:600;margin-bottom:48px;font-variant-numeric:tabular-nums}
-.steps h3{font-size:24px}.steps p{margin-top:12px;font-size:16px;color:var(--muted)}
-
-/* About */
-.about{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gut)}
-.about>.brand-mark{display:none}
-.section>.about>h2{grid-column:1/6}.section>.about>div{grid-column:7/13}
-.about .lead{margin:0}.about .lead+.lead{margin-top:16px}
-
-/* FAQ */
-.faq{border-top:1px solid var(--fg)}
-details{border-bottom:1px solid var(--hair)}
-summary{display:flex;align-items:center;justify-content:space-between;gap:24px;min-height:72px;padding:16px 0;cursor:pointer;list-style:none;font-size:20px;font-weight:600;letter-spacing:-.02em}
-summary::-webkit-details-marker{display:none}
-summary::after{content:"";width:12px;height:12px;flex:none;background:linear-gradient(var(--fg),var(--fg)) center/12px 1px no-repeat,linear-gradient(var(--fg),var(--fg)) center/1px 12px no-repeat}
-details[open] summary::after{background:linear-gradient(var(--fg),var(--fg)) center/12px 1px no-repeat}
-details p{padding:0 0 24px;max-width:32em;color:var(--muted)}
-
-/* Closing (black) */
-.closing{background:var(--fg);color:var(--bg)}.closing :focus-visible{outline-color:var(--bg)}
-.end{padding:96px 0}
-.contact-grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gut)}
-.contact-grid>div:first-child{grid-column:1/7}.contact-grid>div:last-child{grid-column:8/13}
-.end h2{font-size:clamp(28px,3vw,40px)}.end .lead{color:#B3B3B3;margin-top:24px}
-.end .diag{margin:0;flex-direction:column;gap:8px;max-width:none}
-.end .diag input{flex:none;border:1px solid var(--bg);background:var(--fg);color:var(--bg)}.end .diag input::placeholder{color:#8C8C8C}
-.end .btn{background:var(--bg);color:var(--fg);border-color:var(--bg);width:100%}.end .btn:hover{background:var(--fg);color:var(--bg)}
-.end small,.end .diag-hints{color:#B3B3B3}.end .diag-msg{color:var(--bg)}
-footer .footer-inner{border-top:1px solid #595959;padding-top:24px}
-.footer-links{display:flex;flex-wrap:wrap;gap:8px 24px;font-size:14px;color:#B3B3B3}
-.footer-links a{text-decoration:none}.footer-links a:hover{color:var(--bg);text-decoration:underline}
-.footer-caption{margin-top:24px;font-size:14px;color:#B3B3B3}
-.trademark{margin-top:8px;font-size:14px;line-height:1.6;color:#8C8C8C}
-.wordmark{width:min(1200px,calc(100% - 48px));margin-inline:auto;font-size:min(24vw,340px);line-height:.85;font-weight:800;letter-spacing:-.06em;padding:64px 0 24px;overflow:hidden}
-
-/* Sticky dock + mobile CTA */
-.diag-dock{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);width:640px;max-width:calc(100% - 48px);z-index:40}
-.dock-form{display:flex;background:var(--bg);border:1px solid var(--fg)}
-.dock-form input{flex:1;min-width:0;height:48px;padding:0 16px;border:0;background:transparent;font-size:16px}
-.dock-form input::placeholder{color:#767676}
-.dock-form .btn{height:48px;border:0;border-left:1px solid var(--fg)}
-.dock-message{position:absolute;bottom:calc(100% + 8px);left:0;right:0;padding:12px 16px;background:var(--bg);border:1px solid var(--fg);font-size:16px}.dock-message:empty{display:none}
-.floating-cta{position:fixed;left:16px;right:16px;bottom:16px;z-index:40;min-height:52px;display:flex;align-items:center;justify-content:center;gap:8px;background:var(--fg);color:var(--bg);text-decoration:none;font-size:16px;font-weight:600;border:1px solid var(--bg)}
-.floating-cta svg{width:16px;height:16px;flex-shrink:0}.free-badge{font-size:14px;padding:0 6px;border:1px solid #8C8C8C;font-weight:400}
-@media(min-width:768px){.floating-cta{display:none}}
-
-/* Logo tiles */
-.logo-symbols{position:absolute;overflow:hidden;pointer-events:none}
-.ai-service{display:inline-flex;align-items:center;gap:.75em;white-space:nowrap;color:var(--fg)}
-.ai-logo{display:block;width:2em;height:2em;flex:none}.svc-row{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px}.svc-tail{display:block;margin-top:8px;font-size:16px;color:var(--muted)}.ai-preview-card .ai-logo{width:2.25em;height:2.25em}
-
-/* Motion panel (unchanged from v6) */
-.motion-panel{container-type:inline-size;min-width:0;width:100%;align-self:center;background:#000000;color:#FFFFFF;overflow:hidden}
-.motion-heading,.motion-caption,.motion-tabs button{font-size:max(14px,3.57143cqw);line-height:1.4}
-.motion-heading{display:flex;align-items:center;justify-content:space-between;margin:0 5.357%;min-height:48px;padding:8px 0;border-bottom:1px solid #595959}
-.motion-heading>span{display:flex;align-items:center;gap:8px}.motion-example{border:1px solid #767676;padding:0 5px;color:#FFFFFF}
-.motion-toggle{display:inline-flex;align-items:center;gap:6px;font-size:inherit;min-height:44px;padding:0 2px;border:0;background:transparent;color:#FFFFFF}
-.motion-toggle::before{content:"";width:6px;height:10px;border-inline:2px solid currentColor;box-sizing:border-box}
-.motion-toggle[aria-pressed="true"]::before{width:0;height:0;border:5px solid transparent;border-left:8px solid currentColor;border-right:0}
-.motion-toggle:disabled::before{display:none}
-.motion-art>svg,.motion-art>img{display:block;width:100%;height:auto}
-.motion-caption{color:#CCCCCC;margin:0 5.357%;padding:8px 0 16px;min-height:calc(2.8em + 24px)}
-.motion-tabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid #595959}
-.motion-tabs button{position:relative;border:0;background:transparent;color:#B3B3B3;min-height:48px;padding:8px 0}
-.motion-tabs button[aria-selected="true"]{color:#FFFFFF}
-.motion-tabs button[aria-selected="true"]::after{content:"";position:absolute;inset:auto 16% 0;height:3px;background:#FFFFFF}
-.motion-panel :focus-visible{outline-color:#FFFFFF;outline-offset:-4px}
-
-/* ≤1024 */
-@media(max-width:1024px){
-.header-actions .instagram-link{display:none}.main-nav{gap:24px}
-.diag{flex-direction:column}.diag input{flex:none;border-right:1px solid var(--fg);border-bottom:0}.diag .btn{width:100%}
-.services{grid-template-columns:repeat(2,minmax(0,1fr))}.service-card:nth-child(n+3){border-top:0}
-}
-/* ≤900: single column, copy before panel */
-@media(max-width:900px){
-.header-actions .desktop-diag{display:none}.header-actions .mobile-diag{display:inline-flex}
-.hero{padding:48px 0 96px}
-.hero-copy,.motion-panel{grid-column:1/-1;grid-row:auto}
-.motion-panel{margin-top:48px;max-width:640px}
-.diag{flex-direction:row;max-width:none}.diag input{flex:1;border-right:0;border-bottom:1px solid var(--fg)}.diag .btn{width:auto}
-.ai-preview{margin-top:96px}
-.ai-preview-title,.ai-preview-note{grid-column:1/-1;grid-row:auto}.ai-preview-note{margin-top:16px}
-.ai-preview-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-.ai-preview-card,.ai-preview-card:first-child,.ai-preview-card:last-child{padding:24px 24px 32px 0}
-.ai-preview-card:nth-child(2n){border-right:0;padding-left:24px;padding-right:0}
-.ai-preview-card:nth-child(-n+2){border-bottom:1px solid var(--hair)}
-.section{padding-bottom:64px}
-.section>.wrap>h2,.faq-heading,.section>.wrap>.lead,.section>.wrap>.monthly-grid{grid-column:1/-1;grid-row:auto}
-.section>.wrap>.lead{margin-top:16px}
-.section>.promise-layout>.promise-term,.section>.promise-layout>.promise-list,.section>.about>h2,.section>.about>div{grid-column:1/-1}
-.promise-list{margin-top:48px}.about>div{margin-top:24px}
-.steps{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:48px}
-.contact-grid>div:first-child,.contact-grid>div:last-child{grid-column:1/-1}.contact-grid>div:last-child{margin-top:32px}
-}
-/* ≤767: phone */
-@media(max-width:767px){
-html{scroll-padding-top:80px}
-.wrap,.wordmark{width:calc(100% - 40px)}
-.header-inner{height:64px;display:flex;justify-content:space-between;gap:12px}
-.header-actions{gap:8px}.header-actions .btn{min-height:44px;padding:0 16px}
-.menu-toggle{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:5px;width:44px;height:44px;padding:0;background:transparent;border:1px solid var(--fg)}
-.menu-toggle span{height:1px;width:20px;background:currentColor;transition:transform .2s,opacity .2s}
-.menu-toggle[aria-expanded="true"] span:first-child{transform:translateY(6px) rotate(45deg)}
-.menu-toggle[aria-expanded="true"] span:nth-child(2){opacity:0}
-.menu-toggle[aria-expanded="true"] span:last-child{transform:translateY(-6px) rotate(-45deg)}
-.main-nav{display:none;position:absolute;top:64px;left:0;right:0;background:var(--bg);padding:0 20px 16px;border-bottom:1px solid var(--fg);flex-direction:column;gap:0;font-size:16px}
-.menu-open .main-nav{display:flex}
-.main-nav a{display:flex;align-items:center;min-height:48px;padding:0;border-bottom:1px solid var(--hair)}
-.hero{padding:32px 0 64px}
-.lead{font-size:16px}
-.diag{flex-direction:column}.diag input{flex:none;border-right:1px solid var(--fg);border-bottom:0;height:52px}.diag .btn{width:100%;height:52px}
-.ai-preview{margin-top:64px}
-.ai-industry-chips{margin-top:32px}
-.ai-preview-card,.ai-preview-card:first-child,.ai-preview-card:last-child,.ai-preview-card:nth-child(2n){padding:16px 16px 24px 0}
-.ai-preview-card:nth-child(2n){padding-left:16px}
-.section{padding-bottom:48px}
-.table-shell,.services,.steps,.faq,.ai-strip{margin-top:24px}
-table,tbody,tr,th,td{display:block}thead{display:none}
-tbody tr{padding:16px 0;border-bottom:1px solid var(--hair)}
-th,td{padding:4px 0;border:0}
-#sources tbody th,#sources td,#diff th:first-child,#diff td{width:100%}
-td::before{content:attr(data-k);display:block;font-size:14px;color:var(--muted);margin:8px 0 4px}
-.services{grid-template-columns:1fr}.service-card{padding:24px 20px}.service-card:nth-child(n+2){border-top:0}.service-card .price{margin:24px 0 16px;padding-bottom:16px}
-.monthly-grid li{display:block}.monthly-grid p{margin-top:8px}
-.steps{grid-template-columns:1fr;row-gap:32px}.steps li::before{margin-bottom:24px}
-.zero-ui{font-size:96px}
-summary{font-size:18px;min-height:64px}
-.end{padding:64px 0}
-.diag-dock{display:none}
-.wordmark{font-size:25vw;padding-top:48px}
-}
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.header-video{display:none!important}.header-still{display:block!important}*{transition:none!important}}
-</style>
+<link rel="stylesheet" href="site.css?v=12">
+<script>try{if(localStorage.getItem('zikru-theme')==='dark')document.documentElement.dataset.theme='dark'}catch(e){}</script>
 <script type="application/ld+json">
 {
  "@context": "https://schema.org",
@@ -447,269 +192,182 @@ summary{font-size:18px;min-height:64px}
 <body>
 <svg class="logo-symbols" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="0" height="0"><defs>
 <rect id="tile-face" x=".75" y=".75" width="46.5" height="46.5" rx="10.3" fill="#FFFFFF" stroke="#E5E5E5" vector-effect="non-scaling-stroke"/>
-<symbol id="ai-openai" viewBox="0 0 48 48"><use href="#tile-face"/><image href="assets/logos/openai.svg" x="9" y="9" width="30" height="30"/></symbol>
-<symbol id="ai-googlegemini" viewBox="0 0 48 48"><use href="#tile-face"/><image href="assets/logos/gemini-color.svg" x="9" y="9" width="30" height="30"/></symbol>
-<symbol id="ai-perplexity" viewBox="0 0 48 48"><use href="#tile-face"/><image href="assets/logos/perplexity-color.svg" x="9" y="9" width="30" height="30"/></symbol>
-<symbol id="ai-claude" viewBox="0 0 48 48"><use href="#tile-face"/><image href="assets/logos/claude-color.svg" x="9" y="9" width="30" height="30"/></symbol>
-<symbol id="ai-naver" viewBox="0 0 48 48"><use href="#tile-face"/><image href="assets/logos/naver-color.svg" x="9" y="9" width="30" height="30"/></symbol>
-<symbol id="ai-google" viewBox="0 0 48 48"><use href="#tile-face"/><image href="assets/logos/google-color.svg" x="9" y="9" width="30" height="30"/></symbol>
+<symbol id="ai-openai" viewBox="0 0 48 48"><use href="#tile-face"/><image href="data:image/svg+xml;base64,PHN2ZyBmaWxsPSJjdXJyZW50Q29sb3IiIGZpbGwtcnVsZT0iZXZlbm9kZCIgaGVpZ2h0PSIxZW0iIHN0eWxlPSJmbGV4Om5vbmU7bGluZS1oZWlnaHQ6MSIgdmlld0JveD0iMCAwIDI0IDI0IiB3aWR0aD0iMWVtIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjx0aXRsZT5PcGVuQUk8L3RpdGxlPjxwYXRoIGQ9Ik0yMS41NSAxMC4wMDRhNS40MTYgNS40MTYgMCAwMC0uNDc4LTQuNTAxYy0xLjIxNy0yLjA5LTMuNjYyLTMuMTY2LTYuMDUtMi42NkE1LjU5IDUuNTkgMCAwMDEwLjgzMSAxQzguMzkuOTk1IDYuMjI0IDIuNTQ2IDUuNDczIDQuODM4QTUuNTUzIDUuNTUzIDAgMDAxLjc2IDcuNDk2YTUuNDg3IDUuNDg3IDAgMDAuNjkxIDYuNSA1LjQxNiA1LjQxNiAwIDAwLjQ3NyA0LjUwMmMxLjIxNyAyLjA5IDMuNjYyIDMuMTY1IDYuMDUgMi42NkE1LjU4NiA1LjU4NiAwIDAwMTMuMTY4IDIzYzIuNDQzLjAwNiA0LjYxLTEuNTQ2IDUuMzYxLTMuODRhNS41NTMgNS41NTMgMCAwMDMuNzE1LTIuNjYgNS40ODggNS40ODggMCAwMC0uNjkzLTYuNDk3di4wMDF6bS04LjM4MSAxMS41NThhNC4xOTkgNC4xOTkgMCAwMS0yLjY3NS0uOTU0Yy4wMzQtLjAxOC4wOTMtLjA1LjEzMi0uMDc0bDQuNDQtMi41M2EuNzEuNzEgMCAwMC4zNjQtLjYyM3YtNi4xNzZsMS44NzcgMS4wNjljLjAyLjAxLjAzMy4wMjkuMDM2LjA1djUuMTE1Yy0uMDAzIDIuMjc0LTEuODcgNC4xMTgtNC4xNzQgNC4xMjN6TTQuMTkyIDE3Ljc4YTQuMDU5IDQuMDU5IDAgMDEtLjQ5OC0yLjc2M2MuMDMyLjAyLjA5LjA1NS4xMzEuMDc4bDQuNDQgMi41M2MuMjI1LjEzLjUwNC4xMy43MyAwbDUuNDItMy4wODh2Mi4xMzhhLjA2OC4wNjggMCAwMS0uMDI3LjA1N0w5LjkgMTkuMjg4Yy0xLjk5OSAxLjEzNi00LjU1Mi40Ni01LjcwNy0xLjUxaC0uMDAxek0zLjAyMyA4LjIxNkE0LjE1IDQuMTUgMCAwMTUuMTk4IDYuNDFsLS4wMDIuMTUxdjUuMDZhLjcxMS43MTEgMCAwMC4zNjQuNjI0bDUuNDIgMy4wODctMS44NzYgMS4wN2EuMDY3LjA2NyAwIDAxLS4wNjMuMDA1bC00LjQ4OS0yLjU1OWMtMS45OTUtMS4xNC0yLjY3OS0zLjY1OC0xLjUzLTUuNjNoLjAwMXptMTUuNDE3IDMuNTRsLTUuNDItMy4wODhMMTQuODk2IDcuNmEuMDY3LjA2NyAwIDAxLjA2My0uMDA2bDQuNDg5IDIuNTU3YzEuOTk4IDEuMTQgMi42ODMgMy42NjIgMS41MjkgNS42MzNhNC4xNjMgNC4xNjMgMCAwMS0yLjE3NCAxLjgwN1YxMi4zOGEuNzEuNzEgMCAwMC0uMzYzLS42MjN6bTEuODY3LTIuNzczYTYuMDQgNi4wNCAwIDAwLS4xMzItLjA3OGwtNC40NC0yLjUzYS43MzEuNzMxIDAgMDAtLjcyOSAwbC01LjQyIDMuMDg4VjcuMzI1YS4wNjguMDY4IDAgMDEuMDI3LS4wNTdMMTQuMSA0LjcxM2MyLTEuMTM3IDQuNTU1LS40NiA1LjcwNyAxLjUxMy40ODcuODMzLjY2NCAxLjgwOS40OTkgMi43NTdoLjAwMXptLTExLjc0MSAzLjgxbC0xLjg3Ny0xLjA2OGEuMDY1LjA2NSAwIDAxLS4wMzYtLjA1MVY2LjU1OWMuMDAxLTIuMjc3IDEuODczLTQuMTIyIDQuMTgxLTQuMTIuOTc2IDAgMS45Mi4zMzggMi42NzEuOTU0LS4wMzQuMDE4LS4wOTIuMDUtLjEzMS4wNzNsLTQuNDQgMi41M2EuNzEuNzEgMCAwMC0uMzY1LjYyM2wtLjAwMyA2LjE3M3YuMDAyem0xLjAyLTIuMTY4TDEyIDkuMjVsMi40MTQgMS4zNzV2Mi43NUwxMiAxNC43NWwtMi40MTUtMS4zNzV2LTIuNzV6Ij48L3BhdGg+PC9zdmc+" x="9" y="9" width="30" height="30"/></symbol>
+<symbol id="ai-googlegemini" viewBox="0 0 48 48"><use href="#tile-face"/><image href="data:image/svg+xml;base64,PHN2ZyBoZWlnaHQ9IjFlbSIgc3R5bGU9ImZsZXg6bm9uZTtsaW5lLWhlaWdodDoxIiB2aWV3Qm94PSIwIDAgMjQgMjQiIHdpZHRoPSIxZW0iIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHRpdGxlPkdlbWluaTwvdGl0bGU+PHBhdGggZD0iTTIwLjYxNiAxMC44MzVhMTQuMTQ3IDE0LjE0NyAwIDAxLTQuNDUtMy4wMDEgMTQuMTExIDE0LjExMSAwIDAxLTMuNjc4LTYuNDUyLjUwMy41MDMgMCAwMC0uOTc1IDAgMTQuMTM0IDE0LjEzNCAwIDAxLTMuNjc5IDYuNDUyIDE0LjE1NSAxNC4xNTUgMCAwMS00LjQ1IDMuMDAxYy0uNjUuMjgtMS4zMTguNTA1LTIuMDAyLjY3OGEuNTAyLjUwMiAwIDAwMCAuOTc1Yy42ODQuMTcyIDEuMzUuMzk3IDIuMDAyLjY3N2ExNC4xNDcgMTQuMTQ3IDAgMDE0LjQ1IDMuMDAxIDE0LjExMiAxNC4xMTIgMCAwMTMuNjc5IDYuNDUzLjUwMi41MDIgMCAwMC45NzUgMGMuMTcyLS42ODUuMzk3LTEuMzUxLjY3Ny0yLjAwM2ExNC4xNDUgMTQuMTQ1IDAgMDEzLjAwMS00LjQ1IDE0LjExMyAxNC4xMTMgMCAwMTYuNDUzLTMuNjc4LjUwMy41MDMgMCAwMDAtLjk3NSAxMy4yNDUgMTMuMjQ1IDAgMDEtMi4wMDMtLjY3OHoiIGZpbGw9IiMzMTg2RkYiPjwvcGF0aD48cGF0aCBkPSJNMjAuNjE2IDEwLjgzNWExNC4xNDcgMTQuMTQ3IDAgMDEtNC40NS0zLjAwMSAxNC4xMTEgMTQuMTExIDAgMDEtMy42NzgtNi40NTIuNTAzLjUwMyAwIDAwLS45NzUgMCAxNC4xMzQgMTQuMTM0IDAgMDEtMy42NzkgNi40NTIgMTQuMTU1IDE0LjE1NSAwIDAxLTQuNDUgMy4wMDFjLS42NS4yOC0xLjMxOC41MDUtMi4wMDIuNjc4YS41MDIuNTAyIDAgMDAwIC45NzVjLjY4NC4xNzIgMS4zNS4zOTcgMi4wMDIuNjc3YTE0LjE0NyAxNC4xNDcgMCAwMTQuNDUgMy4wMDEgMTQuMTEyIDE0LjExMiAwIDAxMy42NzkgNi40NTMuNTAyLjUwMiAwIDAwLjk3NSAwYy4xNzItLjY4NS4zOTctMS4zNTEuNjc3LTIuMDAzYTE0LjE0NSAxNC4xNDUgMCAwMTMuMDAxLTQuNDUgMTQuMTEzIDE0LjExMyAwIDAxNi40NTMtMy42NzguNTAzLjUwMyAwIDAwMC0uOTc1IDEzLjI0NSAxMy4yNDUgMCAwMS0yLjAwMy0uNjc4eiIgZmlsbD0idXJsKCNsb2JlLWljb25zLWdlbWluaS1maWxsLTApIj48L3BhdGg+PHBhdGggZD0iTTIwLjYxNiAxMC44MzVhMTQuMTQ3IDE0LjE0NyAwIDAxLTQuNDUtMy4wMDEgMTQuMTExIDE0LjExMSAwIDAxLTMuNjc4LTYuNDUyLjUwMy41MDMgMCAwMC0uOTc1IDAgMTQuMTM0IDE0LjEzNCAwIDAxLTMuNjc5IDYuNDUyIDE0LjE1NSAxNC4xNTUgMCAwMS00LjQ1IDMuMDAxYy0uNjUuMjgtMS4zMTguNTA1LTIuMDAyLjY3OGEuNTAyLjUwMiAwIDAwMCAuOTc1Yy42ODQuMTcyIDEuMzUuMzk3IDIuMDAyLjY3N2ExNC4xNDcgMTQuMTQ3IDAgMDE0LjQ1IDMuMDAxIDE0LjExMiAxNC4xMTIgMCAwMTMuNjc5IDYuNDUzLjUwMi41MDIgMCAwMC45NzUgMGMuMTcyLS42ODUuMzk3LTEuMzUxLjY3Ny0yLjAwM2ExNC4xNDUgMTQuMTQ1IDAgMDEzLjAwMS00LjQ1IDE0LjExMyAxNC4xMTMgMCAwMTYuNDUzLTMuNjc4LjUwMy41MDMgMCAwMDAtLjk3NSAxMy4yNDUgMTMuMjQ1IDAgMDEtMi4wMDMtLjY3OHoiIGZpbGw9InVybCgjbG9iZS1pY29ucy1nZW1pbmktZmlsbC0xKSI+PC9wYXRoPjxwYXRoIGQ9Ik0yMC42MTYgMTAuODM1YTE0LjE0NyAxNC4xNDcgMCAwMS00LjQ1LTMuMDAxIDE0LjExMSAxNC4xMTEgMCAwMS0zLjY3OC02LjQ1Mi41MDMuNTAzIDAgMDAtLjk3NSAwIDE0LjEzNCAxNC4xMzQgMCAwMS0zLjY3OSA2LjQ1MiAxNC4xNTUgMTQuMTU1IDAgMDEtNC40NSAzLjAwMWMtLjY1LjI4LTEuMzE4LjUwNS0yLjAwMi42NzhhLjUwMi41MDIgMCAwMDAgLjk3NWMuNjg0LjE3MiAxLjM1LjM5NyAyLjAwMi42NzdhMTQuMTQ3IDE0LjE0NyAwIDAxNC40NSAzLjAwMSAxNC4xMTIgMTQuMTEyIDAgMDEzLjY3OSA2LjQ1My41MDIuNTAyIDAgMDAuOTc1IDBjLjE3Mi0uNjg1LjM5Ny0xLjM1MS42NzctMi4wMDNhMTQuMTQ1IDE0LjE0NSAwIDAxMy4wMDEtNC40NSAxNC4xMTMgMTQuMTEzIDAgMDE2LjQ1My0zLjY3OC41MDMuNTAzIDAgMDAwLS45NzUgMTMuMjQ1IDEzLjI0NSAwIDAxLTIuMDAzLS42Nzh6IiBmaWxsPSJ1cmwoI2xvYmUtaWNvbnMtZ2VtaW5pLWZpbGwtMikiPjwvcGF0aD48ZGVmcz48bGluZWFyR3JhZGllbnQgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiIGlkPSJsb2JlLWljb25zLWdlbWluaS1maWxsLTAiIHgxPSI3IiB4Mj0iMTEiIHkxPSIxNS41IiB5Mj0iMTIiPjxzdG9wIHN0b3AtY29sb3I9IiMwOEI5NjIiPjwvc3RvcD48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiMwOEI5NjIiIHN0b3Atb3BhY2l0eT0iMCI+PC9zdG9wPjwvbGluZWFyR3JhZGllbnQ+PGxpbmVhckdyYWRpZW50IGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIiBpZD0ibG9iZS1pY29ucy1nZW1pbmktZmlsbC0xIiB4MT0iOCIgeDI9IjExLjUiIHkxPSI1LjUiIHkyPSIxMSI+PHN0b3Agc3RvcC1jb2xvcj0iI0Y5NDU0MyI+PC9zdG9wPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI0Y5NDU0MyIgc3RvcC1vcGFjaXR5PSIwIj48L3N0b3A+PC9saW5lYXJHcmFkaWVudD48bGluZWFyR3JhZGllbnQgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiIGlkPSJsb2JlLWljb25zLWdlbWluaS1maWxsLTIiIHgxPSIzLjUiIHgyPSIxNy41IiB5MT0iMTMuNSIgeTI9IjEyIj48c3RvcCBzdG9wLWNvbG9yPSIjRkFCQzEyIj48L3N0b3A+PHN0b3Agb2Zmc2V0PSIuNDYiIHN0b3AtY29sb3I9IiNGQUJDMTIiIHN0b3Atb3BhY2l0eT0iMCI+PC9zdG9wPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjwvc3ZnPg==" x="9" y="9" width="30" height="30"/></symbol>
+<symbol id="ai-perplexity" viewBox="0 0 48 48"><use href="#tile-face"/><image href="data:image/svg+xml;base64,PHN2ZyBoZWlnaHQ9IjFlbSIgc3R5bGU9ImZsZXg6bm9uZTtsaW5lLWhlaWdodDoxIiB2aWV3Qm94PSIwIDAgMjQgMjQiIHdpZHRoPSIxZW0iIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHRpdGxlPlBlcnBsZXhpdHk8L3RpdGxlPjxwYXRoIGQ9Ik0xOS43ODUgMHY3LjI3MkgyMi41VjE3LjYyaC0yLjkzNVYyNGwtNy4wMzctNi4xOTR2Ni4xNDVoLTEuMDkxdi02LjE1Mkw0LjM5MiAyNHYtNi40NjVIMS41VjcuMTg4aDIuODg0VjBsNy4wNTMgNi40OTRWLjE5aDEuMDl2Ni40OUwxOS43ODYgMHptLTcuMjU3IDkuMDQ0djcuMzE5bDUuOTQ2IDUuMjM0VjE0LjQ0bC01Ljk0Ni01LjM5N3ptLTEuMDk5LS4wOGwtNS45NDYgNS4zOTh2Ny4yMzVsNS45NDYtNS4yMzRWOC45NjV6bTguMTM2IDcuNThoMS44NDRWOC4zNDlIMTMuNDZsNi4xMDUgNS41NHYyLjY1NXptLTguOTgyLTguMjhIMi41OXY4LjE5NWgxLjh2LTIuNTc2bDYuMTkyLTUuNjJ6TTUuNDc1IDIuNDc2djQuNzFoNS4xMTVsLTUuMTE1LTQuNzF6bTEzLjIxOSAwbC01LjExNSA0LjcxaDUuMTE1di00LjcxeiIgZmlsbD0iIzIyQjhDRCIgZmlsbC1ydWxlPSJub256ZXJvIj48L3BhdGg+PC9zdmc+" x="9" y="9" width="30" height="30"/></symbol>
+<symbol id="ai-claude" viewBox="0 0 48 48"><use href="#tile-face"/><image href="data:image/svg+xml;base64,PHN2ZyBoZWlnaHQ9IjFlbSIgc3R5bGU9ImZsZXg6bm9uZTtsaW5lLWhlaWdodDoxIiB2aWV3Qm94PSIwIDAgMjQgMjQiIHdpZHRoPSIxZW0iIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHRpdGxlPkNsYXVkZTwvdGl0bGU+PHBhdGggZD0iTTQuNzA5IDE1Ljk1NWw0LjcyLTIuNjQ3LjA4LS4yMy0uMDgtLjEyOEg5LjJsLS43OS0uMDQ4LTIuNjk4LS4wNzMtMi4zMzktLjA5Ny0yLjI2Ni0uMTIyLS41NzEtLjEyMUwwIDExLjc4NGwuMDU1LS4zNTIuNDgtLjMyMS42ODYuMDYgMS41Mi4xMDMgMi4yNzguMTU4IDEuNjUyLjA5NyAyLjQ0OS4yNTVoLjM4OWwuMDU1LS4xNTctLjEzNC0uMDk4LS4xMDMtLjA5Ny0yLjM1OC0xLjU5Ni0yLjU1Mi0xLjY4OC0xLjMzNi0uOTcyLS43MjQtLjQ5MS0uMzY0LS40NjItLjE1OC0xLjAwOC42NTYtLjcyMi44ODEuMDYuMjI1LjA2MS44OTMuNjg2IDEuOTA4IDEuNDc2IDIuNDkxIDEuODMzLjM2NS4zMDQuMTQ1LS4xMDMuMDE5LS4wNzMtLjE2NC0uMjc0LTEuMzU1LTIuNDQ2LTEuNDQ2LTIuNDktLjY0NC0xLjAzMi0uMTctLjYxOWEyLjk3IDIuOTcgMCAwMS0uMTA0LS43MjlMNi4yODMuMTM0IDYuNjk2IDBsLjk5Ni4xMzQuNDIuMzY0LjYyIDEuNDE0IDEuMDAyIDIuMjI5IDEuNTU1IDMuMDMuNDU2Ljg5OC4yNDMuODMyLjA5MS4yNTVoLjE1OFY5LjAxbC4xMjgtMS43MDYuMjM3LTIuMDk1LjIzLTIuNjk1LjA4LS43Ni4zNzYtLjkxLjc0Ny0uNDkyLjU4NC4yOC40OC42ODUtLjA2Ny40NDQtLjI4NiAxLjg1MS0uNTU5IDIuOTAzLS4zNjQgMS45NDJoLjIxMmwuMjQzLS4yNDIuOTg1LTEuMzA2IDEuNjUyLTIuMDY0LjczLS44Mi44NS0uOTA0LjU0Ny0uNDMxaDEuMDMzbC43NiAxLjEyOS0uMzQgMS4xNjYtMS4wNjQgMS4zNDctLjg4MSAxLjE0Mi0xLjI2NCAxLjctLjc5IDEuMzYuMDczLjExLjE4OC0uMDIgMi44NTYtLjYwNiAxLjU0My0uMjggMS44NDEtLjMxNS44MzMuMzg4LjA5MS4zOTUtLjMyOC44MDctMS45NjkuNDg2LTIuMzA5LjQ2Mi0zLjQzOS44MTMtLjA0Mi4wMy4wNDkuMDYxIDEuNTQ5LjE0Ni42NjIuMDM2aDEuNjIybDMuMDIuMjI1Ljc5LjUyMi40NzQuNjM4LS4wNzkuNDg1LTEuMjE1LjYyLTEuNjQtLjM4OS0zLjgyOS0uOTEtMS4zMTItLjMyOWgtLjE4MnYuMTFsMS4wOTMgMS4wNjggMi4wMDYgMS44MSAyLjUwOSAyLjMzLjEyNy41NzgtLjMyMi40NTUtLjM0LS4wNDktMi4yMDUtMS42NTctLjg1MS0uNzQ3LTEuOTI2LTEuNjJoLS4xMjh2LjE3bC40NDQuNjQ5IDIuMzQ1IDMuNTIxLjEyMiAxLjA4LS4xNy4zNTMtLjYwOC4yMTMtLjY2OC0uMTIyLTEuMzc0LTEuOTI1LTEuNDE1LTIuMTY3LTEuMTQzLTEuOTQzLS4xNC4wOC0uNjc0IDcuMjU0LS4zMTYuMzctLjcyOS4yOC0uNjA3LS40NjEtLjMyMi0uNzQ3LjMyMi0xLjQ3Ni4zODktMS45MjQuMzE1LTEuNTMuMjg2LTEuOS4xNy0uNjMyLS4wMTItLjA0Mi0uMTQuMDE4LTEuNDM0IDEuOTY3LTIuMTggMi45NDUtMS43MjYgMS44NDUtLjQxNC4xNjQtLjcxNy0uMzcuMDY3LS42NjIuNDAxLS41ODkgMi4zODgtMy4wMzYgMS40NC0xLjg4Mi45My0xLjA4Ni0uMDA2LS4xNThoLS4wNTVMNC4xMzIgMTguNTZsLTEuMTMuMTQ2LS40ODctLjQ1Ni4wNjEtLjc0Ni4yMzEtLjI0MyAxLjkwOC0xLjMxMi0uMDA2LjAwNnoiIGZpbGw9IiNEOTc3NTciIGZpbGwtcnVsZT0ibm9uemVybyI+PC9wYXRoPjwvc3ZnPg==" x="9" y="9" width="30" height="30"/></symbol>
+<symbol id="ai-naver" viewBox="0 0 48 48"><use href="#tile-face"/><image href="data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjMDNDNzVBIiByb2xlPSJpbWciIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGl0bGU+TmF2ZXI8L3RpdGxlPjxwYXRoIGQ9Ik0xNi4yNzMgMTIuODQ1IDcuMzc2IDBIMHYyNGg3LjcyNlYxMS4xNTZMMTYuNjI0IDI0SDI0VjBoLTcuNzI3djEyLjg0NVoiLz48L3N2Zz4=" x="9" y="9" width="30" height="30"/></symbol>
+<symbol id="ai-google" viewBox="0 0 48 48"><use href="#tile-face"/><image href="data:image/svg+xml;base64,PHN2ZyBoZWlnaHQ9IjFlbSIgc3R5bGU9ImZsZXg6bm9uZTtsaW5lLWhlaWdodDoxIiB2aWV3Qm94PSIwIDAgMjQgMjQiIHdpZHRoPSIxZW0iIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHRpdGxlPkdvb2dsZTwvdGl0bGU+PHBhdGggZD0iTTIzIDEyLjI0NWMwLS45MDUtLjA3NS0xLjU2NS0uMjM2LTIuMjVoLTEwLjU0djQuMDgzaDYuMTg2Yy0uMTI0IDEuMDE0LS43OTcgMi41NDItMi4yOTQgMy41NjlsLS4wMjEuMTM2IDMuMzMyIDIuNTMuMjMuMDIyQzIxLjc3OSAxOC40MTcgMjMgMTUuNTkzIDIzIDEyLjI0NXoiIGZpbGw9IiM0Mjg1RjQiPjwvcGF0aD48cGF0aCBkPSJNMTIuMjI1IDIzYzMuMDMgMCA1LjU3NC0uOTc4IDcuNDMzLTIuNjY1bC0zLjU0Mi0yLjY4OGMtLjk0OC42NDgtMi4yMiAxLjEtMy44OTEgMS4xYTYuNzQ1IDYuNzQ1IDAgMDEtNi4zODYtNC41NzJsLS4xMzIuMDExLTMuNDY1IDIuNjI4LS4wNDUuMTI0QzQuMDQzIDIwLjUzMSA3LjgzNSAyMyAxMi4yMjUgMjN6IiBmaWxsPSIjMzRBODUzIj48L3BhdGg+PHBhdGggZD0iTTUuODQgMTQuMTc1QTYuNjUgNi42NSAwIDAxNS40NjMgMTJjMC0uNzU4LjEzOC0xLjQ5MS4zNjEtMi4xNzVsLS4wMDYtLjE0Ny0zLjUwOC0yLjY3LS4xMTUuMDU0QTEwLjgzMSAxMC44MzEgMCAwMDEgMTJjMCAxLjc3Mi40MzYgMy40NDcgMS4xOTcgNC45MzhsMy42NDItMi43NjN6IiBmaWxsPSIjRkJCQzA1Ij48L3BhdGg+PHBhdGggZD0iTTEyLjIyNSA1LjI1M2MyLjEwOCAwIDMuNTI5Ljg5MiA0LjM0IDEuNjM4bDMuMTY3LTMuMDMxQzE3Ljc4NyAyLjA4OCAxNS4yNTUgMSAxMi4yMjUgMSA3LjgzNCAxIDQuMDQzIDMuNDY5IDIuMTk3IDcuMDYybDMuNjMgMi43NjNhNi43NyA2Ljc3IDAgMDE2LjM5OC00LjU3MnoiIGZpbGw9IiNFQjQzMzUiPjwvcGF0aD48L3N2Zz4=" x="9" y="9" width="30" height="30"/></symbol>
 </defs></svg>
-<header class="site-header">
- <div class="wrap header-inner">
-  <a class="logo" href="#top" aria-label="ZIKRU 지크루, 처음으로"><img class="header-still" src="logo.svg" alt="ZIKRU 지크루" width="62" height="48" fetchpriority="high"><video class="header-video" autoplay loop muted playsinline preload="none" width="124" height="96" aria-hidden="true" hidden><source data-src="assets/zikru-header.mp4" type="video/mp4"><source data-src="assets/zikru-header.webm" type="video/webm"></video></a>
-  <nav class="main-nav" id="site-menu" aria-label="주 메뉴"><a href="#promise">약속</a><a href="#what">서비스·가격</a><a href="#monthly">매달 받는 것</a><a href="#faq">질문</a></nav>
-  <div class="header-actions"><a class="btn btn-soft instagram-link" href="https://www.instagram.com/jongjunn/" target="_blank" rel="noopener">인스타그램</a><a class="btn desktop-diag" href="#contact">무료 진단 신청</a><a class="btn btn-soft mobile-diag" href="#contact">무료 진단</a><button class="menu-toggle" type="button" aria-label="메뉴 열기" aria-expanded="false" aria-controls="site-menu"><span></span><span></span><span></span></button></div>
- </div>
-</header>
-<main id="top">
-<section class="hero">
- <div class="wrap hero-inner">
-  <div class="hero-head"><div class="hero-copy">
-  <p class="ai-hero-pill">ChatGPT는 우리 가게를 알고 있을까요?</p>
-  <h1>AI가 읽을 가게 정보,<br>제가 직접 고칩니다.</h1>
-  <p class="lead">홈페이지를 만들고, 검색과 AI 답변에 필요한 정보를 정리합니다. 이미 사이트가 있으면 빠진 내용부터 고칩니다. 사이트와 도메인, 측정 원본은 사장님께 남깁니다.</p>
-  <form class="diag" action="https://www.instagram.com/jongjunn/" method="get" target="_blank" data-diag>
-    <label for="q1" class="sr">가게 이름이나 홈페이지 주소</label>
-    <input id="q1" name="q" placeholder="가게 이름이나 홈페이지 주소" autocomplete="off" required>
-    <button class="btn" type="submit">무료 진단 신청</button>
-   </form>
-   <p class="diag-msg" role="status" aria-live="polite"></p>
-   <p class="diag-hints">사이트가 없어도 가게 이름으로 신청하실 수 있습니다.</p>
-   <small>신청 문구가 복사되고 인스타그램이 열립니다. DM에 붙여넣어 보내주세요. 진단은 무료입니다.</small>
-  </div>
-  <div class="motion-panel" role="region" aria-label="AI가 가게를 찾는 과정, 예시">
-   <div class="motion-heading"><span>AI가 가게를 찾는 과정 <span class="motion-example">예시</span></span><button class="motion-toggle" type="button" aria-pressed="false">일시정지</button></div>
-   <div class="motion-art" id="motion-scene" role="tabpanel" aria-describedby="motion-caption" aria-labelledby="motion-tab-1"><img src="assets/motion-still.svg" width="448" height="296" alt="질문을 받은 AI가 예시가게를 찾은 모습"></div>
-   <p id="motion-caption" class="motion-caption" aria-live="polite" aria-atomic="true">AI와 검색 서비스가 가게 정보를 찾는 과정입니다.</p>
-   <div class="motion-tabs" role="tablist" aria-label="AI 탐색 단계"><button id="motion-tab-1" type="button" role="tab" aria-controls="motion-scene" aria-selected="true">AI의 답</button><button id="motion-tab-2" type="button" role="tab" aria-controls="motion-scene" aria-selected="false" tabindex="-1">답의 출처</button><button id="motion-tab-3" type="button" role="tab" aria-controls="motion-scene" aria-selected="false" tabindex="-1">정보 정리</button><button id="motion-tab-4" type="button" role="tab" aria-controls="motion-scene" aria-selected="false" tabindex="-1">측정</button></div>
-  </div></div>
-   <section class="ai-preview" aria-labelledby="ai-preview-heading">
-    <h2 class="ai-preview-title" id="ai-preview-heading">AI마다 답이 다릅니다</h2>
-    <p class="ai-preview-note">아래는 설명을 위해 만든 예시입니다. 실제 AI 답변이 아닙니다.</p>
-    <div class="ai-industry-chips" role="group" aria-label="미리보기 업종 선택">
-     <button type="button" aria-pressed="true" data-industry="카페">카페</button><button type="button" aria-pressed="false" data-industry="학원">학원</button><button type="button" aria-pressed="false" data-industry="미용실">미용실</button><button type="button" aria-pressed="false" data-industry="인테리어">인테리어</button><button type="button" aria-pressed="false" data-industry="쇼핑몰">쇼핑몰</button>
-    </div>
-    <div class="ai-preview-content" aria-live="polite" aria-atomic="true">
-     <p class="ai-preview-question">우리 동네에서 예약할 수 있는 카페 알려줘</p>
-     <div class="ai-preview-grid">
-      <article class="ai-preview-card"><h3 class="ai-service" data-ai="chatgpt"><svg class="ai-logo" viewBox="0 0 48 48" aria-hidden="true"><use href="#ai-openai"/></svg>ChatGPT</h3><span class="ai-status is-mentioned">언급 1번째</span><p class="ai-excerpt">예약 방법과 영업시간을 안내한 <mark>예시카페</mark>를 확인해 보세요.</p></article>
-      <article class="ai-preview-card"><h3 class="ai-service" data-ai="gemini"><svg class="ai-logo" viewBox="0 0 48 48" aria-hidden="true"><use href="#ai-googlegemini"/></svg>Gemini</h3><span class="ai-status">언급 없음</span><p class="ai-excerpt">주변 카페의 영업시간과 예약 가능 여부를 먼저 확인해 보세요.</p></article>
-      <article class="ai-preview-card"><h3 class="ai-service" data-ai="perplexity"><svg class="ai-logo" viewBox="0 0 48 48" aria-hidden="true"><use href="#ai-perplexity"/></svg>Perplexity</h3><span class="ai-status is-mentioned">언급 3번째</span><p class="ai-excerpt">홈페이지에서 위치와 예약 방법을 볼 수 있는 <mark>예시카페</mark>가 있습니다.</p></article>
-      <article class="ai-preview-card"><h3 class="ai-service" data-ai="claude"><svg class="ai-logo" viewBox="0 0 48 48" aria-hidden="true"><use href="#ai-claude"/></svg>Claude</h3><span class="ai-status">언급 없음</span><p class="ai-excerpt">방문할 날짜와 인원을 정한 뒤 카페에 예약 가능 여부를 문의해 보세요.</p></article>
-     </div>
-    </div>
-   </section>
- </div>
+<a class="skip" href="#main">본문으로 건너뛰기</a>
+<header class="site-header"><div class="wrap header-inner">
+<a class="logo" href="#top" aria-label="ZIKRU 지크루, 처음으로"><img class="header-still" src="logo.svg" alt="ZIKRU 지크루" width="62" height="48"><video class="header-video" loop muted playsinline preload="none" width="124" height="96" aria-hidden="true" hidden><source data-src="assets/zikru-header.mp4" type="video/mp4"><source data-src="assets/zikru-header.webm" type="video/webm"></video></a>
+<nav class="main-nav" id="site-menu" aria-label="주 메뉴"><a href="#questions">손님 질문</a><a href="#routes">서비스와 가격</a><a href="#examples">예시 리포트</a><a href="blog/">블로그</a><a href="#faq">질문</a></nav>
+<div class="header-actions">
+<button class="icon-btn theme-toggle" type="button" aria-label="어두운 화면" aria-pressed="false"><svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></svg><svg class="sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.4 1.4M17.6 17.6 19 19M19 5l-1.4 1.4M6.4 17.6 5 19"/></svg></button>
+<a class="btn" href="#closing"><img src="logo.svg" alt="">무료 진단</a>
+<button class="icon-btn menu-toggle" type="button" aria-label="메뉴 열기" aria-expanded="false" aria-controls="site-menu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8h18M3 16h18"/></svg></button>
+</div></div></header>
+<button class="icon-btn to-top" type="button" aria-label="맨 위로" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20V4M5 11l7-7 7 7"/></svg></button>
+<nav class="rail" aria-label="이 페이지의 구간"><ol><li><a href="#diagnostic"><i></i><span>AI 답변</span></a></li><li><a href="#proof"><i></i><span>인용 출처</span></a></li><li><a href="#examples"><i></i><span>예시 리포트</span></a></li><li><a href="#questions"><i></i><span>업종별 질문</span></a></li><li><a href="#free"><i></i><span>무료 진단</span></a></li><li><a href="#evidence"><i></i><span>확인하는 AI</span></a></li><li><a href="#routes"><i></i><span>서비스와 가격</span></a></li><li><a href="#blog"><i></i><span>블로그</span></a></li><li><a href="#faq"><i></i><span>질문</span></a></li></ol></nav>
+<main id="main" tabindex="-1">
+<section class="diagnostic" id="diagnostic" aria-labelledby="page-title">
+<div class="wrap diagnostic-grid" id="top">
+<div class="stage-col"><div class="stage-pin">
+<div class="stage" data-stage><canvas aria-hidden="true"></canvas><svg class="stage-mark" viewBox="557 211 806 658" fill="currentColor" aria-hidden="true"></svg><button class="stage-pause" type="button" aria-label="움직임 일시정지" aria-pressed="false"></button></div>
+<nav class="stage-nav" aria-label="설명의 다섯 장면"><a href="#talk-answers"><i><b></b></i>AI 답변</a><a href="#talk-sources"><i><b></b></i>인용 출처</a><a href="#talk-routes"><i><b></b></i>고칠 곳</a><a href="#talk-record"><i><b></b></i>기록</a><a href="#start"><i><b></b></i>진단 신청</a></nav>
+</div></div>
+<div class="hero-head"><h1 id="page-title">ChatGPT는 우리 가게를 알고 있을까요?</h1><a class="hero-jump" href="#talk-answers">AI 답변 예시 보기 <span aria-hidden="true">↓</span></a></div>
+<div class="talk">
+<p class="talk-intro">가게 이름이나 주소를 보내주세요. ChatGPT, Gemini, Perplexity, Claude가 뭐라고 답하는지 무료로 확인하고, 빠진 정보는 제가 직접 고칩니다.</p>
+<p class="small">사이트와 도메인, 측정 원본은 사장님께 남습니다. 월 관리에 약정은 없습니다.</p>
+<ol class="turns">
+<li class="turn" id="talk-answers"><p class="ask answers-question">우리 동네에서 예약할 수 있는 카페 알려줘</p><p class="reply">AI 네 곳에 같은 질문을 하면 답은 이렇게 갈립니다.</p>
+<div class="turn-body"><ul class="answers" aria-live="polite"><li class="answer"><div class="answer-head"><span class="ai"><svg viewBox="0 0 48 48" aria-hidden="true"><use href="#ai-openai"/></svg>ChatGPT</span><span class="mention yes">1번째로 언급</span></div><p>예약 방법과 영업시간을 안내한 <mark>예시카페</mark>를 확인해 보세요.</p></li><li class="answer"><div class="answer-head"><span class="ai"><svg viewBox="0 0 48 48" aria-hidden="true"><use href="#ai-googlegemini"/></svg>Gemini</span><span class="mention">언급 없음</span></div><p>주변 카페의 영업시간과 예약 가능 여부를 먼저 확인해 보세요.</p></li><li class="answer"><div class="answer-head"><span class="ai"><svg viewBox="0 0 48 48" aria-hidden="true"><use href="#ai-perplexity"/></svg>Perplexity</span><span class="mention yes">3번째로 언급</span></div><p>홈페이지에서 위치와 예약 방법을 볼 수 있는 <mark>예시카페</mark>가 있습니다.</p></li><li class="answer"><div class="answer-head"><span class="ai"><svg viewBox="0 0 48 48" aria-hidden="true"><use href="#ai-claude"/></svg>Claude</span><span class="mention">언급 없음</span></div><p>방문할 날짜와 인원을 정한 뒤 카페에 예약 가능 여부를 문의해 보세요.</p></li></ul><p class="small example-note">설명을 위해 만든 예시이며 실제 AI 답변이 아닙니다.</p><div class="chips" role="group" aria-label="업종 바꾸기"><button class="pill" type="button" data-industry="카페" aria-pressed="true">카페</button><button class="pill" type="button" data-industry="학원" aria-pressed="false">학원</button><button class="pill" type="button" data-industry="미용실" aria-pressed="false">미용실</button><button class="pill" type="button" data-industry="인테리어" aria-pressed="false">인테리어</button><button class="pill" type="button" data-industry="쇼핑몰" aria-pressed="false">쇼핑몰</button></div></div></li>
+<li class="turn" id="talk-sources"><p class="ask" data-type>그 답은 무엇을 읽고 나온 건가요?</p><p class="reply">AI마다 읽고 인용하는 곳이 다릅니다. 홈페이지를 많이 보는 AI도 있고, 블로그를 더 보는 AI도 있습니다.</p>
+<div class="turn-body"><p>그래서 홈페이지만 고치지 않고 네이버 플레이스의 영업 정보까지 함께 맞춥니다.</p><ul class="source-list"><li><span class="ai"><svg viewBox="0 0 48 48" aria-hidden="true"><use href="#ai-openai"/></svg>ChatGPT</span><span><strong>병원 홈페이지 46%</strong>, 네이버 블로그 0%</span></li><li><span class="ai"><svg viewBox="0 0 48 48" aria-hidden="true"><use href="#ai-googlegemini"/></svg>Gemini</span><span><strong>병원 홈페이지 56%</strong>, 네이버 블로그 0%</span></li><li><span class="ai"><svg viewBox="0 0 48 48" aria-hidden="true"><use href="#ai-perplexity"/></svg>Perplexity</span><span><strong>병원 홈페이지 63%</strong>, 네이버 블로그 10%</span></li><li><span class="ai"><svg viewBox="0 0 48 48" aria-hidden="true"><use href="#ai-naver"/></svg>네이버 AI 브리핑</span><span><strong>병원 홈페이지 30%</strong>, 네이버 블로그 36%</span></li></ul><p class="small">병원 질문 72개, 응답 8,933개를 조사한 RM360의 자체 측정입니다. <a class="link" href="#proof">조사 범위 보기</a></p></div></li>
+<li class="turn" id="talk-routes"><p class="ask" data-type>우리 가게가 빠져 있으면 어떻게 하나요?</p><p class="reply">빠진 이유부터 봅니다. 사이트가 없는지, 있는데 읽히지 않는지에 따라 손댈 곳이 갈립니다.</p>
+<div class="turn-body"><ul class="route-list"><li><a href="#routes"><strong>무료 진단</strong><span>아직 모르겠다면 질문 3개로 먼저 확인합니다.</span><span class="arrow" aria-hidden="true">↗</span></a></li><li><a href="#routes"><strong>홈페이지 제작</strong><span>사이트가 없다면 읽히는 구조로 새로 만듭니다.</span><span class="arrow" aria-hidden="true">↗</span></a></li><li><a href="#routes"><strong>AI 노출 세팅</strong><span>사이트가 있다면 빠진 사실과 구조를 고칩니다.</span><span class="arrow" aria-hidden="true">↗</span></a></li><li><a href="#routes"><strong>플레이스 맞춤</strong><span>네이버 정보가 다르면 세팅 때 함께 맞춥니다.</span><span class="arrow" aria-hidden="true">↗</span></a></li><li><a href="#routes"><strong>월 관리</strong><span>계속 보고 싶다면 매주 묻고 매달 보고합니다.</span><span class="arrow" aria-hidden="true">↗</span></a></li><li><a href="#routes"><strong>쇼핑몰 제작</strong><span>물건을 판다면 판매 조건까지 기록합니다.</span><span class="arrow" aria-hidden="true">↗</span></a></li></ul></div></li>
+<li class="turn" id="talk-record"><p class="ask" data-type>고치면 추천을 보장해 주나요?</p><p class="reply">보장하지 않습니다. 대신 달라졌는지 확인할 수 있게 원문을 남깁니다.</p>
+<div class="turn-body"><p class="big-change">질문 20개, AI 4곳, 매주</p><p>한 주에 답변 80개의 원문과 출처를 기록합니다. 줄어든 결과도 빼지 않습니다.</p>
+<dl class="facts"><div><dt>월 관리 약정</dt><dd>0개월</dd></div><div><dt>사이트, 도메인, 계정 명의</dt><dd>사장님</dd></div><div><dt>그만둔 뒤 측정 원본</dt><dd>그대로 보유</dd></div></dl></div></li>
+<li class="turn" id="start"><p class="reply">가게 이름부터 알려주세요. 손님이 할 법한 질문 3개를 정해 묻고, 받은 답과 고칠 목록을 보내드립니다.</p></li>
+</ol>
+<div class="dock"><form action="https://www.instagram.com/jongjunn/" method="get" target="_blank" data-diag><label class=sr for="q1">가게 이름이나 홈페이지 주소</label><div class="field"><input id="q1" name="q" placeholder="가게 이름이나 홈페이지 주소" autocomplete="off" required><button class="btn" type="submit"><img src="logo.svg" alt="">무료 진단</button></div></form>
+<p class="diag-msg" role="status" aria-live="polite"></p><p class="small">신청 문구가 복사되고 인스타그램이 열립니다. 사이트가 없어도 됩니다.</p></div>
+</div></div>
 </section>
-<section class="section" id="promise">
- <div class="wrap promise-layout">
-  <div class="promise-term"><h2>맡기기 전에<br>정해둘 것</h2><p class="zero-ui">0<span>개월 약정</span></p><p>월 관리는 한 달씩 결제합니다.<br>선납도 없습니다.</p></div>
-  <dl class="promise-list">
-   <div><dt>사이트와 계정은 사장님 명의로</dt><dd>도메인, 호스팅, 관리자 계정을 사장님 이름으로 만듭니다. 그만두셔도 사이트와 기록은 그대로 사장님 것입니다.</dd></div>
-   <div><dt>코드와 본문을 제가 직접 수정합니다</dt><dd>영업시간이 바뀌거나 예약 안내가 빠졌다면 사이트에 반영합니다. 무엇을 언제 왜 고쳤는지 기록도 함께 남깁니다.</dd></div>
-   <div><dt>답변 원문과 출처를 넘깁니다</dt><dd>질문, 날짜, AI 이름을 적고 답변 원문과 출처 링크를 전달합니다. 가게를 언급하지 않은 답도 빼지 않습니다.</dd></div>
-  </dl>
- </div>
-</section>
-<section class="section" id="sources">
- <div class="wrap">
-  <h2>AI마다 답을 가져오는 곳이 <span class="accent">다릅니다</span></h2>
-  <p class="lead">아래 병원 질문 조사에서 ChatGPT와 Gemini는 병원 홈페이지를 많이 인용했습니다. 네이버 AI 브리핑은 블로그 비중이 더 컸습니다. 그래서 홈페이지를 고칠 때 네이버 플레이스의 영업 정보도 함께 맞춥니다.</p>
-  <div class="table-shell"><div class="table-surface"><table>
-   <thead><tr><th>AI</th><th>병원 홈페이지를 인용한 비율</th><th>네이버 블로그를 인용한 비율</th></tr></thead>
-   <tbody>
-    <tr><th><span class="ai-service" data-ai="chatgpt"><svg class="ai-logo" viewBox="0 0 48 48" aria-hidden="true"><use href="#ai-openai"/></svg>ChatGPT</span></th><td data-k="병원 홈페이지"><span class="bar"><i style="width:46%"></i>46%</span></td><td data-k="네이버 블로그"><span class="bar b"><i style="width:0"></i>0%</span></td></tr>
-    <tr><th><span class="ai-service" data-ai="gemini"><svg class="ai-logo" viewBox="0 0 48 48" aria-hidden="true"><use href="#ai-googlegemini"/></svg>Gemini</span></th><td data-k="병원 홈페이지"><span class="bar"><i style="width:56%"></i>56%</span></td><td data-k="네이버 블로그"><span class="bar b"><i style="width:0"></i>0%</span></td></tr>
-    <tr><th><span class="ai-service" data-ai="perplexity"><svg class="ai-logo" viewBox="0 0 48 48" aria-hidden="true"><use href="#ai-perplexity"/></svg>Perplexity</span></th><td data-k="병원 홈페이지"><span class="bar"><i style="width:63%"></i>63%</span></td><td data-k="네이버 블로그"><span class="bar b"><i style="width:10%"></i>10%</span></td></tr>
-    <tr><th><span class="ai-service" data-ai="naver"><svg class="ai-logo" viewBox="0 0 48 48" aria-hidden="true"><use href="#ai-naver"/></svg>네이버 AI 브리핑</span></th><td data-k="병원 홈페이지"><span class="bar"><i style="width:30%"></i>30%</span></td><td data-k="네이버 블로그"><span class="bar b"><i style="width:36%"></i>36%</span></td></tr>
-   </tbody>
-  </table></div></div>
-  <p class="note">출처: <a href="https://rm360.kr/blog/columns/202610/column-12-channel-content-structure.html" rel="noopener">RM360 병원 질문 측정</a>(2026-09-25~10-11, 병원 질문 72개, 응답 8,933개, 업체 자체 측정). 비율은 인용된 출처 가운데 해당 출처의 비중이며 병원 질문 표본입니다. 네이버 AI 브리핑이 리뷰와 블로그를 요약한다는 설명은 <a href="https://help.naver.com/service/5626/contents/24122?lang=ko&amp;osType=COMMONOS" rel="noopener">네이버 고객센터</a>에 있습니다.</p>
-  <p class="source-work">주소나 가격이 사진에만 있으면 본문에 적습니다. 홈페이지와 플레이스의 영업시간이 다르면 맞추고, AI 크롤러의 접근 설정을 확인합니다. 손님이 자주 묻는 질문에는 첫 문장부터 답을 적습니다.</p>
- </div>
-</section>
-<section class="section" id="what">
- <div class="wrap">
-  <h2>어디까지 맡기실 건가요?</h2>
-  <p class="lead">가격은 모두 부가세 별도입니다. 처음 세 곳은 작업 사례 공개에 동의해 주시면 50% 할인합니다.</p>
-  <div class="services">
-   <article class="service-card"><div><p class="service-when">홈페이지가 없다면</p><h3>홈페이지 제작</h3></div><p class="price">69만원부터<span>5페이지 기준, 1회</span></p><p>휴대폰에서 읽기 편한 홈페이지를 만듭니다. 위치, 영업시간, 가격, 예약 방법을 글로 적고 전화와 예약 버튼을 연결합니다. 검색과 AI가 읽는 구조도 처음부터 갖춥니다.</p></article>
-   <article class="service-card"><div><p class="service-when">기존 사이트를 고친다면</p><h3>AI 노출 세팅</h3></div><p class="price">39만원<span>1회</span></p><p>현재 사이트를 진단한 뒤 제가 직접 고칩니다. 빠진 사실 정보와 자주 묻는 질문, 구조화 데이터, AI 크롤러 설정을 정리합니다. 네이버와 구글 검색에 등록하고 플레이스 정보도 맞춥니다.</p></article>
-   <article class="service-card"><div><p class="service-when">제작이나 세팅을 마쳤다면</p><h3>월 관리</h3></div><p class="price">월 19만원<span>약정 없음</span></p><p>손님이 물을 만한 질문 20개를 ChatGPT, Gemini, Perplexity, Claude에 매주 묻습니다. 답변 원문과 출처를 기록해 매달 보고하고, 바뀐 영업 정보와 가격은 사이트에 반영합니다.</p></article>
-   <article class="service-card"><div><p class="service-when">온라인 판매를 시작하거나 다시 만든다면</p><h3>쇼핑몰 제작과 GEO</h3></div><p class="price">199만원부터<span>상품 30개까지, 1회</span></p><p>상품의 가격, 재고, 옵션, 배송비, 반품 정책을 AI가 읽도록 정리합니다. 판매 조건 기록도 기본으로 포함합니다. 가격과 재고, 배송비는 날짜별로, 반품 정책은 바뀔 때마다 보관합니다. AI 봇이 언제 무엇을 봤는지 남겨 분쟁이 생기면 당시 조건을 찾도록 합니다.</p></article>
-  </div>
- </div>
-</section>
-<section class="section" id="monthly">
- <div class="wrap">
-  <h2>매달 메일로 보내는 파일</h2>
-  <p class="lead">질문 20개를 네 AI에 매주 물은 기록입니다. 원본 파일은 해지 후에도 사장님께 남습니다.</p>
-  <div class="ai-strip" aria-label="매주 확인하는 AI"><span class="ai-service" data-ai="chatgpt"><svg class="ai-logo" viewBox="0 0 48 48" aria-hidden="true"><use href="#ai-openai"/></svg>ChatGPT</span><span class="ai-service" data-ai="gemini"><svg class="ai-logo" viewBox="0 0 48 48" aria-hidden="true"><use href="#ai-googlegemini"/></svg>Gemini</span><span class="ai-service" data-ai="perplexity"><svg class="ai-logo" viewBox="0 0 48 48" aria-hidden="true"><use href="#ai-perplexity"/></svg>Perplexity</span><span class="ai-service" data-ai="claude"><svg class="ai-logo" viewBox="0 0 48 48" aria-hidden="true"><use href="#ai-claude"/></svg>Claude</span></div>
-  <ul class="monthly-grid">
-   <li><h3>질문 목록</h3><p>사장님과 함께 고른 질문 20개와 고른 이유를 적습니다. 질문은 언제든 바꾸실 수 있습니다.</p></li>
-   <li><h3>AI 답변 원문</h3><p>AI별 답변 원문, 인용한 출처 링크, 물어본 날짜를 엑셀로 열 수 있는 파일에 담습니다.</p></li>
-   <li><h3>언급 변화표</h3><p>가게를 언급한 질문이 지난달보다 늘었는지 줄었는지 비교합니다. 줄어든 질문도 빼지 않습니다.</p></li>
-   <li><h3>사이트 수정 기록</h3><p>사이트에서 무엇을 언제 왜 고쳤는지 남깁니다.</p></li>
-   <li><h3>다음 달 할 일</h3><p>다음에 고칠 부분과 사장님께 확인이 필요한 내용을 적습니다.</p></li>
-  </ul>
- </div>
-</section>
-<section class="section" id="diff">
- <div class="wrap">
-  <h2>SEO, GEO, AEO는 <span class="accent">목표가 다릅니다</span></h2>
-  <p class="lead">검색 결과에 나오려는지, AI 답변의 출처가 되려는지에 따라 부르는 이름이 다릅니다. 주소와 가격 같은 사실을 글로 적는 일은 공통입니다.</p>
-  <div class="table-shell"><div class="table-surface"><table>
-   <thead><tr><th></th><th>어디에서</th><th>목표</th></tr></thead>
-   <tbody>
-    <tr><th>SEO<span class="sub">검색엔진 최적화</span></th><td data-k="어디에서"><span class="svc-row"><span class="ai-service" data-ai="naver"><svg class="ai-logo" viewBox="0 0 48 48" aria-hidden="true"><use href="#ai-naver"/></svg>네이버</span><span class="ai-service" data-ai="google"><svg class="ai-logo" viewBox="0 0 48 48" aria-hidden="true"><use href="#ai-google"/></svg>구글</span></span><span class="svc-tail">검색 결과</span></td><td data-k="목표">검색 순위를 올려 사이트 방문을 늘리는 것이 목표입니다.</td></tr>
-    <tr><th>GEO<span class="sub">생성형 엔진 최적화</span></th><td data-k="어디에서"><span class="svc-row"><span class="ai-service" data-ai="chatgpt"><svg class="ai-logo" viewBox="0 0 48 48" aria-hidden="true"><use href="#ai-openai"/></svg>ChatGPT</span><span class="ai-service" data-ai="gemini"><svg class="ai-logo" viewBox="0 0 48 48" aria-hidden="true"><use href="#ai-googlegemini"/></svg>Gemini</span><span class="ai-service" data-ai="perplexity"><svg class="ai-logo" viewBox="0 0 48 48" aria-hidden="true"><use href="#ai-perplexity"/></svg>Perplexity</span></span><span class="svc-tail">답변</span></td><td data-k="목표">AI 답변에서 가게가 언급되거나 추천되는 것이 목표입니다.</td></tr>
-    <tr><th>AEO<span class="sub">답변 엔진 최적화</span></th><td data-k="어디에서">AI 답변과 검색의 요약 답변</td><td data-k="목표">짧은 답변에 사이트가 출처로 인용되는 것이 목표입니다.</td></tr>
-   </tbody>
-  </table></div></div>
- </div>
-</section>
-<section class="section" id="flow">
- <div class="wrap">
-  <h2>진단부터 수정, 측정까지</h2>
-  <ol class="steps">
-   <li><h3>진단</h3><p>질문 3개로 AI 답변과 출처를 확인합니다. 현재 사이트 점검 결과와 고칠 목록을 보냅니다. 비용은 받지 않습니다.</p></li>
-   <li><h3>정리</h3><p>빠진 사실을 채우고 구조화 데이터와 질문 답변 글을 만듭니다.</p></li>
-   <li><h3>공개</h3><p>사이트에 반영하고 검색엔진에 등록합니다.</p></li>
-   <li><h3>측정</h3><p>손님이 물을 만한 질문으로 AI 답변을 확인하고 매달 보고합니다.</p></li>
-  </ol>
- </div>
-</section>
-<section class="section" id="about">
- <div class="wrap about">
-  <span class="brand-mark" aria-hidden="true"></span><h2>만드는 사람</h2>
-  <div>
-   <p class="lead">백엔드 개발자입니다. 제가 사이트를 만들고 수정합니다. 영업시간 한 줄을 고치는 일부터 검색과 AI가 읽는 구조를 갖추는 일까지 맡습니다.</p>
-   <p class="lead">작업 과정과 측정 결과는 유튜브와 인스타그램에 공개합니다. 잘 안 된 결과도 남깁니다. 고객 정보는 동의받은 범위에서만 공개합니다.</p>
-  </div>
- </div>
-</section>
-<section class="section" id="faq">
- <div class="wrap">
-  <div class="faq-heading"><h2>자주 묻는 질문</h2></div>
-  <div class="faq">
-   <details><summary>GEO는 무엇인가요?</summary><p>손님이 ChatGPT, Gemini, Perplexity 같은 AI에 질문했을 때 가게 정보가 답에 쓰이도록 홈페이지와 공개 정보를 정리하는 일입니다. GEO는 생성형 엔진 최적화의 줄임말입니다.</p></details>
-   <details><summary>SEO, GEO, AEO는 어떻게 다른가요?</summary><p>SEO는 네이버와 구글 검색 순위, GEO는 AI 답변 속 언급과 추천, AEO는 짧은 답변의 출처로 인용되는 것이 목표입니다. 주소, 가격, 영업시간 같은 사실을 사이트에 분명히 적는 일은 같습니다.</p></details>
-   <details><summary>홈페이지만 고치면 AI 답변에 나오나요?</summary><p>홈페이지 외의 정보도 필요합니다. 네이버 AI 브리핑은 방문자 리뷰와 블로그를 많이 쓰고, 다른 AI도 서로 다른 출처를 인용합니다. 홈페이지와 네이버 플레이스 정보를 함께 맞추는 이유입니다. 블로그 글 발행이나 리뷰 작업은 하지 않습니다.</p></details>
-   <details><summary>AI가 우리 가게를 추천한다고 보장하나요?</summary><p>보장하지 않습니다. AI의 답은 제가 정할 수 없습니다. 제가 맡는 일은 AI가 읽을 정보를 갖추고, 질문별로 가게가 언급됐는지 확인해 답변 원문과 함께 보고하는 것입니다.</p></details>
-   <details><summary>성과가 나오기까지 얼마나 걸리나요?</summary><p>사이트 수정은 바로 반영됩니다. 다만 AI 답변이 언제 바뀔지는 미리 정할 수 없습니다. 매주 같은 질문으로 확인하고, 변화가 없어도 그대로 보고합니다.</p></details>
-   <details><summary>AI 답변은 어떻게 측정하나요?</summary><p>질문 20개를 정해 ChatGPT, Gemini, Perplexity, Claude에 매주 묻습니다. 답변 원문, 인용 출처, 가게 언급 여부를 기록합니다. 각 AI의 공식 API를 쓰므로 휴대폰 앱에서 보는 답과 다를 수 있습니다. 질문과 날짜, AI 이름도 함께 적습니다.</p></details>
-   <details><summary>이미 있는 홈페이지도 고칠 수 있나요?</summary><p>네. 무료 진단으로 현재 사이트부터 확인합니다. 고쳐서 쓸 부분과 새로 만들어야 할 부분을 나눠 알려드립니다.</p></details>
-   <details><summary>무료 진단에서는 무엇을 받나요?</summary><p>질문 3개를 ChatGPT, Gemini, Perplexity, Claude에 물어본 답변 원문과 인용 출처를 보냅니다. 현재 사이트가 검색과 AI에 어떻게 읽히는지 점검한 결과, 고칠 것 목록도 함께 받습니다. 무료입니다.</p></details>
-   <details><summary>가격은 얼마인가요?</summary><p>홈페이지 제작은 5페이지 기준 69만원부터, AI 노출 세팅은 39만원, 월 관리는 월 19만원, 쇼핑몰 제작과 GEO는 상품 30개까지 199만원부터입니다. 모두 부가세 별도입니다.</p></details>
-   <details><summary>그만두면 사이트는 어떻게 되나요?</summary><p>사이트는 그대로 사장님 것입니다. 도메인, 호스팅, 관리자 계정을 처음부터 사장님 명의로 만듭니다. 수정 기록과 측정 원본도 넘깁니다. 월 관리는 약정이 없어 언제든 그만두실 수 있습니다.</p></details>
-  </div>
- </div>
-</section>
-</main>
-<div class="closing">
-<section class="end" id="contact"><div class="wrap contact-grid"><div><h2>가게 이름이나 주소를<br>보내주세요</h2><p class="lead">질문 3개로 AI 답변을 확인합니다. 현재 사이트 점검 결과와 고칠 목록도 함께 보냅니다. 진단은 무료입니다.</p></div><div><form class="diag" action="https://www.instagram.com/jongjunn/" method="get" target="_blank" data-diag>
-   <label for="q2" class="sr">가게 이름이나 홈페이지 주소</label>
-   <input id="q2" name="q" placeholder="가게 이름이나 홈페이지 주소" autocomplete="off" required>
-   <button class="btn" type="submit">무료 진단 신청</button>
-  </form>
-  <p class="diag-msg" role="status" aria-live="polite"></p>
-  <p class="diag-hints">사이트가 없어도 가게 이름으로 신청하실 수 있습니다.</p>
-  <small>신청 문구가 복사되고 인스타그램 @jongjunn이 열립니다. 메시지 보내기를 눌러 붙여넣어 주세요.</small></div></div></section>
-<footer><div class="wrap footer-inner"><nav class="footer-links" aria-label="하단 메뉴"><a href="#promise">약속</a><a href="#what">서비스·가격</a><a href="#monthly">매달 받는 것</a><a href="#faq">질문</a><a href="llms.txt">llms.txt</a><a href="sitemap.xml">sitemap.xml</a><a href="https://www.instagram.com/jongjunn/" target="_blank" rel="noopener">인스타그램</a></nav><p class="footer-caption">ZIKRU / 홈페이지 제작과 검색, AI 답변 최적화</p><p class="trademark">ChatGPT·Gemini·Perplexity·Claude·네이버·구글의 이름과 로고는 각 회사의 상표이며, 서비스 구분을 위해서만 사용합니다.</p></div><div class="wordmark" aria-hidden="true">ZIKRU</div></footer>
-</div>
-<div class="diag-dock" hidden>
- <form class="dock-form" action="https://www.instagram.com/jongjunn/" method="get" target="_blank" data-diag>
-  <label class="sr" for="q3">가게 이름이나 홈페이지 주소</label><input id="q3" name="q" placeholder="가게 이름이나 홈페이지 주소" autocomplete="off" required><button class="btn" type="submit">무료 진단</button>
- </form>
- <p class="diag-msg dock-message" role="status" aria-live="polite"></p>
-</div>
-<a class="floating-cta" href="#contact" hidden><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 18 18 6M6 6h12v12" stroke="currentColor" stroke-width="1.5"/></svg><span>가게 주소로 무료 진단 받기</span><span class="free-badge">무료</span></a>
-<script>
-document.querySelectorAll('[data-diag]').forEach(f=>{
- const input=f.querySelector('input'), msg=f.nextElementSibling;
- let messageTimer;
- input.addEventListener('input',()=>input.setCustomValidity(''));
- f.addEventListener('submit',e=>{
-  e.preventDefault();
-  const v=input.value.trim();
-  if(!v){input.setCustomValidity('가게 이름이나 주소를 입력해 주세요.');input.reportValidity();return;}
-  const text='무료 진단 신청합니다.\n가게 이름 또는 주소: '+v;
-  const done=ok=>{
-   msg.textContent=ok?'신청 문구를 복사했어요. 인스타그램 DM에 붙여넣어 보내주세요.':'복사가 안 됐어요. 이 문구를 DM으로 보내주세요: '+text.replace('\n',' ');
-   if(f.classList.contains('dock-form')){clearTimeout(messageTimer);messageTimer=setTimeout(()=>msg.textContent='',4000);}
-  };
-  (navigator.clipboard?navigator.clipboard.writeText(text).then(()=>done(true),()=>done(false)):Promise.resolve(done(false)));
-  window.open('https://www.instagram.com/jongjunn/','_blank','noopener');
- });
-});
 
-const previews={
- '카페':{question:'우리 동네에서 예약할 수 있는 카페 알려줘',ranks:[1,0,3,0],answers:[
-  '예약 방법과 영업시간을 안내한 <mark>예시카페</mark>를 확인해 보세요.',
-  '주변 카페의 영업시간과 예약 가능 여부를 먼저 확인해 보세요.',
-  '홈페이지에서 위치와 예약 방법을 볼 수 있는 <mark>예시카페</mark>가 있습니다.',
-  '방문할 날짜와 인원을 정한 뒤 카페에 예약 가능 여부를 문의해 보세요.']},
- '학원':{question:'수업 시간과 상담 방법이 나오는 학원 알려줘',ranks:[0,2,1,0],answers:[
-  '수강할 과목과 시간을 정하고 학원의 상담 안내를 확인해 보세요.',
-  '<mark>예시학원</mark>은 수업 시간과 상담 방법을 홈페이지에 안내합니다.',
-  '과목별 수업 일정과 상담 예약 안내가 있는 <mark>예시학원</mark>을 확인해 보세요.',
-  '학원별 수업 시간과 상담 가능 시간을 비교해 보세요.']},
- '미용실':{question:'주말에 예약되는 미용실 추천해 줘',ranks:[2,0,0,1],answers:[
-  '<mark>예시미용실</mark>에서 주말 영업시간과 예약 방법을 확인할 수 있습니다.',
-  '원하는 시술과 방문 시간을 정한 뒤 주말 예약 여부를 확인해 보세요.',
-  '주말 영업 여부와 예약 가능한 시간은 매장에 확인해 보세요.',
-  '주말 예약 안내가 있는 <mark>예시미용실</mark>을 살펴보세요.']},
- '인테리어':{question:'견적 상담 빨리 되는 인테리어 업체 알려줘',ranks:[0,1,2,3],answers:[
-  '공사 범위와 일정을 정리해 업체에 상담 가능한 시간을 문의해 보세요.',
-  '<mark>예시인테리어</mark> 홈페이지에서 견적 상담 접수 방법을 확인해 보세요.',
-  '상담 연락처와 접수 안내를 공개한 <mark>예시인테리어</mark>가 있습니다.',
-  '<mark>예시인테리어</mark>의 견적 접수 안내를 보고 상담 일정을 문의해 보세요.']},
- '쇼핑몰':{question:'반품 쉬운 데일리 백 쇼핑몰 알려줘',ranks:[3,2,0,1],answers:[
-  '<mark>예시쇼핑몰</mark>은 데일리 백의 반품 기간과 접수 방법을 안내합니다.',
-  '반품 조건과 배송비를 확인할 수 있는 <mark>예시쇼핑몰</mark>을 살펴보세요.',
-  '구매 전 반품 기간과 반송비, 상품 상태에 따른 조건을 비교해 보세요.',
-  '<mark>예시쇼핑몰</mark>에서 반품 접수 방법과 비용 안내를 확인해 보세요.']}
-};
-const industryButtons=[...document.querySelectorAll('[data-industry]')];
-industryButtons.forEach(button=>button.addEventListener('click',()=>{
- const preview=previews[button.dataset.industry];
- industryButtons.forEach(chip=>chip.setAttribute('aria-pressed',String(chip===button)));
- document.querySelector('.ai-preview-question').textContent=preview.question;
- document.querySelectorAll('.ai-preview-card').forEach((card,index)=>{
-  const badge=card.querySelector('.ai-status'), rank=preview.ranks[index];
-  badge.textContent=rank?'언급 '+rank+'번째':'언급 없음';
-  badge.classList.toggle('is-mentioned',Boolean(rank));
-  card.querySelector('.ai-excerpt').innerHTML=preview.answers[index];
- });
-}));
-const header=document.querySelector('.site-header'), menu=document.querySelector('.menu-toggle');
-const closeMenu=()=>{header.classList.remove('menu-open');menu.setAttribute('aria-expanded','false');menu.setAttribute('aria-label','메뉴 열기');};
-menu.addEventListener('click',()=>{
- const open=menu.getAttribute('aria-expanded')!=='true';
- header.classList.toggle('menu-open',open);
- menu.setAttribute('aria-expanded',String(open));
- menu.setAttribute('aria-label',open?'메뉴 닫기':'메뉴 열기');
-});
-document.querySelectorAll('.main-nav a').forEach(a=>a.addEventListener('click',closeMenu));
-header.addEventListener('keydown',e=>{if(e.key==='Escape'&&menu.getAttribute('aria-expanded')==='true'){closeMenu();menu.focus();}});
-const floating=document.querySelector('.floating-cta'), dock=document.querySelector('.diag-dock');
-floating.addEventListener('click',e=>{
- e.preventDefault();
- document.querySelector('#contact').scrollIntoView({behavior:motion.matches?'auto':'smooth'});
- document.querySelector('#q2').focus({preventScroll:true});
-});
-const motion=window.matchMedia('(prefers-reduced-motion: reduce)');
-if('IntersectionObserver' in window){
- const visible=new Map();
- const ctaObserver=new IntersectionObserver(entries=>{
-  entries.forEach(entry=>visible.set(entry.target,entry.isIntersecting));
-  floating.hidden=dock.hidden=[...visible.values()].some(Boolean);
- });
- ctaObserver.observe(document.querySelector('.hero .diag'));
- ctaObserver.observe(document.querySelector('#contact'));
-}else{floating.hidden=dock.hidden=false;}
-</script>
-<script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
-<script defer src="motion.js"></script>
+<section class="sec lead-sec" id="lead" aria-label="지크루의 약속"><div class="wrap">
+<div class="lead-top">
+<div><p class="manifesto">가게의 사실을 AI가 읽게 적고, 달라진 답을 원문으로 남깁니다. 만드는 사람이 수정과 측정까지 맡습니다.</p><p class="small">동네 가게와 작은 쇼핑몰을 위한 홈페이지, 검색, AI 답변 최적화</p></div>
+<dl class="define"><div><dt>명의</dt><dd>도메인, 호스팅, 관리자 계정을 사장님 이름으로 만듭니다. 그만두셔도 사이트와 기록은 그대로 남습니다.</dd></div><div><dt>수정</dt><dd>목록만 넘기지 않고 코드와 본문을 직접 고칩니다. 무엇을 언제 왜 고쳤는지도 적습니다.</dd></div><div><dt>측정</dt><dd>질문, 날짜, AI 이름, 답변 원문, 출처를 전달합니다. 가게가 나오지 않은 답도 포함합니다.</dd></div><div><dt>사람</dt><dd>백엔드 개발자입니다. 영업시간 한 줄부터 사이트 구조까지 직접 맡습니다. 작업 과정은 유튜브와 인스타그램에 공개합니다.</dd></div></dl>
+</div>
+<div class="counts"><div><p class="count big">0원</p><p class="small">질문 3개로 보는 첫 진단 비용</p></div><div><p class="count">80개</p><p class="small">월 관리에서 매주 기록하는 답변</p></div><div><p class="count">0개월</p><p class="small">월 관리 약정 기간</p></div></div>
+<p class="small checks-label">첫 진단에서 확인하는 항목</p>
+<ul class="checks" id="checks"><li><strong>영업시간</strong><span>요일과 휴무일</span></li><li><strong>주소</strong><span>지도와 본문 일치</span></li><li><strong>가격</strong><span>사진 밖의 글</span></li><li><strong>예약 방법</strong><span>방문 전 행동</span></li><li><strong>자주 묻는 질문</strong><span>첫 문장에 답</span></li><li><strong>구조화 데이터</strong><span>사실의 이름표</span></li><li><strong>크롤러 접근</strong><span>robots 설정</span></li><li><strong>검색 등록</strong><span>네이버와 구글</span></li><li><strong>플레이스</strong><span>다른 정보 찾기</span></li><li><strong>답변 출처</strong><span>인용된 주소</span></li></ul>
+</div></section>
+
+<section class="sec" id="proof" aria-labelledby="proof-title"><div class="wrap">
+<h2 id="proof-title">홈페이지를 보는 AI, 블로그를 보는 AI</h2>
+<p class="intro">병원 질문 조사에서 병원 홈페이지와 네이버 블로그가 인용된 비중입니다. 지크루의 고객 성과가 아닌 외부 업체의 공개 조사입니다.</p>
+<div class="chart" role="img" aria-label="ChatGPT: 홈페이지 46%, 블로그 0%, Gemini: 홈페이지 56%, 블로그 0%, Perplexity: 홈페이지 63%, 블로그 10%, 네이버 AI 브리핑: 홈페이지 30%, 블로그 36%"><span class="axis" style="top:280px">0%</span><span class="axis" style="top:200px">20%</span><span class="axis" style="top:120px">40%</span><span class="axis" style="top:40px">60%</span><svg viewBox="0 0 1000 280" preserveAspectRatio="none"><path class="grid-line" d="M0 280H1000"/><path class="grid-line" d="M0 200H1000"/><path class="grid-line" d="M0 120H1000"/><path class="grid-line" d="M0 40H1000"/><g class="series" data-series="openai"><path class="hit" d="M0 96C420 96 580 280 1000 280"/><path d="M0 96C420 96 580 280 1000 280"/></g><g class="series" data-series="googlegemini"><path class="hit" d="M0 56C420 56 580 280 1000 280"/><path d="M0 56C420 56 580 280 1000 280"/></g><g class="series" data-series="perplexity"><path class="hit" d="M0 28C420 28 580 240 1000 240"/><path d="M0 28C420 28 580 240 1000 240"/></g><g class="series" data-series="naver"><path class="hit" d="M0 160C420 160 580 136 1000 136"/><path d="M0 160C420 160 580 136 1000 136"/></g></svg><span class="point start" style="top:84px">ChatGPT 46%</span><span class="point start" style="top:44px">Gemini 56%</span><span class="point start" style="top:16px">Perplexity 63%</span><span class="point start" style="top:148px">네이버 AI 브리핑 30%</span><span class="point end" style="top:268px">ChatGPT, Gemini 0%</span><span class="point end" style="top:228px">Perplexity 10%</span><span class="point end" style="top:124px">네이버 AI 브리핑 36%</span><span class="chart-x start">병원 홈페이지</span><span class="chart-x end">네이버 블로그</span></div>
+<div class="study-tools"><p class="legend small"><span><i></i>병원 홈페이지</span><span><i class="two"></i>네이버 블로그</span></p><div class="sorts" role="group" aria-label="정렬"><button class="pill square" type="button" data-sort="home" aria-pressed="false">홈페이지 많은 순</button><button class="pill square" type="button" data-sort="blog" aria-pressed="false">블로그 많은 순</button></div></div>
+<ul class="study-rows"><li data-series="openai" data-home="46" data-blog="0"><div class="study-head"><span class="ai"><svg viewBox="0 0 48 48" aria-hidden="true"><use href="#ai-openai"/></svg>ChatGPT</span><b>46%<span>블로그 0%</span></b></div><div class="twin" aria-hidden="true"><i style="width:65.7%"></i><i style="width:0.0%"></i></div></li><li data-series="googlegemini" data-home="56" data-blog="0"><div class="study-head"><span class="ai"><svg viewBox="0 0 48 48" aria-hidden="true"><use href="#ai-googlegemini"/></svg>Gemini</span><b>56%<span>블로그 0%</span></b></div><div class="twin" aria-hidden="true"><i style="width:80.0%"></i><i style="width:0.0%"></i></div></li><li data-series="perplexity" data-home="63" data-blog="10"><div class="study-head"><span class="ai"><svg viewBox="0 0 48 48" aria-hidden="true"><use href="#ai-perplexity"/></svg>Perplexity</span><b>63%<span>블로그 10%</span></b></div><div class="twin" aria-hidden="true"><i style="width:90.0%"></i><i style="width:14.3%"></i></div></li><li data-series="naver" data-home="30" data-blog="36"><div class="study-head"><span class="ai"><svg viewBox="0 0 48 48" aria-hidden="true"><use href="#ai-naver"/></svg>네이버 AI 브리핑</span><b>30%<span>블로그 36%</span></b></div><div class="twin" aria-hidden="true"><i style="width:42.9%"></i><i style="width:51.4%"></i></div></li></ul>
+<p class="small source">출처: <a href="https://rm360.kr/blog/columns/202610/column-12-channel-content-structure.html" rel="noopener">RM360 병원 질문 측정</a>(2026-09-25~10-11, 병원 질문 72개, 응답 8,933개, 업체 자체 측정). 비율은 인용된 출처 가운데 해당 출처의 비중이며 병원 질문 표본입니다. 네이버 AI 브리핑이 리뷰와 블로그를 요약한다는 설명은 <a href="https://help.naver.com/service/5626/contents/24122?lang=ko&amp;osType=COMMONOS" rel="noopener">네이버 고객센터</a>에 있습니다.</p>
+<div class="band first"><p class="small">손님이 묻는 질문</p><div class="marquees" aria-hidden="true"><div class="marquee"><span>조용히 일할 카페</span><span>단체 예약되는 카페</span><span>주차되는 카페</span><span>회식하기 좋은 식당</span><span>룸이 있는 식당</span><span>늦게까지 여는 식당</span><span>아이와 갈 숙소</span><span>바비큐되는 숙소</span><span>늦은 체크인되는 숙소</span><span>주말 예약되는 미용실</span><span>펌 잘하는 미용실</span><span>남자 커트 미용실</span><span>조용히 일할 카페</span><span>단체 예약되는 카페</span><span>주차되는 카페</span><span>회식하기 좋은 식당</span><span>룸이 있는 식당</span><span>늦게까지 여는 식당</span><span>아이와 갈 숙소</span><span>바비큐되는 숙소</span><span>늦은 체크인되는 숙소</span><span>주말 예약되는 미용실</span><span>펌 잘하는 미용실</span><span>남자 커트 미용실</span></div><div class="marquee"><span>당일 예약되는 네일</span><span>제거만 되는 네일</span><span>손톱 관리 네일숍</span><span>밤에 여는 동물병원</span><span>고양이 진료 병원</span><span>중성화 상담 병원</span><span>중등 수학 학원</span><span>주말반 있는 학원</span><span>상담되는 학원</span><span>체험되는 필라테스</span><span>1대1 필라테스</span><span>산전 필라테스</span><span>당일 예약되는 네일</span><span>제거만 되는 네일</span><span>손톱 관리 네일숍</span><span>밤에 여는 동물병원</span><span>고양이 진료 병원</span><span>중성화 상담 병원</span><span>중등 수학 학원</span><span>주말반 있는 학원</span><span>상담되는 학원</span><span>체험되는 필라테스</span><span>1대1 필라테스</span><span>산전 필라테스</span></div><div class="marquee"><span>당일 증명사진</span><span>가족사진 스튜디오</span><span>보정해 주는 사진관</span><span>부분 시공 업체</span><span>욕실 견적 업체</span><span>상가 인테리어</span><span>당일 꽃다발</span><span>개업 화분 배송</span><span>예약되는 꽃집</span><span>반품 쉬운 쇼핑몰</span><span>빨리 오는 쇼핑몰</span><span>사이즈 교환 쇼핑몰</span><span>당일 증명사진</span><span>가족사진 스튜디오</span><span>보정해 주는 사진관</span><span>부분 시공 업체</span><span>욕실 견적 업체</span><span>상가 인테리어</span><span>당일 꽃다발</span><span>개업 화분 배송</span><span>예약되는 꽃집</span><span>반품 쉬운 쇼핑몰</span><span>빨리 오는 쇼핑몰</span><span>사이즈 교환 쇼핑몰</span></div></div></div>
+<div class="band"><p class="small">확인하는 AI와 검색</p><div class="logo-row"><span class="ai"><svg viewBox="0 0 48 48" aria-hidden="true"><use href="#ai-openai"/></svg>ChatGPT</span><span class="ai"><svg viewBox="0 0 48 48" aria-hidden="true"><use href="#ai-googlegemini"/></svg>Gemini</span><span class="ai"><svg viewBox="0 0 48 48" aria-hidden="true"><use href="#ai-perplexity"/></svg>Perplexity</span><span class="ai"><svg viewBox="0 0 48 48" aria-hidden="true"><use href="#ai-claude"/></svg>Claude</span><span class="ai"><svg viewBox="0 0 48 48" aria-hidden="true"><use href="#ai-naver"/></svg>네이버</span><span class="ai"><svg viewBox="0 0 48 48" aria-hidden="true"><use href="#ai-google"/></svg>구글</span></div></div>
+<div class="band"><p class="small">기록하는 원칙</p><ul class="principle-list"><li>질문 문장을 바꾸지 않고 다시 묻습니다.</li><li>언급이 없는 답도 저장합니다.</li><li>답변과 함께 출처 주소를 남깁니다.</li><li>API 답과 앱 답이 다를 수 있음을 밝힙니다.</li></ul></div>
+</div></section>
+
+<section class="sec" id="examples" aria-labelledby="examples-title"><div class="wrap">
+<h2 id="examples-title">무료 진단은 이런 모양으로 받습니다</h2>
+<p class="intro">업종 12개로 만든 형식 예시입니다. 실제 가게를 측정한 결과가 아닙니다. 질문 3개를 AI 4곳에 물어 열두 칸으로 보여드립니다.</p>
+<ul class="report-grid"><li class="report-card"><p class="small">형식 예시</p><h3>카페</h3><p class="small">동네에서 예약을 받는 카페</p>
+<div class="score"><div><p class="score-num">7<span>/12</span></p><p class="small">질문 3개, AI 4곳</p></div><div class="cells" aria-hidden="true"><i class="on"></i><i class="on"></i><i></i><i class="on"></i><i class="on"></i><i></i><i></i><i class="on"></i><i></i><i></i><i class="on"></i><i class="on"></i></div></div>
+<div class="report-foot"><span class="small">실제 측정값이 아닙니다</span><button type="button" data-report="0" aria-label="카페 형식 보기">형식 보기</button></div></li><li class="report-card"><p class="small">형식 예시</p><h3>음식점</h3><p class="small">저녁 모임 손님이 찾는 식당</p>
+<div class="score"><div><p class="score-num">5<span>/12</span></p><p class="small">질문 3개, AI 4곳</p></div><div class="cells" aria-hidden="true"><i class="on"></i><i></i><i></i><i class="on"></i><i></i><i></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i class="on"></i></div></div>
+<div class="report-foot"><span class="small">실제 측정값이 아닙니다</span><button type="button" data-report="1" aria-label="음식점 형식 보기">형식 보기</button></div></li><li class="report-card"><p class="small">형식 예시</p><h3>숙소</h3><p class="small">가족 여행객을 받는 숙소</p>
+<div class="score"><div><p class="score-num">7<span>/12</span></p><p class="small">질문 3개, AI 4곳</p></div><div class="cells" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i class="on"></i><i></i><i class="on"></i><i></i><i></i><i class="on"></i><i class="on"></i><i></i></div></div>
+<div class="report-foot"><span class="small">실제 측정값이 아닙니다</span><button type="button" data-report="2" aria-label="숙소 형식 보기">형식 보기</button></div></li><li class="report-card"><p class="small">형식 예시</p><h3>미용실</h3><p class="small">주말 예약을 받는 미용실</p>
+<div class="score"><div><p class="score-num">4<span>/12</span></p><p class="small">질문 3개, AI 4곳</p></div><div class="cells" aria-hidden="true"><i class="on"></i><i></i><i class="on"></i><i></i><i></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i></div></div>
+<div class="report-foot"><span class="small">실제 측정값이 아닙니다</span><button type="button" data-report="3" aria-label="미용실 형식 보기">형식 보기</button></div></li><li class="report-card"><p class="small">형식 예시</p><h3>네일숍</h3><p class="small">1인 예약제 네일숍</p>
+<div class="score"><div><p class="score-num">3<span>/12</span></p><p class="small">질문 3개, AI 4곳</p></div><div class="cells" aria-hidden="true"><i></i><i class="on"></i><i></i><i></i><i></i><i></i><i class="on"></i><i></i><i></i><i class="on"></i><i></i><i></i></div></div>
+<div class="report-foot"><span class="small">실제 측정값이 아닙니다</span><button type="button" data-report="4" aria-label="네일숍 형식 보기">형식 보기</button></div></li><li class="report-card"><p class="small">형식 예시</p><h3>동물병원</h3><p class="small">야간 진료 안내가 필요한 병원</p>
+<div class="score"><div><p class="score-num">8<span>/12</span></p><p class="small">질문 3개, AI 4곳</p></div><div class="cells" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i class="on"></i><i></i><i class="on"></i><i class="on"></i><i></i><i class="on"></i><i></i></div></div>
+<div class="report-foot"><span class="small">실제 측정값이 아닙니다</span><button type="button" data-report="5" aria-label="동물병원 형식 보기">형식 보기</button></div></li><li class="report-card"><p class="small">형식 예시</p><h3>학원</h3><p class="small">상담 예약을 받는 보습학원</p>
+<div class="score"><div><p class="score-num">5<span>/12</span></p><p class="small">질문 3개, AI 4곳</p></div><div class="cells" aria-hidden="true"><i></i><i class="on"></i><i class="on"></i><i></i><i class="on"></i><i></i><i class="on"></i><i></i><i></i><i class="on"></i><i></i><i></i></div></div>
+<div class="report-foot"><span class="small">실제 측정값이 아닙니다</span><button type="button" data-report="6" aria-label="학원 형식 보기">형식 보기</button></div></li><li class="report-card"><p class="small">형식 예시</p><h3>필라테스</h3><p class="small">체험 수업을 여는 스튜디오</p>
+<div class="score"><div><p class="score-num">3<span>/12</span></p><p class="small">질문 3개, AI 4곳</p></div><div class="cells" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i><i class="on"></i><i></i><i></i><i></i><i class="on"></i><i></i><i></i><i></i></div></div>
+<div class="report-foot"><span class="small">실제 측정값이 아닙니다</span><button type="button" data-report="7" aria-label="필라테스 형식 보기">형식 보기</button></div></li><li class="report-card"><p class="small">형식 예시</p><h3>사진관</h3><p class="small">증명사진과 가족사진을 찍는 곳</p>
+<div class="score"><div><p class="score-num">5<span>/12</span></p><p class="small">질문 3개, AI 4곳</p></div><div class="cells" aria-hidden="true"><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i class="on"></i><i class="on"></i><i></i><i></i><i class="on"></i><i></i></div></div>
+<div class="report-foot"><span class="small">실제 측정값이 아닙니다</span><button type="button" data-report="8" aria-label="사진관 형식 보기">형식 보기</button></div></li><li class="report-card"><p class="small">형식 예시</p><h3>인테리어</h3><p class="small">견적 상담을 받는 시공 업체</p>
+<div class="score"><div><p class="score-num">7<span>/12</span></p><p class="small">질문 3개, AI 4곳</p></div><div class="cells" aria-hidden="true"><i></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i class="on"></i></div></div>
+<div class="report-foot"><span class="small">실제 측정값이 아닙니다</span><button type="button" data-report="9" aria-label="인테리어 형식 보기">형식 보기</button></div></li><li class="report-card"><p class="small">형식 예시</p><h3>꽃집</h3><p class="small">당일 픽업을 받는 꽃집</p>
+<div class="score"><div><p class="score-num">1<span>/12</span></p><p class="small">질문 3개, AI 4곳</p></div><div class="cells" aria-hidden="true"><i></i><i></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+<div class="report-foot"><span class="small">실제 측정값이 아닙니다</span><button type="button" data-report="10" aria-label="꽃집 형식 보기">형식 보기</button></div></li><li class="report-card"><p class="small">형식 예시</p><h3>쇼핑몰</h3><p class="small">반품 조건을 안내하는 소형 쇼핑몰</p>
+<div class="score"><div><p class="score-num">5<span>/12</span></p><p class="small">질문 3개, AI 4곳</p></div><div class="cells" aria-hidden="true"><i class="on"></i><i></i><i></i><i class="on"></i><i></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i class="on"></i><i></i></div></div>
+<div class="report-foot"><span class="small">실제 측정값이 아닙니다</span><button type="button" data-report="11" aria-label="쇼핑몰 형식 보기">형식 보기</button></div></li></ul>
+</div></section>
+
+<section class="sec" id="questions" aria-labelledby="questions-title"><div class="wrap">
+<h2 id="questions-title">우리 업종 손님은 이렇게 묻습니다</h2>
+<p class="intro">진단을 시작할 때 쓰는 질문의 예입니다. 업종을 고르면 그 질문을 담아 신청할 수 있고, 실제 질문은 사장님과 함께 정합니다.</p>
+<div class="finder"><div class="groups" role="group" aria-label="업종 분류"><button class="pill square" type="button" data-group="전체" aria-pressed="true">전체</button><button class="pill square" type="button" data-group="먹고 쉬는 곳" aria-pressed="false">먹고 쉬는 곳</button><button class="pill square" type="button" data-group="꾸미고 돌보는 곳" aria-pressed="false">꾸미고 돌보는 곳</button><button class="pill square" type="button" data-group="배우는 곳" aria-pressed="false">배우는 곳</button><button class="pill square" type="button" data-group="생활 서비스" aria-pressed="false">생활 서비스</button><button class="pill square" type="button" data-group="판매" aria-pressed="false">판매</button></div><label class="sr" for="question-search">예: 카페, 주차, 예약</label><input class="search" id="question-search" type="search" placeholder="예: 카페, 주차, 예약"></div>
+<div class="question-grid"><a class="question-card" href="#closing" data-in="먹고 쉬는 곳" data-question="조용히 일할 카페"><h3>카페<span class="arrow" aria-hidden="true">↗</span></h3><ol><li>조용히 일할 카페</li><li>단체 예약되는 카페</li><li>주차되는 카페</li></ol></a><a class="question-card" href="#closing" data-in="먹고 쉬는 곳" data-question="회식하기 좋은 식당"><h3>음식점<span class="arrow" aria-hidden="true">↗</span></h3><ol><li>회식하기 좋은 식당</li><li>룸이 있는 식당</li><li>늦게까지 여는 식당</li></ol></a><a class="question-card" href="#closing" data-in="먹고 쉬는 곳" data-question="아이와 갈 숙소"><h3>숙소<span class="arrow" aria-hidden="true">↗</span></h3><ol><li>아이와 갈 숙소</li><li>바비큐되는 숙소</li><li>늦은 체크인되는 숙소</li></ol></a><a class="question-card" href="#closing" data-in="꾸미고 돌보는 곳" data-question="주말 예약되는 미용실"><h3>미용실<span class="arrow" aria-hidden="true">↗</span></h3><ol><li>주말 예약되는 미용실</li><li>펌 잘하는 미용실</li><li>남자 커트 미용실</li></ol></a><a class="question-card" href="#closing" data-in="꾸미고 돌보는 곳" data-question="당일 예약되는 네일"><h3>네일숍<span class="arrow" aria-hidden="true">↗</span></h3><ol><li>당일 예약되는 네일</li><li>제거만 되는 네일</li><li>손톱 관리 네일숍</li></ol></a><a class="question-card" href="#closing" data-in="꾸미고 돌보는 곳" data-question="밤에 여는 동물병원"><h3>동물병원<span class="arrow" aria-hidden="true">↗</span></h3><ol><li>밤에 여는 동물병원</li><li>고양이 진료 병원</li><li>중성화 상담 병원</li></ol></a><a class="question-card" href="#closing" data-in="배우는 곳" data-question="중등 수학 학원"><h3>학원<span class="arrow" aria-hidden="true">↗</span></h3><ol><li>중등 수학 학원</li><li>주말반 있는 학원</li><li>상담되는 학원</li></ol></a><a class="question-card" href="#closing" data-in="배우는 곳" data-question="체험되는 필라테스"><h3>필라테스<span class="arrow" aria-hidden="true">↗</span></h3><ol><li>체험되는 필라테스</li><li>1대1 필라테스</li><li>산전 필라테스</li></ol></a><a class="question-card" href="#closing" data-in="생활 서비스" data-question="당일 증명사진"><h3>사진관<span class="arrow" aria-hidden="true">↗</span></h3><ol><li>당일 증명사진</li><li>가족사진 스튜디오</li><li>보정해 주는 사진관</li></ol></a><a class="question-card" href="#closing" data-in="생활 서비스" data-question="부분 시공 업체"><h3>인테리어<span class="arrow" aria-hidden="true">↗</span></h3><ol><li>부분 시공 업체</li><li>욕실 견적 업체</li><li>상가 인테리어</li></ol></a><a class="question-card" href="#closing" data-in="판매" data-question="당일 꽃다발"><h3>꽃집<span class="arrow" aria-hidden="true">↗</span></h3><ol><li>당일 꽃다발</li><li>개업 화분 배송</li><li>예약되는 꽃집</li></ol></a><a class="question-card" href="#closing" data-in="판매" data-question="반품 쉬운 쇼핑몰"><h3>쇼핑몰<span class="arrow" aria-hidden="true">↗</span></h3><ol><li>반품 쉬운 쇼핑몰</li><li>빨리 오는 쇼핑몰</li><li>사이즈 교환 쇼핑몰</li></ol></a></div>
+<p class="no-result small" role="status" hidden>맞는 업종이 없습니다. 아래 신청란에 가게 이름을 보내주시면 질문부터 같이 정합니다.</p>
+</div></section>
+
+<section class="sec" id="free" aria-labelledby="free-title"><div class="wrap">
+<h2 id="free-title">진단까지는 0원입니다</h2>
+<p class="intro">고칠 것이 있는지 알아야 맡길지도 정할 수 있습니다. 진단만 받고 끝내셔도 괜찮습니다.</p>
+<p class="free-line">질문 3개를 AI 4곳에 묻고, 답변 12개의 원문을 보내드립니다.<span class="small">각 AI의 공식 API로 묻기 때문에 휴대폰 앱의 답과 다를 수 있습니다.</span></p>
+<ul class="three"><li><h3>가게 이름만 보내면 됩니다</h3><p>홈페이지가 없어도 신청할 수 있습니다. 주소가 있다면 현재 사이트도 함께 점검합니다.</p></li><li><h3>질문은 손님의 말로 정합니다</h3><p>가게 이름을 넣지 않은 질문으로 확인합니다. 처음 찾는 손님에게 보이는 답이 필요하기 때문입니다.</p></li><li><h3>필요 없는 일은 빼고 말합니다</h3><p>고쳐 쓸 부분과 새로 만들 부분을 나눕니다. 그대로 두어도 되는 곳은 그렇게 알려드립니다.</p></li></ul>
+<div class="band receive"><p class="small">진단에 들어가는 것</p><ul class="principle-list"><li>질문 3개의 AI별 답변 원문</li><li>답변이 인용한 출처 주소</li><li>현재 사이트 점검 결과</li><li>먼저 고칠 것의 목록</li></ul></div>
+</div></section>
+
+<section class="sec" id="evidence" aria-labelledby="evidence-title"><div class="wrap">
+<h2 id="evidence-title">네 AI에 매주 묻고, 두 검색에 등록합니다</h2>
+<p class="intro">월 관리에서는 같은 질문을 네 AI에 반복해서 묻습니다. 네이버와 구글 검색 등록은 처음 세팅할 때 합니다.</p>
+<div class="channels"><div class="band"><p class="small">매주 묻는 AI 4곳</p><ul class="channel-tiles"><li><svg viewBox="0 0 48 48" aria-hidden="true"><use href="#ai-openai"/></svg>ChatGPT</li><li><svg viewBox="0 0 48 48" aria-hidden="true"><use href="#ai-googlegemini"/></svg>Gemini</li><li><svg viewBox="0 0 48 48" aria-hidden="true"><use href="#ai-perplexity"/></svg>Perplexity</li><li><svg viewBox="0 0 48 48" aria-hidden="true"><use href="#ai-claude"/></svg>Claude</li></ul></div><div class="band"><p class="small">세팅 때 등록하는 검색</p><ul class="channel-tiles"><li><svg viewBox="0 0 48 48" aria-hidden="true"><use href="#ai-naver"/></svg>네이버</li><li><svg viewBox="0 0 48 48" aria-hidden="true"><use href="#ai-google"/></svg>구글</li></ul></div></div>
+</div></section>
+
+<section class="sec" id="routes" aria-labelledby="routes-title"><div class="wrap">
+<h2 id="routes-title">고칠 일과 가격</h2>
+<p class="intro">가격은 모두 부가세 별도입니다. 처음 세 곳은 작업 사례 공개에 동의해 주시면 50% 할인합니다.</p>
+<ul class="route-grid"><li class="route-card"><div class="screen" aria-hidden="true"><div class="art"><p class="art-title">질문 3개로 먼저</p><div class="art-rows"><div class="art-row"><span><svg viewBox="0 0 48 48" aria-hidden="true"><use href="#ai-openai"/></svg>ChatGPT</span><b>언급</b></div><div class="art-row"><span><svg viewBox="0 0 48 48" aria-hidden="true"><use href="#ai-googlegemini"/></svg>Gemini</span><b class=off>없음</b></div><div class="art-row"><span><svg viewBox="0 0 48 48" aria-hidden="true"><use href="#ai-perplexity"/></svg>Perplexity</span><b>언급</b></div></div></div></div>
+<p class="small">어디가 문제인지 모른다면</p><h3>무료 진단</h3><p class="route-price">0원<span>질문 3개</span></p><p class="route-desc">질문 3개를 AI 네 곳에 묻고 답변 원문과 인용 출처, 현재 사이트에서 고칠 목록을 보냅니다.</p><a class="outline" href="#closing">무료로 확인하기<span class="arrow" aria-hidden="true">↗</span></a></li><li class="route-card"><div class="screen light" aria-hidden="true"><div class="art"><p class="art-title">예시카페</p><div class="art-rows"><div class="art-row"><span>영업시간</span><b>10:00–19:00</b></div><div class="art-row"><span>아메리카노</span><b>4,500원</b></div></div><span class="art-button">예약하기</span></div></div>
+<p class="small">홈페이지가 없다면</p><h3>홈페이지 제작</h3><p class="route-price">69만원부터<span>5페이지, 1회</span></p><p class="route-desc">위치와 영업시간, 가격, 예약 방법을 글로 적고 전화와 예약 버튼을 연결합니다. 검색과 AI가 읽는 구조로 만듭니다.</p><a class="outline" href="#closing">제작 문의하기<span class="arrow" aria-hidden="true">↗</span></a></li><li class="route-card"><div class="screen" aria-hidden="true"><div class="art"><pre>{
+  "@type": "CafeOrCoffeeShop",
+  "name": "예시카페",
+  "openingHours": "10:00-19:00",
+  "priceRange": "3,000-8,000"
+}</pre></div></div>
+<p class="small">기존 사이트를 고친다면</p><h3>AI 노출 세팅</h3><p class="route-price">39만원<span>1회</span></p><p class="route-desc">빠진 사실과 자주 묻는 질문, 구조화 데이터, AI 크롤러 설정을 직접 고칩니다. 네이버와 구글 검색에도 등록합니다.</p><a class="outline" href="#closing">세팅 문의하기<span class="arrow" aria-hidden="true">↗</span></a></li><li class="route-card"><div class="screen light" aria-hidden="true"><div class="art"><div class="art-place"><svg viewBox="0 0 48 48" aria-hidden="true"><use href="#ai-naver"/></svg><p class="art-title">두 곳의 정보를<br>똑같이</p></div><div class="art-rows"><div class="art-row"><span>홈페이지</span><b>10:00–19:00</b></div><div class="art-row"><span>플레이스</span><b>10:00–19:00</b></div></div></div></div>
+<p class="small">네이버 정보가 다르다면</p><h3>플레이스 정보 맞춤</h3><p class="route-price">39만원 세팅에 포함</p><p class="route-desc">홈페이지와 네이버 플레이스의 영업시간, 주소, 가격을 맞춥니다. 블로그 글 발행이나 리뷰 작업은 하지 않습니다.</p><a class="outline" href="#closing">플레이스 확인하기<span class="arrow" aria-hidden="true">↗</span></a></li><li class="route-card"><div class="screen" aria-hidden="true"><div class="art"><p class="art-title">네 주의 기록</p><div class="art-bars"><i style="height:30%"></i><i style="height:55%"></i><i style="height:45%"></i><i style="height:85%"></i></div></div></div>
+<p class="small">계속 확인하고 싶다면</p><h3>월 관리</h3><p class="route-price">월 19만원<span>약정 없음</span></p><p class="route-desc">질문 20개를 AI 네 곳에 매주 묻고 매달 원문과 출처를 보고합니다. 바뀐 영업 정보와 가격은 사이트에 반영합니다.</p><a class="outline" href="#closing">월 관리 문의하기<span class="arrow" aria-hidden="true">↗</span></a></li><li class="route-card"><div class="screen light" aria-hidden="true"><div class="art"><p class="art-title">판매 조건 기록</p><div class="art-rows"><div class="art-row"><span>11.02</span><b class=off>배송비 3,000원</b></div><div class="art-row"><span>11.15</span><b>배송비 무료</b></div><div class="art-row"><span>11.18</span><b>반품 7일</b></div></div></div></div>
+<p class="small">온라인으로 판매한다면</p><h3>쇼핑몰 제작과 GEO</h3><p class="route-price">199만원부터<span>상품 30개, 1회</span></p><p class="route-desc">가격, 재고, 배송비를 날짜별로 남기고 반품 정책은 바뀔 때마다 보관합니다. AI 봇 방문 기록도 포함합니다.</p><a class="outline" href="#closing">쇼핑몰 문의하기<span class="arrow" aria-hidden="true">↗</span></a></li></ul>
+</div></section>
+
+<section class="sec" id="blog" aria-labelledby="blog-title"><div class="wrap">
+<div class="blog-head"><div><h2 id="blog-title">직접 해보는 방법</h2><p class="intro">가게 정보와 AI 답변을 확인하는 방법입니다. 맡기지 않고 혼자 해보셔도 됩니다.</p></div><a class="outline" href="blog/">글 전체 보기<span class="arrow" aria-hidden="true">↗</span></a></div>
+<ul class="post-grid"><li><a class="post-card" href="blog/geo/what-is-geo/">
+<div class="cover" aria-hidden="true"><img class="cover-logo" src="logo.svg" alt=""><div class="cover-inner"><div class="cover-art"><svg viewBox="0 0 48 48" aria-hidden="true"><use href="#ai-openai"/></svg><svg viewBox="0 0 48 48" aria-hidden="true"><use href="#ai-googlegemini"/></svg><svg viewBox="0 0 48 48" aria-hidden="true"><use href="#ai-perplexity"/></svg><svg viewBox="0 0 48 48" aria-hidden="true"><use href="#ai-claude"/></svg></div><strong>GEO가<br>뭔가요?</strong></div></div>
+<div class="post-body"><span class="small">GEO 기초</span><h3>GEO란 무엇인가요? SEO, AEO와 다른 점</h3><time datetime="2026-11-22">2026년 11월 22일</time></div></a></li><li><a class="post-card" href="blog/site/facts-in-text/">
+<div class="cover light" aria-hidden="true"><img class="cover-logo" src="logo.svg" alt=""><div class="cover-inner"><div class="cover-art"><em>가격</em><em>영업시간</em><em>주소</em></div><strong>사진 속 가격은<br>글이 아닙니다</strong></div></div>
+<div class="post-body"><span class="small">홈페이지</span><h3>가게 홈페이지에 글로 적어야 할 일곱 가지</h3><time datetime="2026-11-22">2026년 11월 22일</time></div></a></li><li><a class="post-card" href="blog/measure/ai-answer-check/">
+<div class="cover" aria-hidden="true"><img class="cover-logo" src="logo.svg" alt=""><div class="cover-inner"><div class="cover-art"><i style="height:30%"></i><i style="height:55%"></i><i style="height:45%"></i><i style="height:85%"></i></div><strong>AI 답변은<br>기록해야 보입니다</strong></div></div>
+<div class="post-body"><span class="small">측정</span><h3>우리 가게가 AI 답변에 나오는지 확인하는 방법</h3><time datetime="2026-11-22">2026년 11월 22일</time></div></a></li></ul>
+</div></section>
+
+<section class="sec" id="faq" aria-labelledby="faq-title"><div class="wrap">
+<h2 id="faq-title">자주 묻는 질문</h2>
+<div class="faq" id="faq-list"><details><summary>GEO는 무엇인가요?</summary><p>손님이 ChatGPT, Gemini, Perplexity 같은 AI에 질문했을 때 가게 정보가 답에 쓰이도록 홈페이지와 공개 정보를 정리하는 일입니다. GEO는 생성형 엔진 최적화의 줄임말입니다.</p></details><details><summary>SEO, GEO, AEO는 어떻게 다른가요?</summary><p>SEO는 네이버와 구글 검색 순위, GEO는 AI 답변 속 언급과 추천, AEO는 짧은 답변의 출처로 인용되는 것이 목표입니다. 주소, 가격, 영업시간 같은 사실을 사이트에 분명히 적는 일은 같습니다.</p></details><details><summary>홈페이지만 고치면 AI 답변에 나오나요?</summary><p>홈페이지 외의 정보도 필요합니다. 네이버 AI 브리핑은 방문자 리뷰와 블로그를 많이 쓰고, 다른 AI도 서로 다른 출처를 인용합니다. 홈페이지와 네이버 플레이스 정보를 함께 맞추는 이유입니다. 블로그 글 발행이나 리뷰 작업은 하지 않습니다.</p></details><details><summary>AI가 우리 가게를 추천한다고 보장하나요?</summary><p>보장하지 않습니다. AI의 답은 제가 정할 수 없습니다. 제가 맡는 일은 AI가 읽을 정보를 갖추고, 질문별로 가게가 언급됐는지 확인해 답변 원문과 함께 보고하는 것입니다.</p></details><details><summary>성과가 나오기까지 얼마나 걸리나요?</summary><p>사이트 수정은 바로 반영됩니다. 다만 AI 답변이 언제 바뀔지는 미리 정할 수 없습니다. 매주 같은 질문으로 확인하고, 변화가 없어도 그대로 보고합니다.</p></details><details><summary>AI 답변은 어떻게 측정하나요?</summary><p>질문 20개를 정해 ChatGPT, Gemini, Perplexity, Claude에 매주 묻습니다. 답변 원문, 인용 출처, 가게 언급 여부를 기록합니다. 각 AI의 공식 API를 쓰므로 휴대폰 앱에서 보는 답과 다를 수 있습니다. 질문과 날짜, AI 이름도 함께 적습니다.</p></details><details><summary>이미 있는 홈페이지도 고칠 수 있나요?</summary><p>네. 무료 진단으로 현재 사이트부터 확인합니다. 고쳐서 쓸 부분과 새로 만들어야 할 부분을 나눠 알려드립니다.</p></details><details><summary>무료 진단에서는 무엇을 받나요?</summary><p>질문 3개를 ChatGPT, Gemini, Perplexity, Claude에 물어본 답변 원문과 인용 출처를 보냅니다. 현재 사이트가 검색과 AI에 어떻게 읽히는지 점검한 결과, 고칠 것 목록도 함께 받습니다. 무료입니다.</p></details><details><summary>가격은 얼마인가요?</summary><p>홈페이지 제작은 5페이지 기준 69만원부터, AI 노출 세팅은 39만원, 월 관리는 월 19만원, 쇼핑몰 제작과 GEO는 상품 30개까지 199만원부터입니다. 모두 부가세 별도입니다.</p></details><details><summary>그만두면 사이트는 어떻게 되나요?</summary><p>사이트는 그대로 사장님 것입니다. 도메인, 호스팅, 관리자 계정을 처음부터 사장님 명의로 만듭니다. 수정 기록과 측정 원본도 넘깁니다. 월 관리는 약정이 없어 언제든 그만두실 수 있습니다.</p></details></div>
+<button class="outline more" type="button" data-more="7" aria-controls="faq-list" hidden>질문 3개 더 보기</button>
+<p class="faq-links"><a class="link" href="blog/geo/what-is-geo/">GEO란 무엇인가요? SEO, AEO와 다른 점</a><a class="link" href="blog/site/facts-in-text/">가게 홈페이지에 글로 적어야 할 일곱 가지</a><a class="link" href="blog/measure/ai-answer-check/">우리 가게가 AI 답변에 나오는지 확인하는 방법</a></p>
+</div></section>
+
+<section class="sec closing" id="closing" aria-labelledby="closing-title"><div class="wrap closing-grid">
+<div class="closing-copy"><h2 id="closing-title">가게 이름부터 보내주세요</h2><p class="intro">AI가 지금 뭐라고 답하는지 원문으로 보여드립니다. 진단은 무료이고, 사이트가 없어도 됩니다.</p>
+<form action="https://www.instagram.com/jongjunn/" method="get" target="_blank" data-diag><label for="q2">진단할 가게의 이름이나 주소</label><div class="closing-field"><input id="q2" name="q" placeholder="예: 예시카페 또는 example.com" autocomplete="off" required><button class="btn" type="submit"><img src="logo.svg" alt="">무료 진단</button></div></form>
+<p class="diag-msg" role="status" aria-live="polite"></p><p class="small">신청 문구가 복사되고 인스타그램 @jongjunn이 열립니다. DM에 붙여넣어 보내주세요.</p></div>
+<img class="closing-logo" src="logo.svg" alt="">
+</div></section>
+</main>
+<dialog class="report" aria-labelledby="report-title"><div class="report-top"><h2 id="report-title">형식 예시</h2><form method="dialog"><button class="outline" type="submit">닫기</button></form></div><div class="report-table"><table><thead><tr><th></th><th scope="col">ChatGPT</th><th scope="col">Gemini</th><th scope="col">Perplexity</th><th scope="col">Claude</th></tr></thead><tbody></tbody></table></div><p class="small">형식을 보여주려고 만든 값이며 실제 측정 결과가 아닙니다.</p></dialog>
+<footer class="site-footer"><div class="wrap">
+<div class="footer-top">
+<div class="footer-brand"><img class="footer-logo" src="logo.svg" alt="ZIKRU 지크루"><strong>가게 정보를 읽히는 글로 만듭니다.</strong><p class="small">홈페이지 제작과 검색, AI 답변 최적화. 사이트와 계정, 측정 원본은 사장님께 남습니다.</p></div>
+<nav aria-label="서비스"><h2>서비스</h2><a href="#free">무료 진단</a><a href="#routes">서비스와 가격</a><a href="#evidence">확인하는 AI</a><a href="#examples">예시 리포트</a></nav>
+<nav aria-label="자료"><h2>자료</h2><a href="blog/">블로그</a><a href="#questions">업종별 질문</a><a href="#proof">인용 출처 조사</a><a href="#faq">자주 묻는 질문</a></nav>
+<nav aria-label="안내"><h2>안내</h2><a href="#lead">약속</a><a href="https://www.instagram.com/jongjunn/" target="_blank" rel="noopener">인스타그램</a><a href="llms.txt">llms.txt</a><a href="sitemap.xml">sitemap.xml</a></nav>
+</div>
+<div class="footer-services"><h2>지크루가 하는 일</h2><ul><li><a class="link" href="#routes"><strong>무료 진단</strong></a><p class="small">질문 3개의 답변 원문과 고칠 목록을 보냅니다.</p></li><li><a class="link" href="#routes"><strong>홈페이지 제작</strong></a><p class="small">가게 정보가 글로 읽히는 사이트를 만듭니다.</p></li><li><a class="link" href="#routes"><strong>AI 노출 세팅</strong></a><p class="small">기존 사이트의 빠진 사실과 구조를 직접 고칩니다.</p></li><li><a class="link" href="#routes"><strong>월 관리</strong></a><p class="small">질문 20개를 매주 묻고 원문을 보고합니다.</p></li><li><a class="link" href="#routes"><strong>쇼핑몰 제작과 GEO</strong></a><p class="small">판매 조건을 날짜별 기록으로 남깁니다.</p></li><li><a class="link" href="blog/"><strong>블로그</strong></a><p class="small">혼자서도 따라 할 수 있는 방법을 적습니다.</p></li></ul></div>
+<p class="legal small">ChatGPT, Gemini, Perplexity, Claude, 네이버, 구글의 이름과 로고는 각 회사의 상표이며 서비스 구분을 위해서만 사용합니다.</p>
+</div></footer>
+<script type="application/json" id="page-data">{"previews": {"카페": {"question": "우리 동네에서 예약할 수 있는 카페 알려줘", "ranks": [1, 0, 3, 0], "answers": ["예약 방법과 영업시간을 안내한 <mark>예시카페<\/mark>를 확인해 보세요.", "주변 카페의 영업시간과 예약 가능 여부를 먼저 확인해 보세요.", "홈페이지에서 위치와 예약 방법을 볼 수 있는 <mark>예시카페<\/mark>가 있습니다.", "방문할 날짜와 인원을 정한 뒤 카페에 예약 가능 여부를 문의해 보세요."]}, "학원": {"question": "수업 시간과 상담 방법이 나오는 학원 알려줘", "ranks": [0, 2, 1, 0], "answers": ["수강할 과목과 시간을 정하고 학원의 상담 안내를 확인해 보세요.", "<mark>예시학원<\/mark>은 수업 시간과 상담 방법을 홈페이지에 안내합니다.", "과목별 수업 일정과 상담 예약 안내가 있는 <mark>예시학원<\/mark>을 확인해 보세요.", "학원별 수업 시간과 상담 가능 시간을 비교해 보세요."]}, "미용실": {"question": "주말에 예약되는 미용실 추천해 줘", "ranks": [2, 0, 0, 1], "answers": ["<mark>예시미용실<\/mark>에서 주말 영업시간과 예약 방법을 확인할 수 있습니다.", "원하는 시술과 방문 시간을 정한 뒤 주말 예약 여부를 확인해 보세요.", "주말 영업 여부와 예약 가능한 시간은 매장에 확인해 보세요.", "주말 예약 안내가 있는 <mark>예시미용실<\/mark>을 살펴보세요."]}, "인테리어": {"question": "견적 상담 빨리 되는 인테리어 업체 알려줘", "ranks": [0, 1, 2, 3], "answers": ["공사 범위와 일정을 정리해 업체에 상담 가능한 시간을 문의해 보세요.", "<mark>예시인테리어<\/mark> 홈페이지에서 견적 상담 접수 방법을 확인해 보세요.", "상담 연락처와 접수 안내를 공개한 <mark>예시인테리어<\/mark>가 있습니다.", "<mark>예시인테리어<\/mark>의 견적 접수 안내를 보고 상담 일정을 문의해 보세요."]}, "쇼핑몰": {"question": "반품 쉬운 데일리 백 쇼핑몰 알려줘", "ranks": [3, 2, 0, 1], "answers": ["<mark>예시쇼핑몰<\/mark>은 데일리 백의 반품 기간과 접수 방법을 안내합니다.", "반품 조건과 배송비를 확인할 수 있는 <mark>예시쇼핑몰<\/mark>을 살펴보세요.", "구매 전 반품 기간과 반송비, 상품 상태에 따른 조건을 비교해 보세요.", "<mark>예시쇼핑몰<\/mark>에서 반품 접수 방법과 비용 안내를 확인해 보세요."]}}, "reports": [{"name": "카페", "questions": ["조용히 일할 카페", "단체 예약되는 카페", "주차되는 카페"], "hits": "110110010011"}, {"name": "음식점", "questions": ["회식하기 좋은 식당", "룸이 있는 식당", "늦게까지 여는 식당"], "hits": "100100110001"}, {"name": "숙소", "questions": ["아이와 갈 숙소", "바비큐되는 숙소", "늦은 체크인되는 숙소"], "hits": "111010100110"}, {"name": "미용실", "questions": ["주말 예약되는 미용실", "펌 잘하는 미용실", "남자 커트 미용실"], "hits": "101001100000"}, {"name": "네일숍", "questions": ["당일 예약되는 네일", "제거만 되는 네일", "손톱 관리 네일숍"], "hits": "010000100100"}, {"name": "동물병원", "questions": ["밤에 여는 동물병원", "고양이 진료 병원", "중성화 상담 병원"], "hits": "111101011010"}, {"name": "학원", "questions": ["중등 수학 학원", "주말반 있는 학원", "상담되는 학원"], "hits": "011010100100"}, {"name": "필라테스", "questions": ["체험되는 필라테스", "1대1 필라테스", "산전 필라테스"], "hits": "100010001000"}, {"name": "사진관", "questions": ["당일 증명사진", "가족사진 스튜디오", "보정해 주는 사진관"], "hits": "110000110010"}, {"name": "인테리어", "questions": ["부분 시공 업체", "욕실 견적 업체", "상가 인테리어"], "hits": "011101110001"}, {"name": "꽃집", "questions": ["당일 꽃다발", "개업 화분 배송", "예약되는 꽃집"], "hits": "001000000000"}, {"name": "쇼핑몰", "questions": ["반품 쉬운 쇼핑몰", "빨리 오는 쇼핑몰", "사이즈 교환 쇼핑몰"], "hits": "100101100010"}]}</script>
+<script defer src="box.js?v=12"></script>
+<script defer src="stage.js?v=12"></script>
+<script defer src="site.js?v=12"></script>
 </body>
 </html>

@@ -24,3 +24,7 @@
 
 ## 페이지
 - [홈](https://jongjunn.github.io/jongjun/): 약속, 서비스와 가격, SEO·GEO·AEO 차이, 진행 방식, 자주 묻는 질문
+- [블로그](https://jongjunn.github.io/jongjun/blog/): 글 목록
+- [GEO란 무엇인가요? SEO, AEO와 다른 점](https://jongjunn.github.io/jongjun/blog/geo/what-is-geo/): GEO, SEO, AEO의 목표 차이와 동네 가게가 먼저 정리할 정보를 설명합니다.
+- [가게 홈페이지에 글로 적어야 할 일곱 가지](https://jongjunn.github.io/jongjun/blog/site/facts-in-text/): 사진에만 있으면 전달되기 어려운 가게 정보 일곱 가지와 적는 방법입니다.
+- [우리 가게가 AI 답변에 나오는지 확인하는 방법](https://jongjunn.github.io/jongjun/blog/measure/ai-answer-check/): 질문을 고르고, 같은 조건으로 묻고, 답변 원문과 출처를 기록하는 순서입니다.
