@@ -1,25 +1,31 @@
-// The first scene: scattered papers are read, corrected, lined up, and folded into the ZIKRU box.
-// One number drives it: p (0-4), from the scroll inside .story. Spec: research/site_spec_v13.md
+// The pinned stage beside the talk: papers are read, corrected, lined up, and folded into the ZIKRU box.
+// One number drives it: p (0-4), from where the talk is. Spec: research/site_spec_v14.md
 (() => {
 'use strict';
-const story = document.querySelector('.story');
-if (!story || !window.zikruBox || matchMedia('(prefers-reduced-motion: reduce)').matches) return;   // the still page already reads top to bottom
+const root = document.querySelector('[data-stage]');
+if (!root || !window.zikruBox) return;
 
-const pin = story.querySelector('.story-pin'), canvas = story.querySelector('canvas'), ctx = canvas.getContext('2d');
-const copy = story.querySelector('.beats'), beats = [...copy.children];
+const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const pin = root.parentElement, column = pin.parentElement, grid = column.parentElement;
+const canvas = root.querySelector('canvas'), ctx = canvas.getContext('2d');
+const turns = [...document.querySelectorAll('.turn')];
+const chapters = [...pin.querySelectorAll('.stage-nav a')], fills = chapters.map(a => a.querySelector('b'));
 const {GLYPHS, END} = window.zikruBox;
 const clamp = x => Math.max(0, Math.min(1, x));
 const mix = (a, b, t) => a + (b - a) * t;
 const span = (x, a, b) => { const t = clamp((x - a) / (b - a)); return t * t * t * (t * (t * 6 - 15) + 10); };
 const rad = n => n * Math.PI / 180;
 const FONT = '"Wanted Sans Variable","Apple SD Gothic Neo","Malgun Gothic",sans-serif';
-const BEAT_AT = [0, .46, 1.38, 2.12, 3.2];
+const SCENE_AT = [0, 1.38, 2.12, 2.95, 4];        // where the paper is when each question reaches the reading line
 
 // The box's strip, left to right: left 216, front 466, right 216, back 466.
 const SIZE = [216, 466, 216, 466], START = [0, 216, 682, 898], H = 280, ROUND = 1364;
 const READ_ORDER = [1, 0, 2, 3], READER = ['claude', 'openai', 'googlegemini', 'perplexity'];
-const LOOSE = [                                    // centre x, y, z, yaw, roll
+const LOOSE_WIDE = [                               // centre x, y, z, yaw, roll
   [262, 112, 70, -24, -3.5], [-92, 154, 0, 17, 2], [-226, -164, 90, 23, 4.5], [126, -172, -40, -15, -2.5]
+];
+const LOOSE_TALL = [                               // the column is upright, so the papers stack
+  [134, -30, 60, -22, -4], [-12, 292, 0, 13, 2], [-134, -22, 80, 21, 4], [10, -330, -30, -12, -2.5]
 ];
 
 const images = {}, defs = document.querySelector('.logo-symbols defs').innerHTML;
@@ -106,7 +112,8 @@ const LINED_UP = [                                  // what is left when the pap
   () => { text('주차', 30, 112, 22); text('건물 뒤 2대', 30, 190, 64, 700); }
 ];
 
-let W = 0, VH = 0, dpr = 1, area = [0, 0, 1, 1], p = 0, target = 0, intro = 0, last = 0, raf = 0, active = -1;
+let W = 0, VH = 0, dpr = 1, area = [0, 0, 1, 1], tall = false, marks = [], end = 1;
+let p = 4, target = 0, unfolding = !still, last = 0, raf = 0, active = -1;
 const born = performance.now();
 
 // Orthographic, the same projection as the logo, so a transform per face is exact.
@@ -133,19 +140,18 @@ function draw() {
   ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   ctx.clearRect(0, 0, W, VH);
   const align = span(p, 2.08, 2.72), fold = span(p, 2.8, 3.42), clear = span(p, 3.02, 3.42), band = span(p, 3.4, 3.86);
-  const focus = span(p, 1.38, 1.6) * (1 - span(p, 1.98, 2.16)), arrive = 1 - (1 - intro) ** 4;
-  const [left, top, width, height] = area, fit = Math.min(width / 780, height / 690);
-  const flat = Math.min(.8, width * .98 / (ROUND * fit)), boxed = Math.min(1.36, width * .9 / (524 * fit), height * .8 / (390 * fit));
+  const focus = span(p, 1.38, 1.6) * (1 - span(p, 1.98, 2.16)), LOOSE = tall ? LOOSE_TALL : LOOSE_WIDE;
+  const [left, top, width, height] = area, fit = tall ? Math.min(width / 548, height / 998) : Math.min(width / 780, height / 720);
+  const flat = width * .98 / (ROUND * fit), boxed = Math.min(width * .86 / (524 * fit), height * .8 / (390 * fit));
   const between = (a, b, c) => mix(mix(a, b, align), c, fold);
   const view = camera([between(-6, 0, END[0]), between(7, 0, END[1]), between(0, 0, END[2])]);
-  const zoom = W < 900 ? 0 : focus;                 // a phone has no room to push in
-  const scale = fit * between(mix(1, 1.14, zoom), flat, boxed);
-  const cx = left + width / 2 - 40 * zoom * scale, cy = top + height / 2 + 122 * zoom * scale;
+  const zoom = tall ? focus : 0;                    // only the upright stage has room to push in
+  const scale = fit * between(mix(1, 1.2, zoom), flat, boxed);
+  const cx = left + width / 2, cy = top + height / 2 + 118 * zoom * scale;
   const rest = folded(90 * fold);
 
   const faces = LOOSE.map((loose, i) => {
-    const from = [loose[0] * mix(1.5, 1, arrive), loose[1] * mix(1.5, 1, arrive), loose[2] - 260 * (1 - arrive), loose[3] * mix(2.2, 1, arrive), loose[4]];
-    const [x, y, z, yaw, roll] = from.map((v, j) => mix(v, rest[i][j], align));
+    const [x, y, z, yaw, roll] = loose.map((v, j) => mix(v, rest[i][j], align));
     const a = Math.cos(rad(yaw)), b = Math.sin(rad(yaw)), c = Math.cos(rad(roll)), d = Math.sin(rad(roll)), w = SIZE[i];
     const U = [c * a, d, -c * b], V = [d * a, -c, -d * b];
     const u = view(U), v = view(V), o = view([x, y, z].map((n, j) => n - U[j] * w / 2 - V[j] * H / 2));
@@ -155,7 +161,7 @@ function draw() {
 
   for (const {i, w, matrix, front} of faces) {
     const [a, b, c, d, e, f] = matrix;
-    const shown = arrive * (1 - (i > 1 ? .78 : 0) * focus);
+    const shown = 1 - (i > 1 ? .78 : 0) * focus;
     const outline = () => { ctx.beginPath(); ctx.moveTo(e, f); ctx.lineTo(e + a * w, f + b * w); ctx.lineTo(e + a * w + c * H, f + b * w + d * H); ctx.lineTo(e + c * H, f + d * H); ctx.closePath(); };
     outline();
     ctx.globalAlpha = shown * mix(.25, 1, clear); ctx.strokeStyle = '#fff'; ctx.lineWidth = 1.5; ctx.lineJoin = 'round'; ctx.stroke();
@@ -204,41 +210,83 @@ function draw() {
   }
   ctx.globalAlpha = 1;
 
-  let next = 0;
-  BEAT_AT.forEach((at, i) => { if (p >= at) next = i; });
-  if (next !== active) { active = next; beats.forEach((el, i) => el.classList.toggle('on', i === next)); }
 }
 
+// On arrival the logo is whole, then opens out into the papers it is made from.
+function opening(seconds) {
+  if (seconds < .7) return 4;
+  if (seconds < 2.2) return mix(4, 2.08, span(seconds, .7, 2.2));
+  return mix(2.08, 0, span(seconds, 2.2, 2.75));
+}
 function tick(now) {
   raf = 0;
-  const gap = last ? Math.min(.5, (now - last) / 1000) : .1;
+  const gap = last ? Math.min(.5, (now - last) / 1000) : .1, seconds = (now - born) / 1000;
   last = now;
-  p += (target - p) * (1 - Math.exp(-gap * 9));
-  if (Math.abs(target - p) < .001) p = target;
-  intro = target > .1 ? 1 : clamp((now - born) / 1500);      // wall clock, for throttled tabs
+  if (target > .02) unfolding = false;
+  if (unfolding) {
+    p = opening(seconds);
+    if (seconds > 2.75) unfolding = false;
+  } else {
+    p += (target - p) * (1 - Math.exp(-gap * 9));
+    if (Math.abs(target - p) < .001) p = target;
+  }
   draw();
-  if (p !== target || intro < 1) raf = requestAnimationFrame(tick);
+  if (unfolding || p !== target) raf = requestAnimationFrame(tick);
   else last = 0;                                             // still until someone scrolls
 }
-function wake() { if (!raf && W) raf = requestAnimationFrame(tick); }
+function wake() { if (!raf && W && !still) raf = requestAnimationFrame(tick); }
+
+// Scroll positions where each question reaches the reading line, squeezed in before the stage lets go.
+function place() {
+  const beside = getComputedStyle(column).display !== 'contents', held = beside ? column : grid;
+  const top = parseFloat(getComputedStyle(pin).top) || 0, room = innerHeight - top - pin.offsetHeight;
+  const line = beside ? innerHeight * .5 : top + pin.offsetHeight + room * .45;
+  const stuck = held.getBoundingClientRect().top + scrollY - top;
+  end = Math.max(stuck + 5, held.getBoundingClientRect().bottom + scrollY - pin.offsetHeight - top - 12);
+  marks = [0];
+  for (let i = 1; i < 4; i++) {
+    const at = turns[i].getBoundingClientRect().top + scrollY - line;
+    marks.push(Math.max(marks[i - 1] + 1, Math.min(at, end * (.8 - (3 - i) * .18))));
+  }
+  marks.push(Math.max(marks[3] + 1, end * .965), Math.max(marks[3] + 2, end));
+}
 function follow() {
-  const room = story.offsetHeight - pin.offsetHeight;
-  const next = clamp(pin.offsetTop / room) * 4.15;
-  if (next !== target) { target = Math.min(4, next); wake(); }
+  if (!marks.length) return;
+  const at = scrollY;
+  let now = 0;
+  fills.forEach((fill, i) => {
+    const part = clamp((at - marks[i]) / (marks[i + 1] - marks[i]));
+    fill.style.width = part * 100 + '%';
+    if (at >= marks[i]) now = i;
+  });
+  if (now !== active) {
+    active = now;
+    chapters.forEach((a, i) => i === now ? a.setAttribute('aria-current', 'location') : a.removeAttribute('aria-current'));
+  }
+  const next = now >= 4 ? 4 : mix(SCENE_AT[now], SCENE_AT[now + 1], clamp((at - marks[now]) / (marks[now + 1] - marks[now])));
+  if (next !== target) { target = next; wake(); }
 }
 function measure() {
   dpr = Math.min(2, devicePixelRatio || 1);
-  W = pin.clientWidth; VH = pin.clientHeight;
+  W = root.clientWidth; VH = root.clientHeight;
+  if (!W || !VH) return;
   canvas.width = W * dpr; canvas.height = VH * dpr;
-  area = copy.offsetTop < 20                     // copy beside the scene, or under it
-    ? [copy.offsetLeft + copy.offsetWidth + 24, 24, Math.max(80, W - copy.offsetLeft - copy.offsetWidth - 48), VH - 48]
-    : [10, 22, W - 20, Math.max(80, copy.offsetTop - 30)];
-  follow(); draw(); wake();
+  tall = VH > W * 1.04;
+  area = tall ? [8, 20, W - 16, VH - 54] : [8, 16, W - 16, VH - 42];
+  if (still) p = 4;
+  place(); follow(); draw(); wake();
 }
 
-story.classList.add('is-live');
-new ResizeObserver(measure).observe(pin);
+// A chapter's link lands where that chapter is on screen, not where its words happen to start.
+chapters.forEach((link, i) => link.addEventListener('click', event => {
+  if (!marks.length) return;
+  event.preventDefault();
+  scrollTo({top: i === 4 ? (marks[4] + end) / 2 : i ? marks[i] + 4 : 0, behavior: still ? 'auto' : 'smooth'});
+}));
+new ResizeObserver(measure).observe(root);
+new ResizeObserver(() => { place(); follow(); }).observe(grid);
 addEventListener('scroll', follow, {passive: true});
+addEventListener('resize', () => { place(); follow(); });
 document.fonts?.load(`700 20px ${FONT}`, '예시카페 영업시간 플레이스 블로그 주차 주소 10:00').then(() => { draw(); }, () => {});
 document.fonts?.addEventListener('loadingdone', () => draw());
 })();
