@@ -137,17 +137,6 @@ if (search) {
   }));
 }
 
-// The trades can be put in order; without scripts they stand by size.
-const sorts = $$('[data-sort]');
-if (sorts.length) {
-  sorts[0].parentElement.hidden = false;
-  sorts.forEach(button => button.addEventListener('click', () => {
-    sorts.forEach(x => x.setAttribute('aria-pressed', String(x === button)));
-    const list = $('#trade-list'), value = li => Number(li.dataset[button.dataset.sort]);
-    list.append(...[...list.children].sort((x, y) => (value(y) - value(x)) * Number(button.dataset.way)));
-  }));
-}
-
 // Long lists start short when scripts run; without scripts everything is open.
 $$('[data-more]').forEach(button => {
   const list = document.getElementById(button.getAttribute('aria-controls')), keep = Number(button.dataset.more);
@@ -162,31 +151,54 @@ $$('[data-more]').forEach(button => {
   button.addEventListener('click', () => set(button.getAttribute('aria-expanded') !== 'true'));
 });
 
-// Diagnosis request: copy the text, open Instagram
+// Diagnosis request: the box in the talk hands the shop over, the last form takes the e-mail
 let wanted = '';
-const picks = $$('[data-question]'), picked = $('.picked span');
+const picks = $$('[data-question]'), picked = $('.picked span'), intake = $('[data-intake]');
 picks.forEach(a => a.addEventListener('click', () => {
   wanted = a.dataset.question;
   picks.forEach(x => x.classList.toggle('is-picked', x === a));
   picked.textContent = `담은 질문: ${wanted}`;
 }));
-$$('[data-diag]').forEach(form => {
-  const input = $('input', form), message = $('.diag-msg', form.parentElement);
-  form.noValidate = true;
-  input.addEventListener('input', () => { input.removeAttribute('aria-invalid'); message.textContent = ''; });
-  form.addEventListener('submit', e => {
-    e.preventDefault();
-    const value = input.value.trim();
-    if (!value) {
-      input.setAttribute('aria-invalid', 'true');
-      message.textContent = '가게 이름이나 주소를 입력해 주세요.';
-      input.focus();
-      return;
-    }
-    const text = `무료 진단 신청합니다.\n가게 이름 또는 주소: ${value}` + (wanted ? `\n궁금한 질문: ${wanted}` : '');
-    const done = ok => { message.textContent = ok ? '신청 문구를 복사했습니다. 인스타그램 DM에 붙여넣어 보내주세요.' : '복사되지 않았습니다. 이 문구를 DM으로 보내주세요: ' + text.replaceAll('\n', ' '); };
-    (navigator.clipboard ? navigator.clipboard.writeText(text).then(() => done(true), () => done(false)) : Promise.resolve(done(false)));
-    window.open(form.action, '_blank', 'noopener');
+if (intake) {
+  const {shop, email, website, consent} = intake.elements, send = $('button', intake), message = $('.diag-msg', intake.parentElement);
+  const fail = (input, text) => { input.setAttribute('aria-invalid', 'true'); message.textContent = text; input.focus(); };
+  $$('[data-start]').forEach(form => {
+    const input = $('input', form), note = $('.diag-msg', form.parentElement);
+    $('button', form).disabled = false;
+    input.addEventListener('input', () => { note.textContent = ''; input.removeAttribute('aria-invalid'); });
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      if (!input.value.trim()) {
+        note.textContent = '가게 이름이나 주소를 입력해 주세요.';
+        input.setAttribute('aria-invalid', 'true');
+        return input.focus();
+      }
+      shop.value = input.value.trim();
+      $('#closing').scrollIntoView({behavior: reduced.matches ? 'auto' : 'smooth'});
+      email.focus({preventScroll: true});
+    });
   });
-});
+  send.disabled = false;
+  [shop, email, consent].forEach(el => el.addEventListener('input', () => { el.removeAttribute('aria-invalid'); message.textContent = ''; }));
+  intake.addEventListener('submit', async e => {
+    e.preventDefault();
+    if (send.disabled) return;
+    if (!shop.value.trim()) return fail(shop, '가게 이름이나 주소를 입력해 주세요.');
+    if (!/^[^\s@,;<>]+@[^\s@,;<>]+\.[^\s@,;<>]+$/.test(email.value.trim())) return fail(email, 'PDF 받을 이메일을 확인해 주세요.');
+    if (!consent.checked) return fail(consent, '개인정보 수집·이용에 동의해 주세요.');
+    if (!intake.dataset.intake) { message.textContent = '이메일 접수가 아직 연결되지 않아 전송하지 않았습니다.'; return; }
+    send.disabled = true;
+    message.textContent = '보내는 중입니다.';
+    try {
+      const body = new URLSearchParams({shop: shop.value.trim(), email: email.value.trim(), question: wanted, website: website.value, consent: consent.value});
+      const answer = await (await fetch(intake.dataset.intake, {method: 'POST', body})).json();
+      if (!answer.ok) throw new Error(answer.error);
+      intake.reset();
+      message.textContent = '신청을 받았습니다. 분석이 끝나면 PDF를 이메일로 보내드립니다.';
+    } catch {
+      message.textContent = '접수되지 않았습니다. 잠시 뒤 다시 시도해 주세요.';
+    }
+    send.disabled = false;
+  });
+}
 })();

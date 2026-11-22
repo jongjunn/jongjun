@@ -19,8 +19,8 @@
 - 측정은 각 AI의 공식 API를 사용하므로 휴대폰 앱의 답변과 다를 수 있음
 
 ## 문의
-- 무료 진단: 질문 3개의 AI 답변 원문과 인용 출처, 현재 사이트 점검 결과와 고칠 것 목록. 비용 없음
-- 무료 진단 신청: 인스타그램 DM https://www.instagram.com/jongjunn/
+- 무료 진단: 질문 3개의 AI 답변과 인용 출처, 현재 사이트 점검 결과와 고칠 것 목록을 담은 PDF를 이메일로 전달. 비용 없음
+- 무료 진단 신청: https://jongjunn.github.io/jongjun/#closing (가게 정보와 이메일 입력)
 
 ## 페이지
 - [홈](https://jongjunn.github.io/jongjun/): 약속, 업종별 손님 질문, 무료 진단, 서비스와 가격, 자주 묻는 질문

@@ -200,18 +200,10 @@ input::placeholder{color:var(--ink-3);opacity:1}
 .define div:last-child{padding-bottom:0}
 .define dt{font-size:14px;font-weight:700;line-height:1.6}
 .define dd{color:var(--ink-2)}
-.checks-block{margin-top:64px;padding-top:48px;border-top:1px solid var(--line)}
-.checks-label{display:flex;align-items:center;gap:8px;font-size:20px;font-weight:700;line-height:28px}
-.checks-label i{width:8px;height:8px;border-radius:var(--pill);background:var(--ink)}
-.checks{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin-top:24px}
-.checks li{padding:8px 12px;border:1px solid var(--line);border-radius:var(--r-s);background:var(--card)}
-.checks strong{display:block;font-size:14px;font-weight:500;line-height:1.6}
-.checks span{display:block;margin-top:4px;color:var(--ink-3);font-size:12px;line-height:18px}
 
 /* Public figures, in the forms GPTO keeps its own in */
 .source-note{margin-top:12px}
 .source-note .link{color:inherit}
-.trades-head{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px}
 .trades{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:var(--gap);margin-top:48px}
 .trades li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 8px;align-items:center;padding-block:12px;border-top:1px solid var(--line)}
 .trade{display:flex;flex-wrap:wrap;align-items:baseline;column-gap:8px}
@@ -327,7 +319,12 @@ details p{padding-top:8px;color:var(--ink-2)}
 .picked span:empty{display:none}
 .examples-row{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:12px;color:var(--ink-2);font-size:14px;line-height:1.6}
 .examples-row ul{display:flex;flex-wrap:wrap;gap:8px;color:var(--ink)}
-.closing-note{margin-top:12px}
+.closing .next-label{margin-top:16px}
+.closing .consent{display:flex;align-items:center;gap:8px;min-height:44px;margin-top:8px;cursor:pointer}
+.consent input{flex:none;width:18px;height:18px;margin:0;accent-color:var(--ink)}
+.consent input[aria-invalid=true]{outline:2px solid var(--ink);outline-offset:2px}
+.consent-terms{max-width:640px}
+.consent-terms .link{color:inherit}
 
 /* Footer */
 .site-footer{border-top:1px solid var(--line);background:var(--card);font-size:14px;line-height:1.6}
@@ -421,7 +418,6 @@ details p{padding-top:8px;color:var(--ink-2)}
   .route-list .arrow{grid-column:2;grid-row:1/3}
   .facts div{flex-wrap:wrap;row-gap:0}
   .lead-top{grid-template-columns:minmax(0,1fr)}
-  .checks{grid-template-columns:repeat(3,minmax(0,1fr))}
   .bot-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
   .proof-links>span{min-height:44px}
   .question-grid,.route-grid,.post-grid,.more-posts .post-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -436,6 +432,7 @@ details p{padding-top:8px;color:var(--ink-2)}
   .footer-nav a{min-width:44px}
   .article-head .category{height:44px}
   summary{min-height:44px}
+  .consent input{width:24px;height:24px}
   details{padding-block:10px}
 }
 @media(max-width:767px){
@@ -445,7 +442,6 @@ details p{padding-top:8px;color:var(--ink-2)}
   .trades,.bot-grid{grid-template-columns:minmax(0,1fr)}
   .three{gap:32px}
   .manifesto br{display:none}
-  .checks{grid-template-columns:repeat(2,minmax(0,1fr))}
   .route-grid,.post-grid{margin-top:40px}
   .closing-grid{display:block}
   .closing-logo{display:none}
