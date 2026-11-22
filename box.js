@@ -86,5 +86,5 @@ function frame(t, id = 'box') {
 }
 
 if (typeof module !== 'undefined') module.exports = {frame, HOLD};
-else window.zikruBox = {GLYPHS, END: pose(HOLD)};
+else window.zikruBox = {GLYPHS, END: pose(HOLD), frame, HOLD};
 })();

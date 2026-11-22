@@ -135,17 +135,24 @@ const glyphs = GLYPHS.map(([d, x]) => [new Path2D(d), x]);
 const FONT = '"Wanted Sans Variable","Apple SD Gothic Neo","Malgun Gothic",sans-serif';
 
 const READER = ['openai', 'googlegemini', 'perplexity', 'claude'];
-const images = [], defs = document.querySelector('.logo-symbols defs').innerHTML;
+const images = [];
 READER.forEach((key, i) => {
+  // Safari paints an SVG inside an SVG late, so the mark is loaded on its own and the tile is drawn here.
+  const data = document.querySelector(`#ai-${key} image`).getAttribute('href'), cut = data.indexOf(',') + 1;
+  const art = atob(data.slice(cut)).replace('width="1em"', 'width="120"').replace('height="1em"', 'height="120"');
   const image = new Image();
   image.onload = () => {                          // rasterised once, not once a frame
-    const tile = document.createElement('canvas');
+    const tile = document.createElement('canvas'), to = tile.getContext('2d'), r = 41, n = 189;
     tile.width = tile.height = 192;
-    tile.getContext('2d').drawImage(image, 0, 0, 192, 192);
+    to.beginPath(); to.moveTo(3 + r, 3);
+    to.arcTo(n, 3, n, n, r); to.arcTo(n, n, 3, n, r); to.arcTo(3, n, 3, 3, r); to.arcTo(3, 3, n, 3, r);
+    to.closePath();
+    to.fillStyle = '#fff'; to.fill();
+    to.strokeStyle = '#e5e5e5'; to.lineWidth = 3; to.stroke();
+    to.drawImage(image, 36, 36, 120, 120);
     images[i] = tile; wake();
   };
-  // Safari rasterises an SVG at its own size, so each logo is given a large one.
-  image.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="192" height="192" viewBox="0 0 48 48"><defs>${defs}</defs><use href="#ai-${key}" width="48" height="48"/></svg>`);
+  image.src = data.slice(0, cut) + btoa(art);
 });
 
 const widths = new Map();
@@ -389,8 +396,8 @@ function follow() {
 }
 function measure() {
   const first = !W;
-  dpr = Math.min(2, devicePixelRatio || 1);
   W = root.clientWidth; VH = root.clientHeight;
+  dpr = Math.min(W < 500 ? 3 : 2, devicePixelRatio || 1);   // a phone's small stage can afford its own full sharpness
   if (!W || !VH) return;
   canvas.width = W * dpr; canvas.height = VH * dpr;
   const foot = VH < 400 ? 28 : 44;

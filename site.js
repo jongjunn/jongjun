@@ -61,6 +61,25 @@ addEventListener('resize', update);
 update();
 toTop.addEventListener('click', () => scrollTo({top: 0, behavior: reduced.matches ? 'auto' : 'smooth'}));
 
+// At the end the logo folds once, then the confirmed drawing is put back untouched.
+const mark9 = $('svg.closing-logo'), box = window.zikruBox;
+if (mark9 && box && !reduced.matches) {
+  const finished = mark9.innerHTML;
+  const watch = new IntersectionObserver(([entry]) => {
+    if (!entry.isIntersecting) return;
+    watch.disconnect();
+    let began = 0;
+    const turn = now => {
+      began ||= now;
+      const t = .9 + (now - began) / 1000 * 1.3;
+      mark9.innerHTML = t < box.HOLD ? box.frame(t, 'closing') : finished;
+      if (t < box.HOLD) requestAnimationFrame(turn);
+    };
+    requestAnimationFrame(turn);
+  }, {threshold: .6});
+  watch.observe(mark9);
+}
+
 // Questions type themselves the first time they are seen. The words stay in the DOM for readers and crawlers.
 if (!reduced.matches) {
   const seen = new IntersectionObserver(entries => entries.forEach(({target, isIntersecting}) => {
@@ -127,7 +146,12 @@ $$('[data-more]').forEach(button => {
 
 // Diagnosis request: copy the text, open Instagram
 let wanted = '';
-$$('[data-question]').forEach(a => a.addEventListener('click', () => { wanted = a.dataset.question; }));
+const picks = $$('[data-question]'), picked = $('.picked span');
+picks.forEach(a => a.addEventListener('click', () => {
+  wanted = a.dataset.question;
+  picks.forEach(x => x.classList.toggle('is-picked', x === a));
+  picked.textContent = `담은 질문: ${wanted}`;
+}));
 $$('[data-diag]').forEach(form => {
   const input = $('input', form), message = $('.diag-msg', form.parentElement);
   form.noValidate = true;
