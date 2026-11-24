@@ -5,7 +5,7 @@
 ## 서비스와 가격 (부가세 별도)
 - 홈페이지 제작: 5페이지 기준 69만원부터, 1회
 - AI 노출 세팅: 39만원, 1회. 기존 사이트 진단과 직접 수정, 자주 묻는 질문, 구조화 데이터, AI 크롤러 설정, 검색 등록, 네이버 플레이스 정보 정리
-- 월 관리: 월 19만원, 약정 없음. 질문 20개를 ChatGPT·Gemini·Perplexity·Claude에 매주 물어 답변 원문과 출처 기록, 정보 변경 반영, 월 보고
+- 월 관리: 월 19만원, 약정 없음. 질문 20개를 ChatGPT·Claude에 매주 물어 답변 원문과 출처 기록, 정보 변경 반영, 월 보고
 - 쇼핑몰 제작과 GEO: 상품 30개까지 199만원부터, 1회. 가격·재고·배송비 날짜별 기록, 반품 정책 버전, AI 봇 방문 기록 기본 포함
 - 처음 세 곳은 작업 사례 공개 동의 시 50% 할인
 
@@ -16,15 +16,15 @@
 - 선납과 약정 없음. 해지해도 사이트와 기록은 고객에게 남음
 - AI 답변에서의 추천·노출은 보장하지 않음
 
-- 측정은 각 AI의 공식 API를 사용하므로 휴대폰 앱의 답변과 다를 수 있음
+- 측정은 ChatGPT와 Claude의 공식 API를 사용하므로 휴대폰 앱의 답변과 다를 수 있음
 
 ## 문의
 - 무료 진단: 질문 3개의 AI 답변과 인용 출처, 현재 사이트 점검 결과와 고칠 것 목록을 담은 PDF를 이메일로 전달. 비용 없음
-- 무료 진단 신청: https://jongjunn.github.io/jongjun/#closing (가게 정보와 이메일 입력)
+- 무료 진단 신청: https://zikru.kr/#closing (가게 정보와 이메일 입력)
 
 ## 페이지
-- [홈](https://jongjunn.github.io/jongjun/): 약속, 업종별 손님 질문, 무료 진단, 서비스와 가격, 자주 묻는 질문
-- [블로그](https://jongjunn.github.io/jongjun/blog/): 글 목록
-- [GEO란 무엇인가요? SEO, AEO와 다른 점](https://jongjunn.github.io/jongjun/blog/geo/what-is-geo/): GEO, SEO, AEO의 목표 차이와 동네 가게가 먼저 정리할 정보를 설명합니다.
-- [가게 홈페이지에 글로 적어야 할 일곱 가지](https://jongjunn.github.io/jongjun/blog/site/facts-in-text/): 사진에만 있으면 전달되기 어려운 가게 정보 일곱 가지와 적는 방법입니다.
-- [우리 가게가 AI 답변에 나오는지 확인하는 방법](https://jongjunn.github.io/jongjun/blog/measure/ai-answer-check/): 질문을 고르고, 같은 조건으로 묻고, 답변 원문과 출처를 기록하는 순서입니다.
+- [홈](https://zikru.kr/): 약속, 업종별 손님 질문, 무료 진단, 서비스와 가격, 자주 묻는 질문
+- [블로그](https://zikru.kr/blog/): 글 목록
+- [GEO란 무엇인가요? SEO, AEO와 다른 점](https://zikru.kr/blog/geo/what-is-geo/): GEO, SEO, AEO의 목표 차이와 동네 가게가 먼저 정리할 정보를 설명합니다.
+- [가게 홈페이지에 글로 적어야 할 일곱 가지](https://zikru.kr/blog/site/facts-in-text/): 사진에만 있으면 전달되기 어려운 가게 정보 일곱 가지와 적는 방법입니다.
+- [우리 가게가 AI 답변에 나오는지 확인하는 방법](https://zikru.kr/blog/measure/ai-answer-check/): 질문을 고르고, 같은 조건으로 묻고, 답변 원문과 출처를 기록하는 순서입니다.

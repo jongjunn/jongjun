@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://jongjunn.github.io/jongjun/</loc><lastmod>2026-11-22</lastmod></url>
-  <url><loc>https://jongjunn.github.io/jongjun/blog/</loc><lastmod>2026-11-22</lastmod></url>
-  <url><loc>https://jongjunn.github.io/jongjun/blog/geo/what-is-geo/</loc><lastmod>2026-11-22</lastmod></url>
-  <url><loc>https://jongjunn.github.io/jongjun/blog/site/facts-in-text/</loc><lastmod>2026-11-22</lastmod></url>
-  <url><loc>https://jongjunn.github.io/jongjun/blog/measure/ai-answer-check/</loc><lastmod>2026-11-22</lastmod></url>
+  <url><loc>https://zikru.kr/</loc><lastmod>2026-11-22</lastmod></url>
+  <url><loc>https://zikru.kr/blog/</loc><lastmod>2026-11-22</lastmod></url>
+  <url><loc>https://zikru.kr/blog/geo/what-is-geo/</loc><lastmod>2026-11-22</lastmod></url>
+  <url><loc>https://zikru.kr/blog/site/facts-in-text/</loc><lastmod>2026-11-22</lastmod></url>
+  <url><loc>https://zikru.kr/blog/measure/ai-answer-check/</loc><lastmod>2026-11-22</lastmod></url>
+  <url><loc>https://zikru.kr/privacy/</loc><lastmod>2026-11-22</lastmod></url>
 </urlset>
