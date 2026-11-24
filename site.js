@@ -194,6 +194,7 @@ if (intake) {
       const answer = await (await fetch(intake.dataset.intake, {method: 'POST', body})).json();
       if (!answer.ok) throw new Error(answer.error);
       intake.reset();
+      if (window.gtag) gtag('event', 'generate_lead');
       message.textContent = '신청을 받았습니다. 분석이 끝나면 PDF를 이메일로 보내드립니다.';
     } catch {
       message.textContent = '접수되지 않았습니다. 잠시 뒤 다시 시도해 주세요.';
@@ -201,4 +202,41 @@ if (intake) {
     send.disabled = false;
   });
 }
+
+// Visit stats: GA4 loads only after the visitor agrees. ?ga=off on any page keeps this browser out (owner visits).
+const GA = 'G-LZLZZ95P14';
+const gaChoice = {
+  get() { try { return localStorage.getItem('zikru-ga'); } catch { return null; } },
+  set(v) { try { localStorage.setItem('zikru-ga', v); } catch { /* private window: ask again next time */ } },
+  clear() { try { localStorage.removeItem('zikru-ga'); } catch { /* nothing stored */ } }
+};
+if (new URLSearchParams(location.search).get('ga') === 'off') gaChoice.set('no');
+function startGA() {
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function () { dataLayer.push(arguments); };
+  gtag('js', new Date());
+  gtag('config', GA);
+  const s = document.createElement('script');
+  s.async = true;
+  s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA;
+  document.head.append(s);
+}
+if (gaChoice.get() === 'yes') startGA();
+else if (!gaChoice.get()) {
+  const root = $('link[rel=icon]').getAttribute('href').replace('favicon.svg', '');
+  const bar = document.createElement('div');
+  bar.className = 'ga-bar';
+  bar.setAttribute('role', 'region');
+  bar.setAttribute('aria-label', '방문 통계 동의');
+  bar.innerHTML = `<p>사이트 개선을 위해 방문 통계(Google Analytics)를 써도 될까요? 거부해도 모든 기능을 똑같이 쓸 수 있습니다. <a class="link" href="${root}privacy/#part-2">자세히</a></p><div><button class="outline" type="button" data-ga="no">거부</button><button class="btn" type="button" data-ga="yes">동의</button></div>`;
+  bar.addEventListener('click', e => {
+    const pick = e.target.closest('[data-ga]');
+    if (!pick) return;
+    gaChoice.set(pick.dataset.ga);
+    bar.remove();
+    if (pick.dataset.ga === 'yes') startGA();
+  });
+  document.body.append(bar);
+}
+$$('[data-ga-reset]').forEach(b => b.addEventListener('click', () => { gaChoice.clear(); location.reload(); }));
 })();

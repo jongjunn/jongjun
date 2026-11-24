@@ -502,3 +502,8 @@ details p{padding-top:8px;color:var(--ink-2)}
   .header-still{display:block!important}
   *,::before,::after{transition:none!important}
 }
+
+.ga-bar{position:fixed;z-index:60;left:16px;right:16px;bottom:16px;display:flex;flex-wrap:wrap;align-items:center;gap:12px 24px;max-width:720px;margin-inline:auto;padding:16px 20px;border:1px solid var(--line);border-radius:var(--r);background:var(--card);font-size:14px;line-height:1.6;box-shadow:0 8px 24px rgb(0 0 0 / .12)}
+.ga-bar p{flex:1 1 280px;color:var(--ink-2)}
+.ga-bar div{display:flex;gap:8px}
+.ga-bar .btn{min-height:36px;padding:0 16px;font-size:14px}
