@@ -1,4 +1,4 @@
-// ZIKRU box: the confirmed logo geometry and timing (brand/motion/box/render.mjs), drawn live so it stays sharp.
+// ZIKRU box: the confirmed logo geometry and timing, drawn live so it stays sharp.
 (() => {
 'use strict';
 const BW = 466, BH = 280, BD = 216, PERIMETER = 2 * (BW + BD), HOLD = 4.5;

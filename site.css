@@ -213,6 +213,18 @@ input::placeholder{color:var(--ink-3);opacity:1}
 .amount .chip{min-width:60px;justify-content:center}
 .bar{grid-column:1/-1;display:block;height:8px;overflow:hidden;border-radius:2px;background:var(--soft)}
 .bar b{display:block;height:100%;background:var(--ink)}
+.bar-mail-order{width:100.0%}
+.bar-restaurant{width:56.9%}
+.bar-hair{width:16.8%}
+.bar-interior{width:13.3%}
+.bar-cafe{width:13.2%}
+.bar-skin-care{width:10.5%}
+.bar-academy{width:9.8%}
+.bar-lodging{width:5.4%}
+.bar-florist{width:4.1%}
+.bar-photo{width:3.2%}
+.bar-motel{width:2.4%}
+.bar-vet{width:0.7%}
 .bot-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:48px}
 .bot-card{display:flex;flex-direction:column;height:100%;padding:24px;border:1px solid var(--line);border-radius:var(--r);background:var(--card);transition:border-color var(--t) var(--ease)}
 .bot-card:hover{border-color:var(--ink-3)}

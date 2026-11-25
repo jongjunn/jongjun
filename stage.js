@@ -1,6 +1,6 @@
 // The pinned stage beside the talk: the ZIKRU box cut into storeys of type.
 // They twist, get read, get corrected, agree, and close into the confirmed logo.
-// One number drives it: p (0-4), from where the talk is. Spec: research/site_spec_v15_motion.md
+// One number drives it: p (0-4), from where the talk is.
 (() => {
 'use strict';
 const clamp = x => Math.max(0, Math.min(1, x));

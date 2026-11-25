@@ -197,7 +197,7 @@ if (intake) {
       if (window.gtag) gtag('event', 'generate_lead');
       message.textContent = '신청을 받았습니다. 분석이 끝나면 PDF를 이메일로 보내드립니다.';
     } catch {
-      message.textContent = '접수되지 않았습니다. 잠시 뒤 다시 시도해 주세요.';
+      message.textContent = '접수 여부를 확인하지 못했습니다. 다시 신청하기 전에 이메일로 문의해 주세요.';
     }
     send.disabled = false;
   });
