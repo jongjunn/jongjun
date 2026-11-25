@@ -187,19 +187,23 @@ if (intake) {
     if (!/^[^\s@,;<>]+@[^\s@,;<>]+\.[^\s@,;<>]+$/.test(email.value.trim())) return fail(email, 'PDF 받을 이메일을 확인해 주세요.');
     if (!consent.checked) return fail(consent, '개인정보 수집·이용에 동의해 주세요.');
     if (!intake.dataset.intake) { message.textContent = '이메일 접수가 아직 연결되지 않아 전송하지 않았습니다.'; return; }
+    const token = $('[name="cf-turnstile-response"]', intake)?.value;
+    if (!token) { message.textContent = '자동 입력 방지 확인을 마친 뒤 다시 눌러 주세요.'; return; }
     send.disabled = true;
     message.textContent = '보내는 중입니다.';
     try {
-      const body = new URLSearchParams({shop: shop.value.trim(), email: email.value.trim(), question: wanted, website: website.value, consent: consent.value});
+      const body = new URLSearchParams({shop: shop.value.trim(), email: email.value.trim(), question: wanted, website: website.value, consent: consent.value, 'cf-turnstile-response': token});
       const answer = await (await fetch(intake.dataset.intake, {method: 'POST', body})).json();
       if (!answer.ok) throw new Error(answer.error);
       intake.reset();
       if (window.gtag) gtag('event', 'generate_lead');
       message.textContent = '신청을 받았습니다. 분석이 끝나면 PDF를 이메일로 보내드립니다.';
-    } catch {
-      message.textContent = '접수 여부를 확인하지 못했습니다. 다시 신청하기 전에 이메일로 문의해 주세요.';
+    } catch (error) {
+      message.textContent = error.message === 'bot' ? '자동 입력 방지 확인에 실패했습니다. 확인을 다시 하고 눌러 주세요.' : '접수 여부를 확인하지 못했습니다. 다시 신청하기 전에 이메일로 문의해 주세요.';
+    } finally {
+      send.disabled = false;
+      window.turnstile?.reset();
     }
-    send.disabled = false;
   });
 }
 
