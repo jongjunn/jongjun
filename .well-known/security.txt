@@ -1,0 +1,5 @@
+Contact: https://zikru.kr/privacy/
+Expires: 2027-11-25T00:00:00.000Z
+Preferred-Languages: ko, en
+Canonical: https://zikru.kr/.well-known/security.txt
+Policy: https://zikru.kr/privacy/

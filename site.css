@@ -149,7 +149,7 @@ h1 span{white-space:nowrap}
 .sources{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
 .source{display:flex;flex-direction:column;min-width:0}
 .source-head{display:flex;align-items:center;column-gap:8px;min-height:32px}
-.source-head h3{margin-left:4px;font-size:14px;font-weight:500;line-height:1.6}
+.source-head .source-name{margin-left:4px;font-size:14px;font-weight:500;line-height:1.6}
 .source-head .chip{margin-left:auto}
 .quote{flex:1;margin:8px 0 0 44px;padding:8px 12px;border:1px solid var(--line);border-radius:var(--r);background:var(--bg);font-size:14px;line-height:1.6}
 mark{background:none;color:inherit;font-weight:700}
@@ -519,3 +519,5 @@ details p{padding-top:8px;color:var(--ink-2)}
 .ga-bar p{flex:1 1 280px;color:var(--ink-2)}
 .ga-bar div{display:flex;gap:8px}
 .ga-bar .btn{min-height:36px;padding:0 16px;font-size:14px}
+
+.w650{font-weight:650}.w750{font-weight:750}
