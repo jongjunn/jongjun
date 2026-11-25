@@ -222,7 +222,7 @@ function face(row, i, k, count, matrix, shade, body) {
 }
 
 let W = 0, VH = 0, dpr = 1, area = [0, 0, 1, 1], marks = [], end = 1, active = -1;
-let p = 0, speed = 0, swing = 0, target = 0, time = 0, intro = 0, last = 0, raf = 0, paused = still, seen = true;
+let p = 0, speed = 0, swing = 0, target = 0, time = 0, intro = 0, last = 0, raf = 0, paused = still, seen = true, started = false;
 
 function draw() {
   if (!W) return;
@@ -362,7 +362,7 @@ function tick(now) {
   if (seen && alive) raf = requestAnimationFrame(tick);
   else last = 0;                                   // nothing runs off screen, when paused, or once the logo has landed
 }
-function wake() { if (!raf && W && !still && seen) raf = requestAnimationFrame(tick); }
+function wake() { if (!raf && W && !still && seen && started) raf = requestAnimationFrame(tick); }
 
 // Scroll positions where each question reaches the reading line, squeezed in before the stage lets go.
 function place() {
@@ -397,7 +397,7 @@ function follow() {
 function measure() {
   const first = !W;
   W = root.clientWidth; VH = root.clientHeight;
-  dpr = Math.min(W < 500 ? 3 : 2, devicePixelRatio || 1);   // a phone's small stage can afford its own full sharpness
+  dpr = Math.min(2, devicePixelRatio || 1);                 // 3x on a phone cost more frame time than it showed
   if (!W || !VH) return;
   canvas.width = W * dpr; canvas.height = VH * dpr;
   const foot = VH < 400 ? 28 : 44;
@@ -422,6 +422,12 @@ if (toggle && !still) {
     last = 0; wake();
   });
 }
+// The page loads on the still logo; the box starts moving once someone scrolls, touches or types
+// (or, with a mouse, a moment after load), so loading never competes with the animation.
+const KICK = ['scroll', 'wheel', 'pointerdown', 'pointermove', 'touchstart', 'keydown'];
+const go = () => { if (started) return; started = true; KICK.forEach(e => removeEventListener(e, go)); last = 0; wake(); };
+KICK.forEach(e => addEventListener(e, go, {passive: true}));
+if (matchMedia('(pointer: fine)').matches) addEventListener('load', () => setTimeout(go, 2500));
 new IntersectionObserver(([entry]) => { seen = entry.isIntersecting; last = 0; wake(); }).observe(root);
 document.addEventListener('visibilitychange', () => { last = 0; });
 new ResizeObserver(measure).observe(root);
