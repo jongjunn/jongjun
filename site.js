@@ -232,7 +232,7 @@ else if (!gaChoice.get()) {
   bar.className = 'ga-bar';
   bar.setAttribute('role', 'region');
   bar.setAttribute('aria-label', '방문 통계 동의');
-  bar.innerHTML = `<p>사이트 개선을 위해 방문 통계(Google Analytics)를 써도 될까요? 거부해도 모든 기능을 똑같이 쓸 수 있습니다. <a class="link" href="${root}privacy/#part-2">자세히</a></p><div><button class="outline" type="button" data-ga="no">거부</button><button class="btn" type="button" data-ga="yes">동의</button></div>`;
+  bar.innerHTML = `<p>사이트 개선을 위해 방문 통계(Google Analytics)를 써도 될까요? 거부해도 모든 기능을 똑같이 쓸 수 있습니다. <a class="link" href="${root}privacy/#part-2">방문 통계 처리 방식 보기</a></p><div><button class="outline" type="button" data-ga="no">거부</button><button class="btn" type="button" data-ga="yes">동의</button></div>`;
   bar.addEventListener('click', e => {
     const pick = e.target.closest('[data-ga]');
     if (!pick) return;
