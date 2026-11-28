@@ -151,6 +151,13 @@ $$('[data-more]').forEach(button => {
   button.addEventListener('click', () => set(button.getAttribute('aria-expanded') !== 'true'));
 });
 
+// Where this visit came from (?utm_source=threads&utm_content=p3), kept for the tab so the form can record it
+const landing = new URLSearchParams(location.search);
+if (landing.get('utm_source')) {
+  try { sessionStorage.setItem('zikru-src', [landing.get('utm_source'), landing.get('utm_content')].filter(Boolean).join('/').slice(0, 100)); } catch { /* storage blocked: source stays unknown */ }
+}
+const source = () => { try { return sessionStorage.getItem('zikru-src') || ''; } catch { return ''; } };
+
 // Diagnosis request: the box in the talk hands the shop over, the last form takes the e-mail
 let wanted = '';
 const picks = $$('[data-question]'), picked = $('.picked span'), intake = $('[data-intake]');
@@ -160,7 +167,7 @@ picks.forEach(a => a.addEventListener('click', () => {
   picked.textContent = `담은 질문: ${wanted}`;
 }));
 if (intake) {
-  const {shop, email, website, consent} = intake.elements, send = $('button', intake), message = $('.diag-msg', intake.parentElement);
+  const {shop, email, website, consent, marketing} = intake.elements, send = $('button', intake), message = $('.diag-msg', intake.parentElement);
   const fail = (input, text) => { input.setAttribute('aria-invalid', 'true'); message.textContent = text; input.focus(); };
   $$('[data-start]').forEach(form => {
     const input = $('input', form), note = $('.diag-msg', form.parentElement);
@@ -192,7 +199,7 @@ if (intake) {
     send.disabled = true;
     message.textContent = '보내는 중입니다.';
     try {
-      const body = new URLSearchParams({shop: shop.value.trim(), email: email.value.trim(), question: wanted, website: website.value, consent: consent.value, 'cf-turnstile-response': token});
+      const body = new URLSearchParams({shop: shop.value.trim(), email: email.value.trim(), question: wanted, website: website.value, consent: consent.value, marketing: marketing.checked ? 'yes' : '', source: source(), 'cf-turnstile-response': token});
       const answer = await (await fetch(intake.dataset.intake, {method: 'POST', body})).json();
       if (!answer.ok) throw new Error(answer.error);
       intake.reset();
